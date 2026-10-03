@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FirstDate.unity
     guid: 1cb06973bb24fa647ba5dff1f48d177f
   - enabled: 1
+    path: Assets/Scenes/Wedding.unity
+    guid: c2382d824d04d3e41bd114a91ecdf533
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: e5d9aa3719bb42d4a976d479a80f856d
   m_configObjects:
