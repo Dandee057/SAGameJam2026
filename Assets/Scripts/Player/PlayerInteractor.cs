@@ -11,9 +11,11 @@ public class PlayerInteractor : MonoBehaviour
 
     [Header("References")] public Transform holdPoint;
     public ThoughtBubble thoughtBubble;
-
     [Header("Drop")] public float dropDistance = 0.9f;
     public float dropHeight = 0.5f;
+
+    [Header("Debug")] [SerializeField] [Tooltip("Read-only: what the interactor is thinking right now.")]
+    private string debugState;
 
     public MainItem Held { get; private set; }
     public bool Busy { get; private set; }
@@ -31,6 +33,13 @@ public class PlayerInteractor : MonoBehaviour
         {
             thoughtBubble = GetComponentInChildren<ThoughtBubble>();
         }
+
+        if (thoughtBubble == null)
+        {
+            Debug.LogWarning(
+                "PlayerInteractor: no ThoughtBubble found on the player or its children - no thoughts will show.",
+                this);
+        }
     }
 
     private void OnDisable()
@@ -43,9 +52,16 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
+        if (Busy && !MinigameManager.IsRunning)
+        {
+            Debug.LogWarning("PlayerInteractor: Busy was stuck with no minigame running - resetting.", this);
+            Busy = false;
+        }
+
         if (Busy || player.IsStunned)
         {
-            if (thoughtBubble)
+            debugState = Busy ? "BUSY (minigame open)" : "STUNNED";
+            if (thoughtBubble != null)
             {
                 thoughtBubble.Hide();
             }
@@ -55,6 +71,9 @@ public class PlayerInteractor : MonoBehaviour
 
         Scan();
         UpdateBubble();
+
+        debugState =
+            $"held={(Held != null ? Held.name : "-")}  item={(candidateItem != null ? candidateItem.name : "-")}  zone={(candidateZone != null ? candidateZone.name : "-")}";
 
         if (Input.GetKeyDown(interactKey))
         {
@@ -69,14 +88,14 @@ public class PlayerInteractor : MonoBehaviour
         float bestItem = float.MaxValue;
         float bestZone = float.MaxValue;
 
-        if (!Held)
+        if (Held == null)
         {
             int count = Physics.OverlapSphereNonAlloc(transform.position, itemRadius, hits, interactMask,
                 QueryTriggerInteraction.Collide);
             for (int i = 0; i < count; i++)
             {
                 MainItem item = hits[i].GetComponentInParent<MainItem>();
-                if (!item || item.IsHeld)
+                if (item == null || item.IsHeld)
                 {
                     continue;
                 }
@@ -105,10 +124,9 @@ public class PlayerInteractor : MonoBehaviour
             }
         }
 
-
-        if (candidateItem && candidateZone)
+        if (candidateItem != null && candidateZone != null)
         {
-            if (bestZone <= bestItem)
+            if (!candidateZone.toggleable && bestZone <= bestItem)
             {
                 candidateItem = null;
             }
@@ -121,18 +139,18 @@ public class PlayerInteractor : MonoBehaviour
 
     private void UpdateBubble()
     {
-        if (!thoughtBubble)
+        if (thoughtBubble == null)
         {
             return;
         }
 
-        if (candidateZone)
+        if (candidateZone != null)
         {
-            thoughtBubble.Show(candidateZone.thoughtSprite, candidateZone.thoughtPrefab);
+            thoughtBubble.Show(candidateZone.CurrentThoughtSprite);
         }
-        else if (candidateItem)
+        else if (candidateItem != null)
         {
-            thoughtBubble.Show(candidateItem.thoughtSprite, candidateItem.thoughtPrefab);
+            thoughtBubble.Show(candidateItem.thoughtSprite);
         }
         else
         {
@@ -142,7 +160,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Interact()
     {
-        if (candidateZone)
+        if (candidateZone != null)
         {
             MainItem item = Held;
             Busy = true;
@@ -158,9 +176,9 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        if (!Held)
+        if (Held == null)
         {
-            if (!candidateItem)
+            if (candidateItem == null)
             {
                 return;
             }

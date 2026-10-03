@@ -349,6 +349,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29367483}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &58234793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 58234794}
+  - component: {fileID: 58234795}
+  m_Layer: 3
+  m_Name: Cupboard (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &58234794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58234793}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.984, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 489724968}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58234795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58234793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: 1910127382, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 489724968}
+  swapRenderer: {fileID: 1010360954}
+  swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &73977396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1072,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3882853677983145534, guid: 6acc23f1a189c5041bbf02ccc701df91, type: 3}
   m_PrefabInstance: {fileID: 192784987}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &211380092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 211380093}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211380093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211380092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1648057788}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &230462191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,10 +1726,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredItemId: 
   singleUse: 1
+  toggleable: 0
   reach: 1.4
   maxHeightDifference: 1.5
   thoughtSprite: {fileID: 1631744046, guid: 3a56cbe25ffe32b469f60f90a2945649, type: 3}
-  thoughtPrefab: {fileID: 0}
+  thoughtSpriteOn: {fileID: 0}
   minigamePrefab: {fileID: 8656750901097654046, guid: b8dd2d9766591d843ad18f3e7ef6238c, type: 3}
   vignette: {fileID: 0}
   consumeItem: 1
@@ -1639,6 +1738,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 992634477}
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
+  revealOnActivate: []
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -2500,11 +2600,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6113025089771556305, guid: 90cb139dd4ca1cd4b98ea6b0e2fed8c6, type: 3}
   m_PrefabInstance: {fileID: 457451465}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &457534151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457534152}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457534152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457534151}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 925776036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &487688772 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8840539218616516617, guid: 118d2952bbb65924388ddf44cc74689a, type: 3}
   m_PrefabInstance: {fileID: 1718193332}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &489724967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489724968}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489724968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489724967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 58234794}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &489732262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +4220,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.16, y: 0.322, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1363007031}
@@ -4120,7 +4282,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bb370180bdf6f8b4095c676e171dc77f, type: 3}
+  m_Sprite: {fileID: -153234733, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4730,6 +4892,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8891383609891984992, guid: a29345133bc573b4ca9dcf16dd1d59a9, type: 3}
   m_PrefabInstance: {fileID: 696983523}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &713228435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713228436}
+  m_Layer: 0
+  m_Name: Cupboards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &713228436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713228435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.651464, y: 1.6998818, z: 4.8116274}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1105792146}
+  - {fileID: 1040508986}
+  - {fileID: 1119443069}
+  - {fileID: 1311434794}
+  - {fileID: 58234794}
+  - {fileID: 1146075776}
+  - {fileID: 1002755159}
+  - {fileID: 1648057788}
+  - {fileID: 925776036}
+  - {fileID: 2011519007}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &734387874
 GameObject:
   m_ObjectHideFlags: 0
@@ -6184,6 +6387,104 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6113025089771556305, guid: 90cb139dd4ca1cd4b98ea6b0e2fed8c6, type: 3}
   m_PrefabInstance: {fileID: 911529389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &925776035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 925776036}
+  - component: {fileID: 925776037}
+  m_Layer: 3
+  m_Name: Cupboard (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &925776036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925776035}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.47, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 457534152}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &925776037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925776035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
+  thoughtSpriteOn: {fileID: 369722821, guid: 2a55fb3ffa7c31344a5cc1d582a19eb0, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 457534152}
+  swapRenderer: {fileID: 515789938}
+  swapSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
+--- !u!1 &933499519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933499520}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933499520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933499519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1040508986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933819709
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,6 +7417,73 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1002755158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002755159}
+  - component: {fileID: 1002755160}
+  m_Layer: 3
+  m_Name: Cupboard (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002755159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002755158}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.24, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1250840384}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002755160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002755158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: -1990823914, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1250840384}
+  swapRenderer: {fileID: 1246132712}
+  swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1003960146
 GameObject:
   m_ObjectHideFlags: 0
@@ -7439,6 +7807,73 @@ Transform:
   - {fileID: 1169600255}
   m_Father: {fileID: 11444326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1040508985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040508986}
+  - component: {fileID: 1040508987}
+  m_Layer: 3
+  m_Name: Cupboard (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1040508986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040508985}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.75, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 933499520}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1040508987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040508985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.53
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: 1910127382, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 933499520}
+  swapRenderer: {fileID: 1289868084}
+  swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1050481686
 GameObject:
   m_ObjectHideFlags: 0
@@ -7939,10 +8374,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredItemId: water
   singleUse: 1
+  toggleable: 0
   reach: 1.4
   maxHeightDifference: 1.5
   thoughtSprite: {fileID: 21300000, guid: c428a702389ddfa4d85c0a53887b5628, type: 3}
-  thoughtPrefab: {fileID: 0}
+  thoughtSpriteOn: {fileID: 0}
   minigamePrefab: {fileID: 7321248039095790665, guid: f77c8bc7e26cdd1429b502f43b9276ae, type: 3}
   vignette: {fileID: 11400000, guid: 1869f42aec3eaea458c9c5db044c9382, type: 2}
   consumeItem: 1
@@ -7950,6 +8386,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 393725352}
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
+  revealOnActivate: []
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -8044,6 +8481,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1105792145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1105792146}
+  - component: {fileID: 1105792147}
+  m_Layer: 3
+  m_Name: Cupboard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1105792146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105792145}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.016, y: -1.5818818, z: 0.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1417152239}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105792147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105792145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: 1910127382, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1417152239}
+  swapRenderer: {fileID: 937299769}
+  swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1107213863
 GameObject:
   m_ObjectHideFlags: 0
@@ -8218,6 +8722,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1119443068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1119443069}
+  - component: {fileID: 1119443070}
+  m_Layer: 3
+  m_Name: Cupboard (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1119443069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119443068}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.08, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1524710760}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1119443070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119443068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: 1910127382, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1524710760}
+  swapRenderer: {fileID: 1104136421}
+  swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate:
+  - {fileID: 1363007030}
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1123084678
 GameObject:
   m_ObjectHideFlags: 0
@@ -8266,6 +8838,73 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1146075775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146075776}
+  - component: {fileID: 1146075777}
+  m_Layer: 3
+  m_Name: Cupboard (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146075776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146075775}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.56, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 2090985174}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146075777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146075775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: -1990823914, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 2090985174}
+  swapRenderer: {fileID: 230462193}
+  swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1169600254
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,6 +9572,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1250840383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1250840384}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250840384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250840383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1002755159}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1269969489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9433,6 +10103,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6113025089771556305, guid: 90cb139dd4ca1cd4b98ea6b0e2fed8c6, type: 3}
   m_PrefabInstance: {fileID: 1310684803}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1311434793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1311434794}
+  - component: {fileID: 1311434795}
+  m_Layer: 3
+  m_Name: Cupboard (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1311434794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311434793}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.884, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 2140935030}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311434795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311434793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: 1910127382, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 2140935030}
+  swapRenderer: {fileID: 629233090}
+  swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1311841340
 GameObject:
   m_ObjectHideFlags: 0
@@ -10060,7 +10797,7 @@ Transform:
   m_GameObject: {fileID: 1363007030}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -10.067, y: 0.503, z: -2.535}
+  m_LocalPosition: {x: -4.673, y: -0.533, z: 4.503}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10080,8 +10817,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: bat
-  thoughtSprite: {fileID: 21300000, guid: bb370180bdf6f8b4095c676e171dc77f, type: 3}
+  thoughtSprite: {fileID: -153234733, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   thoughtPrefab: {fileID: 0}
+  startKinematic: 0
 --- !u!54 &1363007033
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10177,10 +10915,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredItemId: bat
   singleUse: 1
+  toggleable: 0
   reach: 1.4
   maxHeightDifference: 1.5
   thoughtSprite: {fileID: 21300000, guid: f38719417e81f8a47885b9fc20a61e71, type: 3}
-  thoughtPrefab: {fileID: 0}
+  thoughtSpriteOn: {fileID: 0}
   minigamePrefab: {fileID: 2874465324240511259, guid: 16295672a568d8947adbef75d8bcf415, type: 3}
   vignette: {fileID: 11400000, guid: 147d8a439e1f6c54caf84e46cc74dcb7, type: 2}
   consumeItem: 1
@@ -10188,6 +10927,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 73977397}
   swapRenderer: {fileID: 1798887409}
   swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  revealOnActivate: []
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -10195,6 +10935,37 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
+--- !u!1 &1380117417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1380117418}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1380117418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380117417}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011519007}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1387573819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10257,6 +11028,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4166454919497031179, guid: 118d2952bbb65924388ddf44cc74689a, type: 3}
   m_PrefabInstance: {fileID: 1387573819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417152238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417152239}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1417152239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417152238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1105792146}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1432524415
 GameObject:
   m_ObjectHideFlags: 0
@@ -10789,6 +11591,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1524710759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524710760}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524710760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524710759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1119443069}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549910378
 GameObject:
   m_ObjectHideFlags: 0
@@ -11538,6 +12371,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1648057787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648057788}
+  - component: {fileID: 1648057789}
+  m_Layer: 3
+  m_Name: Cupboard (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648057788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648057787}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.46, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 211380093}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1648057789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648057787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  thoughtSpriteOn: {fileID: -1990823914, guid: 7f6e91b96e58af648b507dbed271bbc5, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 211380093}
+  swapRenderer: {fileID: 1745014152}
+  swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &1672802310
 GameObject:
   m_ObjectHideFlags: 0
@@ -12605,10 +13505,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredItemId: bat
   singleUse: 1
+  toggleable: 0
   reach: 1.4
   maxHeightDifference: 1.5
   thoughtSprite: {fileID: 21300000, guid: f38719417e81f8a47885b9fc20a61e71, type: 3}
-  thoughtPrefab: {fileID: 0}
+  thoughtSpriteOn: {fileID: 0}
   minigamePrefab: {fileID: 2874465324240511259, guid: 16295672a568d8947adbef75d8bcf415, type: 3}
   vignette: {fileID: 11400000, guid: 6692adf03668c19488551e62f7130d72, type: 2}
   consumeItem: 1
@@ -12616,6 +13517,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1439279932}
   swapRenderer: {fileID: 487688772}
   swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  revealOnActivate: []
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -13744,6 +14646,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.233
       objectReference: {fileID: 0}
+    - target: {fileID: 2460249232880196345, guid: 83049b76c3909b44c87d28b41487369b, type: 3}
+      propertyPath: interactMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2617081689913165624, guid: 83049b76c3909b44c87d28b41487369b, type: 3}
       propertyPath: m_Name
       value: Me
@@ -14308,6 +15214,73 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &2011519006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2011519007}
+  - component: {fileID: 2011519008}
+  m_Layer: 3
+  m_Name: Cupboard (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2011519007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011519006}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 16.37, y: -1.5818818, z: 0.52999955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1380117418}
+  m_Father: {fileID: 713228436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2011519008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011519006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69de517adbffb204c9c1451214890779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItemId: 
+  singleUse: 0
+  toggleable: 1
+  reach: 1.3
+  maxHeightDifference: 1.5
+  thoughtSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
+  thoughtSpriteOn: {fileID: 369722821, guid: 2a55fb3ffa7c31344a5cc1d582a19eb0, type: 3}
+  minigamePrefab: {fileID: 0}
+  vignette: {fileID: 0}
+  consumeItem: 1
+  spawnPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1380117418}
+  swapRenderer: {fileID: 853412889}
+  swapSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
+  revealOnActivate: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  gizmoColor: {r: 0.2, g: 0.9, b: 1, a: 1}
 --- !u!1 &2019462129
 GameObject:
   m_ObjectHideFlags: 0
@@ -14649,6 +15622,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2090985173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090985174}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090985174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090985173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1146075776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2099595609
 GameObject:
   m_ObjectHideFlags: 0
@@ -14945,6 +15949,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2140935029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2140935030}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2140935030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140935029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1311434794}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &101340048159960645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14999,8 +16034,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: water
-  thoughtSprite: {fileID: 21300000, guid: 56c67f2fea4decf4199b58ed3401c934, type: 3}
+  thoughtSprite: {fileID: 275769283, guid: 3a56cbe25ffe32b469f60f90a2945649, type: 3}
   thoughtPrefab: {fileID: 0}
+  startKinematic: 0
 --- !u!1 &1335948999093717479
 GameObject:
   m_ObjectHideFlags: 0
@@ -15137,10 +16173,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredItemId: water
   singleUse: 1
+  toggleable: 0
   reach: 1.4
   maxHeightDifference: 1.5
   thoughtSprite: {fileID: 21300000, guid: c428a702389ddfa4d85c0a53887b5628, type: 3}
-  thoughtPrefab: {fileID: 0}
+  thoughtSpriteOn: {fileID: 0}
   minigamePrefab: {fileID: 7321248039095790665, guid: f77c8bc7e26cdd1429b502f43b9276ae, type: 3}
   vignette: {fileID: 11400000, guid: c3ca1788cabf99440ab2e5c036b24231, type: 2}
   consumeItem: 1
@@ -15148,6 +16185,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 2458649322089880796}
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
+  revealOnActivate: []
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -15455,5 +16493,6 @@ SceneRoots:
   - {fileID: 6921798607452220001}
   - {fileID: 101392742}
   - {fileID: 1331606422}
+  - {fileID: 713228436}
   - {fileID: 400893343}
   - {fileID: 1353341021}

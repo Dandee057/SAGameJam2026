@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class ThoughtBubble : MonoBehaviour
 {
     public Transform visual;
     public SpriteRenderer bubbleRenderer;
-    public Transform contentSlot;
     public SpriteRenderer iconRenderer;
 
     [Header("Look")] public float iconMaxSize = 0.6f;
@@ -17,34 +14,32 @@ public class ThoughtBubble : MonoBehaviour
     public float bobAmount = 0.05f;
     public float bobSpeed = 3f;
 
-    private object current;
-    private GameObject activeInstance;
-    private readonly Dictionary<GameObject, GameObject> instances = new();
-
+    private Sprite current;
     private float target, scale, scaleVel, bobTime;
 
     private void Awake()
     {
         bubbleRenderer.sortingOrder = sortingOrder;
         iconRenderer.sortingOrder = sortingOrder + 1;
-        iconRenderer.gameObject.SetActive(false);
         Apply(0f);
     }
 
-
-    public void Show(Sprite sprite, GameObject prefab = null)
+    public void Show(Sprite sprite)
     {
-        object key = prefab != null ? (object)prefab : sprite;
-        if (key == null)
+        if (sprite == null)
         {
             Hide();
             return;
         }
 
-        if (!ReferenceEquals(key, current))
+        if (sprite != current)
         {
-            SetContent(sprite, prefab);
-            current = key;
+            current = sprite;
+            iconRenderer.sprite = sprite;
+
+            float size = Mathf.Max(sprite.bounds.size.x, sprite.bounds.size.y);
+            iconRenderer.transform.localScale = Vector3.one * (iconMaxSize / Mathf.Max(size, 0.0001f));
+
             scale = Mathf.Min(scale, 0.4f);
         }
 
@@ -54,43 +49,6 @@ public class ThoughtBubble : MonoBehaviour
     public void Hide()
     {
         target = 0f;
-    }
-
-    private void SetContent(Sprite sprite, GameObject prefab)
-    {
-        if (activeInstance)
-        {
-            activeInstance.SetActive(false);
-            activeInstance = null;
-        }
-
-        iconRenderer.gameObject.SetActive(false);
-
-        if (prefab)
-        {
-            if (!instances.TryGetValue(prefab, out GameObject inst))
-            {
-                inst = Instantiate(prefab, contentSlot);
-                inst.transform.localPosition = Vector3.zero;
-                inst.transform.localRotation = Quaternion.identity;
-                foreach (Renderer r in inst.GetComponentsInChildren<Renderer>())
-                {
-                    r.sortingOrder = sortingOrder + 1;
-                }
-
-                instances[prefab] = inst;
-            }
-
-            inst.SetActive(true);
-            activeInstance = inst;
-        }
-        else
-        {
-            iconRenderer.sprite = sprite;
-            float size = Mathf.Max(sprite.bounds.size.x, sprite.bounds.size.y);
-            iconRenderer.transform.localScale = Vector3.one * (iconMaxSize / Mathf.Max(size, 0.0001f));
-            iconRenderer.gameObject.SetActive(true);
-        }
     }
 
     private void Update()

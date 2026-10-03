@@ -9,6 +9,7 @@ using UnityEditor;
 /// A spot in the world where you can do something.
 ///  - requiredItemId set   -> you must be HOLDING that item.
 ///  - requiredItemId empty -> no item needed, but your hands must be empty.
+///  - toggleable           -> open/close style: every interaction flips it, and it never gets used up.
 /// Setup: empty GameObject + this script. The zone owns its own reach.
 public class InteractionZone : MonoBehaviour
 {
@@ -18,7 +19,11 @@ public class InteractionZone : MonoBehaviour
     [Header("Requirements")] [Tooltip("Leave EMPTY for a zone that needs no item (hands must be empty).")]
     public string requiredItemId = "water";
 
-    public bool singleUse = true;
+    public bool singleUse = true; // ignored for toggleable zones
+
+    [Header("Toggle (optional, e.g. cupboard open/close)")]
+    [Tooltip("Every interaction flips the zone between off and on. It never gets used up.")]
+    public bool toggleable;
 
     [Header("Detection")]
     [Tooltip("How close (on the floor, in world units) the player must be to this zone's centre.")]
@@ -28,7 +33,9 @@ public class InteractionZone : MonoBehaviour
     public float maxHeightDifference = 1.5f;
 
     [Header("Thought bubble")] public Sprite thoughtSprite;
-    public GameObject thoughtPrefab;
+
+    [Tooltip("Toggle zones: shown while the zone is ON (e.g. cupboard open). Leave empty to keep the normal thought.")]
+    public Sprite thoughtSpriteOn;
 
     [Header("Minigame (optional)")]
     [Tooltip(
@@ -37,25 +44,58 @@ public class InteractionZone : MonoBehaviour
 
     [Header("What happens")]
     [Tooltip(
-        "The cutscene clip this adds. A minigame can override it with its own result (e.g. the pizza picks one of three).")]
+        "The cutscene clip this adds (first time only for toggle zones). A minigame can override it with its own result.")]
     public Vignette vignette;
 
     public bool consumeItem = true;
-    public GameObject spawnPrefab;
+    public GameObject spawnPrefab; // spawned the first time only
     public Transform spawnPoint;
 
-    [Tooltip("Optional: on success, this renderer's sprite is replaced (e.g. chair -> broken chair).")]
+    [Tooltip(
+        "Optional: when ON this renderer shows 'swapSprite' (e.g. cupboard -> open cupboard). Toggling OFF restores the original.")]
     public SpriteRenderer swapRenderer;
 
     public Sprite swapSprite;
-    public UnityEvent<PlayerInteractor> onActivated; // on success
+
+    [Tooltip(
+        "Objects switched ON when the zone turns on (e.g. the bat inside a cupboard). They're hidden automatically at start. " +
+        "When a toggle zone turns OFF, unmoved items are hidden again; items the player has picked up are left alone.")]
+    public GameObject[] revealOnActivate;
+
+    public UnityEvent<PlayerInteractor> onActivated; // every successful interaction
     public UnityEvent<PlayerInteractor> onFailed; // minigame failed / cancelled
 
     [Header("Editor gizmo")] public Color gizmoColor = new(0.2f, 0.9f, 1f, 1f);
 
     public bool Used { get; private set; }
+    public bool IsOn { get; private set; }
     public bool InProgress { get; private set; }
     public bool NeedsItem => !string.IsNullOrEmpty(requiredItemId);
+
+    /// What the thought bubble should show right now (toggle zones switch when ON).
+    public Sprite CurrentThoughtSprite =>
+        toggleable && IsOn && thoughtSpriteOn != null ? thoughtSpriteOn : thoughtSprite;
+
+    private Sprite originalSprite;
+
+    private void Awake()
+    {
+        if (swapRenderer != null)
+        {
+            originalSprite = swapRenderer.sprite;
+        }
+
+        if (revealOnActivate != null)
+        {
+            foreach (GameObject go in revealOnActivate)
+            {
+                if (go != null)
+                {
+                    go.SetActive(false);
+                }
+            }
+        }
+    }
 
     private void OnEnable()
     {
@@ -69,7 +109,7 @@ public class InteractionZone : MonoBehaviour
 
     public bool CanUse(MainItem held)
     {
-        if (singleUse && Used)
+        if (singleUse && Used && !toggleable)
         {
             return false;
         }
@@ -138,29 +178,67 @@ public class InteractionZone : MonoBehaviour
     /// The actual effect. Returns true if the held item should be consumed.
     private bool Complete(PlayerInteractor user, MainItem held, Vignette result)
     {
+        bool firstTime = !Used;
         Used = true;
-        RunLog.Add(result != null ? result : vignette, Time.time);
+        IsOn = toggleable ? !IsOn : true;
 
-        if (spawnPrefab != null)
+        if (firstTime)
         {
-            Transform p = spawnPoint != null ? spawnPoint : transform;
-            Instantiate(spawnPrefab, p.position, p.rotation);
+            RunLog.Add(result != null ? result : vignette, Time.time);
+
+            if (spawnPrefab != null)
+            {
+                Transform p = spawnPoint != null ? spawnPoint : transform;
+                Instantiate(spawnPrefab, p.position, p.rotation);
+            }
         }
 
-        if (swapRenderer != null && swapSprite != null)
-        {
-            swapRenderer.sprite = swapSprite;
-        }
-
+        ApplyState();
         onActivated?.Invoke(user);
         return consumeItem && held != null;
+    }
+
+    private void ApplyState()
+    {
+        if (swapRenderer != null && swapSprite != null)
+        {
+            swapRenderer.sprite = IsOn ? swapSprite : originalSprite;
+        }
+
+        if (revealOnActivate == null)
+        {
+            return;
+        }
+
+        foreach (GameObject go in revealOnActivate)
+        {
+            if (go == null)
+            {
+                continue; // destroyed (e.g. consumed item)
+            }
+
+            if (IsOn)
+            {
+                go.SetActive(true);
+                continue;
+            }
+
+            // turning OFF: hide it again, unless it's an item the player has already taken
+            MainItem item = go.GetComponent<MainItem>();
+            if (item != null && item.HasBeenPickedUp)
+            {
+                continue;
+            }
+
+            go.SetActive(false);
+        }
     }
 
 #if UNITY_EDITOR
     // ---------- Scene view gizmos ----------
     private void OnDrawGizmos()
     {
-        Color c = Used ? new Color(0.5f, 0.5f, 0.5f, 1f) : gizmoColor;
+        Color c = Used && !toggleable ? new Color(0.5f, 0.5f, 0.5f, 1f) : gizmoColor;
         Vector3 pos = transform.position;
 
         Handles.color = new Color(c.r, c.g, c.b, 0.12f);
@@ -181,8 +259,26 @@ public class InteractionZone : MonoBehaviour
             Gizmos.DrawWireCube(p.position, Vector3.one * 0.15f);
         }
 
+        // lines to anything this zone reveals
+        if (revealOnActivate != null)
+        {
+            Gizmos.color = Color.green;
+            foreach (GameObject go in revealOnActivate)
+            {
+                if (go != null)
+                {
+                    Gizmos.DrawLine(pos, go.transform.position);
+                }
+            }
+        }
+
         string label = NeedsItem ? $"Zone: needs \"{requiredItemId}\"" : "Zone: no item needed";
-        Handles.Label(pos + Vector3.up * 0.6f, label + (Used ? " (used)" : ""));
+        if (toggleable)
+        {
+            label += " (toggle)";
+        }
+
+        Handles.Label(pos + Vector3.up * 0.6f, label + (Used && !toggleable ? " (used)" : ""));
     }
 #endif
 }
