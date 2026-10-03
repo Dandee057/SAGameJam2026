@@ -2,27 +2,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// Smash a chair with a bat. Weak spots appear on the chair one at a time - click each one to smack it.
-/// A hand holding a bat follows the mouse and swings on every click (hit or miss). Hit the required
-/// number of spots and the chair breaks.
-///
-/// UI prefab layout (root = full-screen panel with this script):
-///   Chair        (Image: the chair art)                       -> 'chair' + 'chairImage'
-///     Spot1..N   (child Images of the chair: target marker art, sized as the click area) -> 'spots'
-///   Hand         (Image: hand + bat PNG, PIVOT at the grip, drawn last so it's on top)   -> 'hand'
-///
-/// The vignette comes from the zone itself (one zone per chair), so this prefab can be reused for both chairs.
 public class ChairSmashMinigame : Minigame
 {
     [Header("Chair")] public RectTransform chair;
     public Image chairImage;
-    public Sprite brokenChairSprite; // optional: shown when it breaks
+    public Sprite brokenChairSprite;
     public float shakeAmount = 14f;
     public float shakeDuration = 0.15f;
 
-    [Header("Weak spots")] public RectTransform[] spots; // each should have an Image
-    public int spotsToHit = 3; // clamped to the number of spots
-    public Sprite crackSprite; // optional: a hit spot turns into this
+    [Header("Weak spots")] public RectTransform[] spots;
+    public int spotsToHit = 3;
+    public Sprite crackSprite;
 
     [Header("Bat hand")] public RectTransform hand;
 
@@ -32,14 +22,14 @@ public class ChairSmashMinigame : Minigame
     [Tooltip("Mirrors the swing direction. Tick/untick if the bat swings the wrong way for your art.")]
     public bool flipSwing = true;
 
-    public float restAngle = 20f; // wind-up pose (bat raised)
-    public float swingAngle = -50f; // pose at the moment of impact (bat down)
+    public float restAngle = 20f;
+    public float swingAngle = -50f;
     public float swingDuration = 0.3f;
-    [Range(0.1f, 0.9f)] public float impactAt = 0.35f; // fraction of the swing where the bat lands
+    [Range(0.1f, 0.9f)] public float impactAt = 0.35f;
     public bool hideSystemCursor = true;
 
-    [Header("Timing")] public float breakDelay = 0.35f; // pause after the last hit, before the chair breaks
-    public float finishDelay = 0.9f; // pause after the break, before the minigame closes
+    [Header("Timing")] public float breakDelay = 0.35f;
+    public float finishDelay = 0.9f;
 
     private float Dir => flipSwing ? -1f : 1f;
 
@@ -83,7 +73,6 @@ public class ChairSmashMinigame : Minigame
         chairBasePos = chair.localPosition;
         hand.localRotation = Quaternion.Euler(0f, 0f, restAngle * Dir);
 
-        // pick a random subset of spots, in random order
         List<int> all = new();
         for (int i = 0; i < spots.Length; i++)
         {
@@ -159,8 +148,6 @@ public class ChairSmashMinigame : Minigame
         }
     }
 
-    // ---------- hand ----------
-
     private void FollowMouse(Vector2 mouse)
     {
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(handParent, mouse, uiCam, out Vector2 lp))
@@ -191,7 +178,6 @@ public class ChairSmashMinigame : Minigame
                 ResolveHit();
             }
 
-            // fast wind-in to the impact, slower recovery
             float k = swingT < impactAt
                 ? swingT / impactAt
                 : 1f - (swingT - impactAt) / (1f - impactAt);
@@ -220,7 +206,7 @@ public class ChairSmashMinigame : Minigame
 
         if (!hit)
         {
-            shakeTimer = shakeDuration * 0.4f; // thud, but no progress
+            shakeTimer = shakeDuration * 0.4f;
             return;
         }
 

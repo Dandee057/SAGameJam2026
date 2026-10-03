@@ -6,20 +6,14 @@ using UnityEngine.Events;
 using UnityEditor;
 #endif
 
-/// A spot in the world where you can do something.
-///  - requiredItemId set   -> you must be HOLDING that item.
-///  - requiredItemId empty -> no item needed, but your hands must be empty.
-///  - toggleable           -> open/close style: every interaction flips it, and it never gets used up.
-/// Setup: empty GameObject + this script. The zone owns its own reach.
 public class InteractionZone : MonoBehaviour
 {
-    /// Every active zone, so the player can check them without physics.
     public static readonly List<InteractionZone> All = new();
 
     [Header("Requirements")] [Tooltip("Leave EMPTY for a zone that needs no item (hands must be empty).")]
     public string requiredItemId = "water";
 
-    public bool singleUse = true; // ignored for toggleable zones
+    public bool singleUse = true;
 
     [Header("Toggle (optional, e.g. cupboard open/close)")]
     [Tooltip("Every interaction flips the zone between off and on. It never gets used up.")]
@@ -48,7 +42,7 @@ public class InteractionZone : MonoBehaviour
     public Vignette vignette;
 
     public bool consumeItem = true;
-    public GameObject spawnPrefab; // spawned the first time only
+    public GameObject spawnPrefab;
     public Transform spawnPoint;
 
     [Tooltip(
@@ -62,8 +56,8 @@ public class InteractionZone : MonoBehaviour
         "When a toggle zone turns OFF, unmoved items are hidden again; items the player has picked up are left alone.")]
     public GameObject[] revealOnActivate;
 
-    public UnityEvent<PlayerInteractor> onActivated; // every successful interaction
-    public UnityEvent<PlayerInteractor> onFailed; // minigame failed / cancelled
+    public UnityEvent<PlayerInteractor> onActivated;
+    public UnityEvent<PlayerInteractor> onFailed;
 
     [Header("Editor gizmo")] public Color gizmoColor = new(0.2f, 0.9f, 1f, 1f);
 
@@ -72,7 +66,6 @@ public class InteractionZone : MonoBehaviour
     public bool InProgress { get; private set; }
     public bool NeedsItem => !string.IsNullOrEmpty(requiredItemId);
 
-    /// What the thought bubble should show right now (toggle zones switch when ON).
     public Sprite CurrentThoughtSprite =>
         toggleable && IsOn && thoughtSpriteOn != null ? thoughtSpriteOn : thoughtSprite;
 
@@ -124,10 +117,10 @@ public class InteractionZone : MonoBehaviour
             return held != null && held.itemId == requiredItemId;
         }
 
-        return held == null; // item-less zone: hands must be empty
+        return held == null;
     }
 
-    /// Flat (XZ) distance check using this zone's own reach.
+
     public bool IsInRange(Vector3 playerPos)
     {
         Vector3 d = playerPos - transform.position;
@@ -140,8 +133,6 @@ public class InteractionZone : MonoBehaviour
         return d.sqrMagnitude <= reach * reach;
     }
 
-    /// Start the interaction. 'held' may be null for item-less zones.
-    /// 'finished' is called with true if the held item should be consumed.
     public void Interact(MainItem held, PlayerInteractor user, Action<bool> finished)
     {
         if (minigamePrefab == null)
@@ -175,7 +166,6 @@ public class InteractionZone : MonoBehaviour
         });
     }
 
-    /// The actual effect. Returns true if the held item should be consumed.
     private bool Complete(PlayerInteractor user, MainItem held, Vignette result)
     {
         bool firstTime = !Used;
@@ -214,7 +204,7 @@ public class InteractionZone : MonoBehaviour
         {
             if (go == null)
             {
-                continue; // destroyed (e.g. consumed item)
+                continue;
             }
 
             if (IsOn)
@@ -223,7 +213,6 @@ public class InteractionZone : MonoBehaviour
                 continue;
             }
 
-            // turning OFF: hide it again, unless it's an item the player has already taken
             MainItem item = go.GetComponent<MainItem>();
             if (item != null && item.HasBeenPickedUp)
             {
@@ -235,7 +224,6 @@ public class InteractionZone : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // ---------- Scene view gizmos ----------
     private void OnDrawGizmos()
     {
         Color c = Used && !toggleable ? new Color(0.5f, 0.5f, 0.5f, 1f) : gizmoColor;
@@ -259,7 +247,6 @@ public class InteractionZone : MonoBehaviour
             Gizmos.DrawWireCube(p.position, Vector3.one * 0.15f);
         }
 
-        // lines to anything this zone reveals
         if (revealOnActivate != null)
         {
             Gizmos.color = Color.green;

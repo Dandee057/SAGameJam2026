@@ -4,9 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class MainItem : MonoBehaviour
 {
-    public string itemId = "item"; // zones check this ("water", "wine", ...)
-    public Sprite thoughtSprite; // what shows in the thought bubble when you walk past it
-    public GameObject thoughtPrefab; // optional: an (animated) prefab instead of a plain sprite
+    public string itemId = "item"; 
+    public Sprite thoughtSprite;
 
     [Tooltip(
         "Stays put (doesn't fall) until it's picked up and dropped. Use for items sitting in cupboards or on shelves.")]
