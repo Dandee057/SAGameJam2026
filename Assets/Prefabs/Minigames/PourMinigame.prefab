@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -164, y: -263}
   m_SizeDelta: {x: 500, y: 500}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.81, y: 1}
 --- !u!222 &6938960311411819109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -137,15 +137,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c1c6c17efecc80e4b8995a759976b5d2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -170,6 +170,39 @@ MonoBehaviour:
   jug: {fileID: 3804139689113583632}
   waterStream: {fileID: 189070234865043758}
   hint: {fileID: 8893321604964955779}
+  uprightSprite: {fileID: 21300000, guid: 9f380e9a08be36e4b8c26169d8c0546a, type: 3}
+  tippedSprite: {fileID: 21300000, guid: 7185ee8c7847ebd42a9cbc4b534fd3dc, type: 3}
+  streamSprite: {fileID: -2046071434, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  splashFrames:
+  - {fileID: 209946878, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  - {fileID: -1649610497, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  foamFrames:
+  - {fileID: 1903516091, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  - {fileID: 434858709, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  puddleSprite: {fileID: 21300000, guid: cf5faf17e001463183d7ccb36c157915, type: 3}
+  uprightJugSize: 2
+  tippedJugSize: 2
+  streamThickness: 1
+  splashSize: 0.5
+  foamSize: 0.5
+  puddleSize: 2
+  puddleStartFraction: 0.25
+  tippedArtAngle: 35
+  spoutOnTippedSprite: {x: 0.2, y: 0.7}
+  spoutFollowsSlider: 1
+  splashHeight: 0.15
+  streamTipX: 0.81
+  streamBottomX: 0.54
+  streamWidth: 100
+  splashFrameTime: 0.09
+  streamGrowTime: 0.12
+  uprightJug: {fileID: 0}
+  tippedJug: {fileID: 0}
+  spout: {fileID: 0}
+  splashPoint: {fileID: 0}
+  splash: {fileID: 0}
+  foam: {fileID: 0}
+  puddle: {fileID: 0}
   mashKey: 97
   kickPerPress: 12
   uprightPull: 50
@@ -177,6 +210,7 @@ MonoBehaviour:
   maxAngle: 110
   pourAngle: 50
   fillRate: 0.35
+  minPourStrength: 0.3
   timeLimit: 0
   finishDelay: 0.4
   tiltDirection: -1

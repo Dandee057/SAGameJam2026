@@ -17,6 +17,9 @@ public class CutscenePlayer : MonoBehaviour
 
     [Header("Playback")] public float pauseBetweenVignettes = 0.3f;
 
+    [Tooltip("Multiplies EVERY frame's duration. 1 = as set on the vignettes, 0.5 = twice as fast, 2 = twice as slow.")]
+    public float frameTimeScale = 1f;
+
     [Tooltip("Played if the player sabotaged nothing at all.")]
     public Vignette emptyFallback;
 
@@ -28,6 +31,10 @@ public class CutscenePlayer : MonoBehaviour
     public Vignette[] caughtVignettes;
 
     public bool Won { get; private set; }
+
+    /// Fired every time a vignette frame goes on screen: (vignette, frame index).
+    /// Used by ComicCutsceneStyle for the strips / pop / shake. Safe to ignore.
+    public event System.Action<Vignette, int> FrameShown;
 
     public IEnumerator Play(IReadOnlyList<RunLog.Entry> entries)
     {
@@ -111,6 +118,7 @@ public class CutscenePlayer : MonoBehaviour
         for (int i = 0; i < v.frames.Length; i++)
         {
             frameImage.sprite = v.frames[i].sprite;
+            FrameShown?.Invoke(v, i);
 
             if (i == impact)
             {
@@ -125,7 +133,7 @@ public class CutscenePlayer : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(v.DurationOf(i));
+            yield return new WaitForSeconds(v.DurationOf(i) * frameTimeScale);
         }
     }
 }

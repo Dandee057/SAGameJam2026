@@ -102,8 +102,8 @@ RectTransform:
   m_GameObject: {fileID: 715317538194963266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,8 +177,8 @@ RectTransform:
   m_GameObject: {fileID: 3124076643569041123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -252,8 +252,8 @@ RectTransform:
   m_GameObject: {fileID: 3688992281262781835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -327,8 +327,8 @@ RectTransform:
   m_GameObject: {fileID: 5228579136524764142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -402,8 +402,8 @@ RectTransform:
   m_GameObject: {fileID: 7835859009341591566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -523,7 +523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: caf0ec81e5bc04c4d9b100d17d27bb9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1c6c17efecc80e4b8995a759976b5d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -548,7 +548,9 @@ MonoBehaviour:
   canCancel: 1
   chair: {fileID: 789256001490253850}
   chairImage: {fileID: 4995384750730535022}
-  brokenChairSprite: {fileID: 21300000, guid: f38719417e81f8a47885b9fc20a61e71, type: 3}
+  brokenChairSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  brokenChairSize: 0.8
+  brokenChairOffset: {x: 0, y: 0}
   shakeAmount: 30
   shakeDuration: 0.15
   spots:
@@ -560,12 +562,39 @@ MonoBehaviour:
   spotsToHit: 5
   crackSprite: {fileID: 1919049737, guid: 8739ebb70bf1d84459000d416796d6f0, type: 3}
   hand: {fileID: 5915240908991705690}
-  gripOffset: {x: 120, y: -120}
-  restAngle: 20
-  swingAngle: -50
-  swingDuration: 0.3
-  impactAt: 0.35
-  hideSystemCursor: 1
+  gripOffset: {x: 0, y: 0}
+  hideSystemCursor: 0
+  raisedSprite: {fileID: 21300000, guid: 4b0e482e7c15aa643a1db759cad2e564, type: 3}
+  whackSprite: {fileID: 21300000, guid: d0369e0a0bcdd724aab7a59b5cf02cf2, type: 3}
+  trailSprite: {fileID: 21300000, guid: bcf89cba15e71394b91768f7231f29b7, type: 3}
+  impactSprites:
+  - {fileID: 1423244739, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: 423971461, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: 681153111, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  splinterSprites:
+  - {fileID: 19313692, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: -714699885, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: 368556446, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: -1846336901, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: -339409840, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: -1580012554, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  handSize: {x: 1100, y: 556}
+  handPivot: {x: 0.31, y: 0.6}
+  whackHoldTime: 0.14
+  swingCooldown: 0.18
+  whackKick: 8
+  hitStop: 0.05
+  trailFadeTime: 0.18
+  impactSize: 1
+  impactTime: 0.16
+  impactOnMiss: 1
+  splinterSize: 0.5
+  splintersPerHit: 4
+  splintersOnBreak: 14
+  splinterSpeed: 900
+  splinterGravity: 2600
+  splinterSpin: 720
+  splinterLife: 0.7
   breakDelay: 0.35
   finishDelay: 0.9
 --- !u!1 &9134928391003507424
