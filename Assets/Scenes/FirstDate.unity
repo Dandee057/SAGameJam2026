@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 212058191}
   - component: {fileID: 212058190}
   - component: {fileID: 212058189}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +773,7 @@ MonoBehaviour:
   interactRadius: 2
   interactMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9
   holdPoint: {fileID: 1977951928}
   dropDistance: 0.9
   dropHeight: 0.5
