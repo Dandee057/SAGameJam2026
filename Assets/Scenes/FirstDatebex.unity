@@ -712,10 +712,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 8810721141712300248, guid: 27b94c7d02c94ad47b468d202a7abc33, type: 3}
+      propertyPath: hideWhenRoundEnds
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2787935460005239793, guid: 27b94c7d02c94ad47b468d202a7abc33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 486141474}
   m_SourcePrefab: {fileID: 100100000, guid: 27b94c7d02c94ad47b468d202a7abc33, type: 3}
 --- !u!224 &108142696 stripped
 RectTransform:
@@ -2632,6 +2639,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 925776036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &486141472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2787935460005239793, guid: 27b94c7d02c94ad47b468d202a7abc33, type: 3}
+  m_PrefabInstance: {fileID: 108142695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &486141474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486141472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70d59e01b4b4dceaddc42e2cc102c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrder: 500
 --- !u!212 &487688772 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8840539218616516617, guid: 118d2952bbb65924388ddf44cc74689a, type: 3}
