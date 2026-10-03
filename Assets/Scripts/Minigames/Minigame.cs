@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+/// Passed to a minigame when it starts, so it knows what it's being played for.
 public class MinigameContext
 {
     public PlayerInteractor player;
@@ -8,12 +9,17 @@ public class MinigameContext
     public InteractionZone zone;
 }
 
+/// Base class for every zone minigame. Make a UI prefab (full-screen panel), put a subclass on its root,
+/// and drag the prefab into a zone's 'minigamePrefab'.
+///
+/// To write a new minigame: override Begin() to set up, do your thing in Update(), and call Finish(true/false).
 public abstract class Minigame : MonoBehaviour
 {
     [Tooltip("Can the player back out with the cancel key (Esc)?")]
     public bool canCancel = true;
 
-    public Action<bool> onFinished;
+    /// Set by MinigameManager.
+    public Action<bool, Vignette> onFinished;
 
     protected MinigameContext context;
     private bool finished;
@@ -33,7 +39,10 @@ public abstract class Minigame : MonoBehaviour
         Finish(false);
     }
 
-    protected void Finish(bool success)
+    /// Call when the minigame ends. success = true triggers the zone's effect.
+    /// 'result' (optional) is the vignette this run earned - it replaces the zone's own vignette.
+    /// Leave it null to use the zone's default.
+    protected void Finish(bool success, Vignette result = null)
     {
         if (finished)
         {
@@ -41,6 +50,6 @@ public abstract class Minigame : MonoBehaviour
         }
 
         finished = true;
-        onFinished?.Invoke(success);
+        onFinished?.Invoke(success, result);
     }
 }
