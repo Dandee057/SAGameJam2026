@@ -20,7 +20,17 @@ public class PlayerController : MonoBehaviour
     public bool inputLocked;
 
 
+    [Header("Hiding")]
+    [Tooltip("Set IsHidden = true from anywhere (a hiding spot, a button) and the player swaps to this sprite. " +
+             "Moving or jumping un-hides them again.")]
     public bool IsHidden;
+
+    [Tooltip("Sprite shown while hidden. Leave empty to keep the normal sprite.")]
+    public Sprite hiddenSprite;
+
+    [Tooltip(
+        "Movement is ignored for this long right after hiding, so a held direction key doesn't instantly un-hide you.")]
+    public float unhideGraceTime = 0.1f;
 
     [Header("Knockback")] public float knockbackDecel = 20f;
 
@@ -28,6 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private float stunTimer;
     private Vector3 knockbackVel;
+
+    private Sprite normalSprite;
+    private bool wasHidden;
+    private float hiddenSince;
 
 
     public void Knockback(Vector3 direction, float speed, float stunDuration)
@@ -55,10 +69,37 @@ public class PlayerController : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
+
+        if (spriteRenderer != null)
+        {
+            normalSprite = spriteRenderer.sprite;
+        }
+    }
+
+    /// Keeps the sprite in step with IsHidden, however it was changed (code, a zone, the debug key, the inspector).
+    private void SyncHiddenVisual()
+    {
+        if (IsHidden == wasHidden)
+        {
+            return;
+        }
+
+        wasHidden = IsHidden;
+        if (IsHidden)
+        {
+            hiddenSince = Time.time;
+        }
+
+        if (spriteRenderer != null && hiddenSprite != null)
+        {
+            spriteRenderer.sprite = IsHidden ? hiddenSprite : normalSprite;
+        }
     }
 
     private void Update()
     {
+        SyncHiddenVisual();
+
         if (stunTimer > 0f)
         {
             stunTimer -= Time.deltaTime;
@@ -70,13 +111,21 @@ public class PlayerController : MonoBehaviour
             : new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         input = Vector2.ClampMagnitude(input, 1f);
 
-        if (!inputLocked && stunTimer <= 0f && Input.GetButtonDown("Jump"))
+        bool jumpPressed = !inputLocked && stunTimer <= 0f && Input.GetButtonDown("Jump");
+        if (jumpPressed)
         {
             jumpBufferTimer = jumpBufferTime;
         }
         else
         {
             jumpBufferTimer -= Time.deltaTime;
+        }
+
+        // moving (or jumping) breaks cover
+        if (IsHidden && (input.sqrMagnitude > 0.01f || jumpPressed) && Time.time - hiddenSince >= unhideGraceTime)
+        {
+            IsHidden = false;
+            SyncHiddenVisual();
         }
 
         Vector3 camF = cameraTransform.forward;
