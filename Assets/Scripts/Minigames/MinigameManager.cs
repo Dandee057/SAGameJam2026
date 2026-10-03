@@ -1,9 +1,6 @@
 using System;
 using UnityEngine;
 
-/// One per scene. Needs a screen-space Canvas to put minigame panels on.
-/// Optional 'dimBackground': a full-screen semi-transparent Image that's the FIRST child of the canvas.
-/// Note: the game does NOT pause during a minigame (so the date countdown keeps ticking = tension).
 public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance { get; private set; }
@@ -26,14 +23,14 @@ public class MinigameManager : MonoBehaviour
 
     public void Run(Minigame prefab, MinigameContext ctx, Action<bool, Vignette> done)
     {
-        if (current != null)
+        if (current)
         {
             return;
         }
 
         PlayerController pc = ctx.player.GetComponent<PlayerController>();
         pc.inputLocked = true;
-        if (dimBackground != null)
+        if (dimBackground)
         {
             dimBackground.SetActive(true);
         }
@@ -43,13 +40,13 @@ public class MinigameManager : MonoBehaviour
         {
             Minigame mg = current;
             current = null;
-            if (mg != null)
+            if (mg)
             {
                 Destroy(mg.gameObject);
             }
 
             pc.inputLocked = false;
-            if (dimBackground != null)
+            if (dimBackground)
             {
                 dimBackground.SetActive(false);
             }
@@ -61,7 +58,7 @@ public class MinigameManager : MonoBehaviour
 
     public void CancelCurrent()
     {
-        if (current != null)
+        if (current)
         {
             current.Cancel();
         }
@@ -69,7 +66,7 @@ public class MinigameManager : MonoBehaviour
 
     private void Update()
     {
-        if (current != null && current.canCancel && Input.GetKeyDown(cancelKey))
+        if (current && current.canCancel && Input.GetKeyDown(cancelKey))
         {
             current.Cancel();
         }

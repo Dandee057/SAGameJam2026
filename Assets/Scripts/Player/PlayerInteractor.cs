@@ -1,27 +1,22 @@
 using UnityEngine;
 
-/// Every frame: figure out what the player COULD do, show it as a thought, and do it on E.
-///   - Near a zone that fits (right item, or an item-less zone with empty hands) -> bubble shows the zone's thought. E uses it.
-///   - Empty hands near an item -> bubble shows the item. E picks it up.
-///   - Empty hands near both   -> whichever is closer wins.
-///   - Holding an item, no zone nearby -> no bubble. E drops it.
 [RequireComponent(typeof(PlayerController))]
 public class PlayerInteractor : MonoBehaviour
 {
     public KeyCode interactKey = KeyCode.E;
-    public LayerMask interactMask; // layer for items
+    public LayerMask interactMask;
 
-    [Header("Ranges")] public float itemRadius = 1.5f; // how close to an item to "think about it"
-    // zones define their own reach - see InteractionZone.reach
+    [Header("Ranges")] public float itemRadius = 1.5f;
+
 
     [Header("References")] public Transform holdPoint;
-    public ThoughtBubble thoughtBubble; // auto-found on a child if left empty
+    public ThoughtBubble thoughtBubble;
 
     [Header("Drop")] public float dropDistance = 0.9f;
     public float dropHeight = 0.5f;
 
     public MainItem Held { get; private set; }
-    public bool Busy { get; private set; } // true while a zone interaction / minigame is running
+    public bool Busy { get; private set; }
 
     private PlayerController player;
     private readonly Collider[] hits = new Collider[16];
@@ -50,7 +45,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (Busy || player.IsStunned)
         {
-            if (thoughtBubble != null)
+            if (thoughtBubble)
             {
                 thoughtBubble.Hide();
             }
@@ -74,15 +69,14 @@ public class PlayerInteractor : MonoBehaviour
         float bestItem = float.MaxValue;
         float bestZone = float.MaxValue;
 
-        // items (only when hands are empty)
-        if (Held == null)
+        if (!Held)
         {
             int count = Physics.OverlapSphereNonAlloc(transform.position, itemRadius, hits, interactMask,
                 QueryTriggerInteraction.Collide);
             for (int i = 0; i < count; i++)
             {
                 MainItem item = hits[i].GetComponentInParent<MainItem>();
-                if (item == null || item.IsHeld)
+                if (!item || item.IsHeld)
                 {
                     continue;
                 }
@@ -96,7 +90,6 @@ public class PlayerInteractor : MonoBehaviour
             }
         }
 
-        // zones (item zones when holding the right thing, item-less zones when empty-handed)
         foreach (InteractionZone zone in InteractionZone.All)
         {
             if (!zone.CanUse(Held) || !zone.IsInRange(transform.position))
@@ -112,8 +105,8 @@ public class PlayerInteractor : MonoBehaviour
             }
         }
 
-        // both available (empty-handed): nearest wins
-        if (candidateItem != null && candidateZone != null)
+
+        if (candidateItem && candidateZone)
         {
             if (bestZone <= bestItem)
             {
@@ -128,16 +121,16 @@ public class PlayerInteractor : MonoBehaviour
 
     private void UpdateBubble()
     {
-        if (thoughtBubble == null)
+        if (!thoughtBubble)
         {
             return;
         }
 
-        if (candidateZone != null)
+        if (candidateZone)
         {
             thoughtBubble.Show(candidateZone.thoughtSprite, candidateZone.thoughtPrefab);
         }
-        else if (candidateItem != null)
+        else if (candidateItem)
         {
             thoughtBubble.Show(candidateItem.thoughtSprite, candidateItem.thoughtPrefab);
         }
@@ -149,14 +142,14 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Interact()
     {
-        if (candidateZone != null)
+        if (candidateZone)
         {
-            MainItem item = Held; // may be null (item-less zone)
+            MainItem item = Held;
             Busy = true;
             candidateZone.Interact(item, this, consumed =>
             {
                 Busy = false;
-                if (consumed && item != null)
+                if (consumed && item)
                 {
                     item.Consume();
                     Held = null;
@@ -165,9 +158,9 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        if (Held == null)
+        if (!Held)
         {
-            if (candidateItem == null)
+            if (!candidateItem)
             {
                 return;
             }

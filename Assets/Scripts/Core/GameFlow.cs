@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum GamePhase
 {
@@ -9,8 +8,6 @@ public enum GamePhase
     Finished
 }
 
-/// Runs the round: 60s of sabotage -> lock the player -> if hidden, play the sabotage cutscene; if not, the caught cutscene
-/// -> win/lose screen.
 public class GameFlow : MonoBehaviour
 {
     public float duration = 60f;
@@ -19,7 +16,6 @@ public class GameFlow : MonoBehaviour
     public PlayerInteractor interactor;
     public CutscenePlayer cutscene;
     public ResultScreen resultScreen;
-    public Text timerText; // legacy UI Text; swap for TMP_Text if you use TextMeshPro
 
     [Header("Debug (until the real hiding mechanic exists)")]
     public bool allowDebugKeys = true;
@@ -70,10 +66,6 @@ public class GameFlow : MonoBehaviour
         }
 
         Remaining -= Time.deltaTime;
-        if (timerText != null)
-        {
-            timerText.text = Mathf.CeilToInt(Mathf.Max(Remaining, 0f)).ToString();
-        }
 
         if (Remaining <= 0f)
         {
@@ -85,7 +77,6 @@ public class GameFlow : MonoBehaviour
     {
         Phase = GamePhase.Cutscene;
 
-        // kill any open minigame first (it unlocks the player when it closes), then lock everything
         if (MinigameManager.Instance != null)
         {
             MinigameManager.Instance.CancelCurrent();
@@ -93,17 +84,11 @@ public class GameFlow : MonoBehaviour
 
         player.inputLocked = true;
         interactor.enabled = false;
-        foreach (var w in WaiterWander.All)
+        foreach (WaiterWander w in WaiterWander.All)
         {
             w.Freeze();
         }
 
-        if (timerText != null)
-        {
-            timerText.gameObject.SetActive(false);
-        }
-
-        // checked exactly once, the moment the timer hits zero
         WasCaught = !player.IsHidden;
 
         if (WasCaught)

@@ -3,11 +3,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-/// A waiter who wanders: pick a random spot on the NavMesh, walk there, pause, repeat.
-/// If the player bumps into them they get knocked back and stunned.
-///
-/// Setup: a GameObject with a NavMeshAgent + this script (+ a billboard sprite child).
-/// The player must be tagged "Player" (or drag it into 'player'). The floor needs a baked NavMesh.
 [RequireComponent(typeof(NavMeshAgent))]
 public class WaiterWander : MonoBehaviour
 {
@@ -17,22 +12,21 @@ public class WaiterWander : MonoBehaviour
     public Transform wanderCenter;
 
     public float wanderRadius = 8f;
-    public float minTravelDistance = 2f; // ignore picks closer than this
+    public float minTravelDistance = 2f;
     public float minWait = 0.5f;
     public float maxWait = 2f;
     public float arriveDistance = 0.3f;
 
-    [Header("Bumping the player")] public PlayerController player; // auto-found by the "Player" tag if empty
-    public float contactRadius = 0.8f; // flat distance at which the waiter "hits" the player
-    public float maxHeightDifference = 1.5f; // so jumping over/past them doesn't count
-    public float knockbackSpeed = 9f; // with the player's knockbackDecel (20) that's about 2 units of shove
+    [Header("Bumping the player")] public PlayerController player;
+    public float contactRadius = 0.8f;
+    public float maxHeightDifference = 1.5f;
+    public float knockbackSpeed = 9f;
     public float stunDuration = 2f;
-    public float hitCooldown = 1f; // grace period AFTER the stun ends
-    public float pauseAfterHit = 1f; // waiter stops for a moment, too
-    public UnityEvent onHitPlayer; // hook up sounds / a dizzy effect
+    public float hitCooldown = 1f;
+    public float pauseAfterHit = 1f;
+    public UnityEvent onHitPlayer;
 
-    [Header("Visuals")]
-    public SpriteRenderer spriteRenderer; // auto-found in children if empty; flipped to face the walking direction
+    [Header("Visuals")] public SpriteRenderer spriteRenderer;
 
     [Tooltip("Tick if your waiter art faces RIGHT by default. Untick if it faces left.")]
     public bool artFacesRight = true;
@@ -58,7 +52,7 @@ public class WaiterWander : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false; // the sprite billboards, so no need to spin the root
+        agent.updateRotation = false;
 
         center = wanderCenter != null ? wanderCenter.position : transform.position;
         waitTimer = Random.Range(minWait, maxWait);
@@ -87,11 +81,10 @@ public class WaiterWander : MonoBehaviour
         }
     }
 
-    /// Called by GameFlow when the sabotage phase ends.
     public void Freeze()
     {
         frozen = true;
-        if (agent != null && agent.isOnNavMesh)
+        if (agent && agent.isOnNavMesh)
         {
             agent.isStopped = true;
         }
@@ -157,20 +150,19 @@ public class WaiterWander : MonoBehaviour
             return;
         }
 
-        // nothing suitable found - wait and try again
         waitTimer = Random.Range(minWait, maxWait);
     }
 
     private void CheckPlayerContact()
     {
-        if (player == null)
+        if (!player)
         {
             return;
         }
 
         if (player.inputLocked || player.IsStunned || player.IsHidden)
         {
-            return; // in a minigame / already stunned / hiding
+            return;
         }
 
         if (Time.time < nextHitTime)
@@ -190,12 +182,11 @@ public class WaiterWander : MonoBehaviour
             return;
         }
 
-        // push the player directly away from the waiter
         Vector3 dir = d.sqrMagnitude > 0.0001f ? d.normalized : transform.forward;
         player.Knockback(dir, knockbackSpeed, stunDuration);
 
         nextHitTime = Time.time + stunDuration + hitCooldown;
-        if (agent != null && agent.isOnNavMesh)
+        if (agent && agent.isOnNavMesh)
         {
             StartWaiting(pauseAfterHit);
         }
@@ -205,12 +196,11 @@ public class WaiterWander : MonoBehaviour
 
     private void UpdateFacing()
     {
-        if (spriteRenderer == null || cam == null)
+        if (!spriteRenderer || !cam)
         {
             return;
         }
 
-        // which way is she heading on SCREEN? (left/right relative to the camera)
         float screenX = Vector3.Dot(agent.desiredVelocity, cam.right);
         if (Mathf.Abs(screenX) > 0.1f)
         {

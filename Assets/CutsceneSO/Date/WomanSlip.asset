@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: WomanSlip
   m_EditorClassIdentifier: 
   playOrder: 0
-  frames: []
+  frames:
+  - sprite: {fileID: 0}
+    duration: 0
+  - sprite: {fileID: 0}
+    duration: 0
   defaultFrameDuration: 1
-  relationshipDelta: 10
-  impactFrame: 1
+  relationshipDelta: -10.24
+  impactFrame: 2
   sound: {fileID: 0}

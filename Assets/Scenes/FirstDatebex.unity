@@ -9168,7 +9168,6 @@ MonoBehaviour:
   interactor: {fileID: 1972342610}
   cutscene: {fileID: 1003960147}
   resultScreen: {fileID: 1055087753}
-  timerText: {fileID: 0}
   allowDebugKeys: 1
   toggleHiddenKey: 104
 --- !u!4 &1282549120
@@ -10188,7 +10187,7 @@ MonoBehaviour:
   spawnPrefab: {fileID: 0}
   spawnPoint: {fileID: 73977397}
   swapRenderer: {fileID: 1798887409}
-  swapSprite: {fileID: 21300000, guid: f38719417e81f8a47885b9fc20a61e71, type: 3}
+  swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -12616,7 +12615,7 @@ MonoBehaviour:
   spawnPrefab: {fileID: 0}
   spawnPoint: {fileID: 1439279932}
   swapRenderer: {fileID: 487688772}
-  swapSprite: {fileID: 21300000, guid: f38719417e81f8a47885b9fc20a61e71, type: 3}
+  swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   onActivated:
     m_PersistentCalls:
       m_Calls: []
