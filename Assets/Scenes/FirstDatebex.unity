@@ -517,7 +517,8 @@ MonoBehaviour:
   onHitPlayer:
     m_PersistentCalls:
       m_Calls: []
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1170521707}
+  artFacesRight: 1
 --- !u!1 &101392741
 GameObject:
   m_ObjectHideFlags: 0
@@ -8352,6 +8353,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!212 &1170521707 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2825763869561462942, guid: 33e8af6bc20f5934695784a70dd86f2c, type: 3}
+  m_PrefabInstance: {fileID: 6921798607452220001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178113122
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,7 +31,11 @@ public class WaiterWander : MonoBehaviour
     public float pauseAfterHit = 1f; // waiter stops for a moment, too
     public UnityEvent onHitPlayer; // hook up sounds / a dizzy effect
 
-    [Header("Visuals")] public SpriteRenderer spriteRenderer; // optional: flips left/right
+    [Header("Visuals")]
+    public SpriteRenderer spriteRenderer; // auto-found in children if empty; flipped to face the walking direction
+
+    [Tooltip("Tick if your waiter art faces RIGHT by default. Untick if it faces left.")]
+    public bool artFacesRight = true;
 
     private NavMeshAgent agent;
     private Vector3 center;
@@ -61,6 +65,11 @@ public class WaiterWander : MonoBehaviour
         if (Camera.main != null)
         {
             cam = Camera.main.transform;
+        }
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         if (player == null)
@@ -201,10 +210,12 @@ public class WaiterWander : MonoBehaviour
             return;
         }
 
-        float screenX = Vector3.Dot(agent.velocity, cam.right);
+        // which way is she heading on SCREEN? (left/right relative to the camera)
+        float screenX = Vector3.Dot(agent.desiredVelocity, cam.right);
         if (Mathf.Abs(screenX) > 0.1f)
         {
-            spriteRenderer.flipX = screenX < 0f;
+            bool goingLeft = screenX < 0f;
+            spriteRenderer.flipX = artFacesRight ? goingLeft : !goingLeft;
         }
     }
 
