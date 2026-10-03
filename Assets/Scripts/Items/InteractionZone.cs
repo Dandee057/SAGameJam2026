@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
 
 public class InteractionZone : MonoBehaviour
 {
@@ -22,14 +24,21 @@ public class InteractionZone : MonoBehaviour
     [Header("Thought bubble")] public Sprite thoughtSprite;
     public GameObject thoughtPrefab;
 
+    [Header("Minigame (optional)")]
+    [Tooltip(
+        "Leave empty for an instant interaction. Otherwise this UI prefab opens and the effect only happens on success.")]
+    public Minigame minigamePrefab;
+
     [Header("What happens")] public bool consumeItem = true;
     public GameObject spawnPrefab;
     public Transform spawnPoint;
     public UnityEvent<PlayerInteractor> onActivated;
+    public UnityEvent<PlayerInteractor> onFailed;
 
     [Header("Editor gizmo")] public Color gizmoColor = new(0.2f, 0.9f, 1f, 1f);
 
     public bool Used { get; private set; }
+    public bool InProgress { get; private set; }
 
     private void OnEnable()
     {
@@ -53,8 +62,14 @@ public class InteractionZone : MonoBehaviour
             return false;
         }
 
+        if (InProgress)
+        {
+            return false;
+        }
+
         return held.itemId == requiredItemId;
     }
+
 
     public bool IsInRange(Vector3 playerPos)
     {
@@ -68,13 +83,48 @@ public class InteractionZone : MonoBehaviour
         return d.sqrMagnitude <= reach * reach;
     }
 
-    public bool Activate(MainItem held, PlayerInteractor user)
+
+    public void Interact(MainItem held, PlayerInteractor user, Action<bool> finished)
+    {
+        if (minigamePrefab == null)
+        {
+            finished?.Invoke(Complete(user));
+            return;
+        }
+
+        if (MinigameManager.Instance == null)
+        {
+            Debug.LogWarning(
+                $"{name}: has a minigame but there's no MinigameManager in the scene. Skipping the minigame.", this);
+            finished?.Invoke(Complete(user));
+            return;
+        }
+
+        InProgress = true;
+        MinigameContext ctx = new() { player = user, item = held, zone = this };
+        MinigameManager.Instance.Run(minigamePrefab, ctx, success =>
+        {
+            InProgress = false;
+            if (success)
+            {
+                finished?.Invoke(Complete(user));
+            }
+            else
+            {
+                onFailed?.Invoke(user);
+                finished?.Invoke(false);
+            }
+        });
+    }
+
+
+    private bool Complete(PlayerInteractor user)
     {
         Used = true;
 
-        if (spawnPrefab)
+        if (spawnPrefab != null)
         {
-            Transform p = spawnPoint ? spawnPoint : transform;
+            Transform p = spawnPoint != null ? spawnPoint : transform;
             Instantiate(spawnPrefab, p.position, p.rotation);
         }
 

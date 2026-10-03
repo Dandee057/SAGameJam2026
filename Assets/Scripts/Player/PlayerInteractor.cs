@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(PlayerController))]
 public class PlayerInteractor : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class PlayerInteractor : MonoBehaviour
     public float dropHeight = 0.5f;
 
     public MainItem Held { get; private set; }
+    public bool Busy { get; private set; }
 
     private PlayerController player;
     private readonly Collider[] hits = new Collider[16];
@@ -35,6 +35,16 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
+        if (Busy)
+        {
+            if (thoughtBubble)
+            {
+                thoughtBubble.Hide();
+            }
+
+            return;
+        }
+
         Scan();
         UpdateBubble();
 
@@ -125,11 +135,17 @@ public class PlayerInteractor : MonoBehaviour
         }
         else if (candidateZone)
         {
-            if (candidateZone.Activate(Held, this))
+            MainItem item = Held;
+            Busy = true;
+            candidateZone.Interact(item, this, consumed =>
             {
-                Held.Consume();
-                Held = null;
-            }
+                Busy = false;
+                if (consumed)
+                {
+                    item.Consume();
+                    Held = null;
+                }
+            });
         }
         else
         {
