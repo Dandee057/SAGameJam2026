@@ -33,11 +33,19 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if (thoughtBubble != null)
+        {
+            thoughtBubble.Hide();
+        }
+    }
+
     private void Update()
     {
         if (Busy)
         {
-            if (thoughtBubble)
+            if (thoughtBubble != null)
             {
                 thoughtBubble.Hide();
             }
@@ -102,16 +110,16 @@ public class PlayerInteractor : MonoBehaviour
 
     private void UpdateBubble()
     {
-        if (!thoughtBubble)
+        if (thoughtBubble == null)
         {
             return;
         }
 
-        if (candidateItem)
+        if (candidateItem != null)
         {
             thoughtBubble.Show(candidateItem.thoughtSprite, candidateItem.thoughtPrefab);
         }
-        else if (candidateZone)
+        else if (candidateZone != null)
         {
             thoughtBubble.Show(candidateZone.thoughtSprite, candidateZone.thoughtPrefab);
         }
@@ -123,9 +131,9 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Interact()
     {
-        if (!Held)
+        if (Held == null)
         {
-            if (!candidateItem)
+            if (candidateItem == null)
             {
                 return;
             }
@@ -133,7 +141,7 @@ public class PlayerInteractor : MonoBehaviour
             Held = candidateItem;
             Held.PickUp(holdPoint);
         }
-        else if (candidateZone)
+        else if (candidateZone != null)
         {
             MainItem item = Held;
             Busy = true;

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     public bool inputLocked;
+    public bool IsHidden;
     public Vector3 Facing { get; private set; } = Vector3.forward;
     public bool IsGrounded => controller.isGrounded;
 

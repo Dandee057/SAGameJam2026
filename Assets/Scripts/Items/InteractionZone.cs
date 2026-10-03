@@ -29,7 +29,10 @@ public class InteractionZone : MonoBehaviour
         "Leave empty for an instant interaction. Otherwise this UI prefab opens and the effect only happens on success.")]
     public Minigame minigamePrefab;
 
-    [Header("What happens")] public bool consumeItem = true;
+    [Header("What happens")] [Tooltip("The cutscene clip this sabotage adds to the end-of-round playback.")]
+    public Vignette vignette;
+
+    public bool consumeItem = true;
     public GameObject spawnPrefab;
     public Transform spawnPoint;
     public UnityEvent<PlayerInteractor> onActivated;
@@ -52,7 +55,7 @@ public class InteractionZone : MonoBehaviour
 
     public bool CanUse(MainItem held)
     {
-        if (!held)
+        if (held == null)
         {
             return false;
         }
@@ -70,7 +73,6 @@ public class InteractionZone : MonoBehaviour
         return held.itemId == requiredItemId;
     }
 
-
     public bool IsInRange(Vector3 playerPos)
     {
         Vector3 d = playerPos - transform.position;
@@ -82,7 +84,6 @@ public class InteractionZone : MonoBehaviour
         d.y = 0f;
         return d.sqrMagnitude <= reach * reach;
     }
-
 
     public void Interact(MainItem held, PlayerInteractor user, Action<bool> finished)
     {
@@ -117,10 +118,10 @@ public class InteractionZone : MonoBehaviour
         });
     }
 
-
     private bool Complete(PlayerInteractor user)
     {
         Used = true;
+        RunLog.Add(vignette, Time.time);
 
         if (spawnPrefab != null)
         {
@@ -133,24 +134,20 @@ public class InteractionZone : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // ---------- Scene view gizmos ----------
     private void OnDrawGizmos()
     {
         Color c = Used ? new Color(0.5f, 0.5f, 0.5f, 1f) : gizmoColor;
         Vector3 pos = transform.position;
-
 
         Handles.color = new Color(c.r, c.g, c.b, 0.12f);
         Handles.DrawSolidDisc(pos, Vector3.up, reach);
         Handles.color = c;
         Handles.DrawWireDisc(pos, Vector3.up, reach);
 
-
         Gizmos.color = c;
         Gizmos.DrawWireSphere(pos, 0.1f);
         Gizmos.color = new Color(c.r, c.g, c.b, 0.3f);
         Gizmos.DrawLine(pos + Vector3.down * maxHeightDifference, pos + Vector3.up * maxHeightDifference);
-
 
         if (spawnPrefab != null)
         {

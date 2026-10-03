@@ -24,14 +24,14 @@ public class MinigameManager : MonoBehaviour
 
     public void Run(Minigame prefab, MinigameContext ctx, Action<bool> done)
     {
-        if (current)
+        if (current != null)
         {
             return;
         }
 
         PlayerController pc = ctx.player.GetComponent<PlayerController>();
         pc.inputLocked = true;
-        if (dimBackground)
+        if (dimBackground != null)
         {
             dimBackground.SetActive(true);
         }
@@ -41,13 +41,13 @@ public class MinigameManager : MonoBehaviour
         {
             Minigame mg = current;
             current = null;
-            if (mg)
+            if (mg != null)
             {
                 Destroy(mg.gameObject);
             }
 
             pc.inputLocked = false;
-            if (dimBackground)
+            if (dimBackground != null)
             {
                 dimBackground.SetActive(false);
             }
@@ -57,9 +57,17 @@ public class MinigameManager : MonoBehaviour
         current.Begin(ctx);
     }
 
+    public void CancelCurrent()
+    {
+        if (current != null)
+        {
+            current.Cancel();
+        }
+    }
+
     private void Update()
     {
-        if (current && current.canCancel && Input.GetKeyDown(cancelKey))
+        if (current != null && current.canCancel && Input.GetKeyDown(cancelKey))
         {
             current.Cancel();
         }
