@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +19,7 @@ public class GameFlow : MonoBehaviour
     public PlayerInteractor interactor;
     public CutscenePlayer cutscene;
     public ResultScreen resultScreen;
-    public TMP_Text timerText; // legacy UI Text; swap for TMP_Text if you use TextMeshPro
+    public Text timerText; // legacy UI Text; swap for TMP_Text if you use TextMeshPro
 
     [Header("Debug (until the real hiding mechanic exists)")]
     public bool allowDebugKeys = true;
@@ -94,6 +93,11 @@ public class GameFlow : MonoBehaviour
 
         player.inputLocked = true;
         interactor.enabled = false;
+        foreach (var w in WaiterWander.All)
+        {
+            w.Freeze();
+        }
+
         if (timerText != null)
         {
             timerText.gameObject.SetActive(false);

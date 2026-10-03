@@ -48,7 +48,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        if (Busy)
+        if (Busy || player.IsStunned)
         {
             if (thoughtBubble != null)
             {
