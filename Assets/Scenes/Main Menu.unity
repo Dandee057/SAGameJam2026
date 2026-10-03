@@ -6108,7 +6108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8f0d08d5944644b949d3baa095ac47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Game
+  gameSceneName: FirstDate
   creditsSceneName: Credits
   mainPanel: {fileID: 168062576}
   howToPlayPanel: {fileID: 369145329}

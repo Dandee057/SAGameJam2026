@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private string gameSceneName = "Game";
+    [SerializeField] private string gameSceneName = "FirstDate";
     [SerializeField] private string creditsSceneName = "Credits";
 
     [Header("Panels")]
