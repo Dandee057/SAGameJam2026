@@ -4,14 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class MainItem : MonoBehaviour
 {
-    public string itemId = "item"; 
+    public string itemId = "item";
+    public Sprite thoughtSprite;
+    public GameObject thoughtPrefab;
 
     public bool IsHeld { get; private set; }
 
-    Rigidbody rb;
-    Collider[] colliders;
+    private Rigidbody rb;
+    private Collider[] colliders;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         colliders = GetComponentsInChildren<Collider>();
@@ -21,7 +23,10 @@ public class MainItem : MonoBehaviour
     {
         IsHeld = true;
         rb.isKinematic = true;
-        foreach (Collider c in colliders) c.enabled = false;
+        foreach (Collider c in colliders)
+        {
+            c.enabled = false;
+        }
 
         transform.SetParent(holdPoint);
         transform.localPosition = Vector3.zero;
@@ -33,9 +38,16 @@ public class MainItem : MonoBehaviour
         IsHeld = false;
         transform.SetParent(null);
         transform.position = worldPosition;
-        foreach (Collider c in colliders) c.enabled = true;
-        rb.isKinematic = false; 
+        foreach (Collider c in colliders)
+        {
+            c.enabled = true;
+        }
+
+        rb.isKinematic = false;
     }
-    
-    public void Consume() => Destroy(gameObject);
+
+    public void Consume()
+    {
+        Destroy(gameObject);
+    }
 }
