@@ -43,6 +43,11 @@ public class InteractionZone : MonoBehaviour
     public bool consumeItem = true;
     public GameObject spawnPrefab;
     public Transform spawnPoint;
+
+    [Tooltip("Optional: on success, this renderer's sprite is replaced (e.g. chair -> broken chair).")]
+    public SpriteRenderer swapRenderer;
+
+    public Sprite swapSprite;
     public UnityEvent<PlayerInteractor> onActivated; // on success
     public UnityEvent<PlayerInteractor> onFailed; // minigame failed / cancelled
 
@@ -140,6 +145,11 @@ public class InteractionZone : MonoBehaviour
         {
             Transform p = spawnPoint != null ? spawnPoint : transform;
             Instantiate(spawnPrefab, p.position, p.rotation);
+        }
+
+        if (swapRenderer != null && swapSprite != null)
+        {
+            swapRenderer.sprite = swapSprite;
         }
 
         onActivated?.Invoke(user);

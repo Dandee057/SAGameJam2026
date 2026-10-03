@@ -2,20 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// Drag pineapple / anchovy pieces onto the pizza. When you're done, the result depends on what's on it:
-///   enough pineapple only -> pineappleVignette (good)
-///   enough anchovy only   -> anchovyVignette   (bad)
-///   enough of both        -> bothVignette      (super bad)
-/// "Enough" = at least 'piecesNeeded' pieces of that topping. The Done button stays greyed out until at
-/// least one topping counts (so Done always means something). Pieces can be dragged back off the pizza.
-///
-/// UI prefab layout (root = full-screen panel with this script):
-///   Pizza        (Image)                                 -> 'pizzaArea'
-///   PineapplePile (empty RectTransform; each CHILD is one piece Image)  -> 'pineapplePile'
-///   AnchovyPile   (same)                                 -> 'anchovyPile'
-///   DoneButton   (Button)                                -> 'doneButton'
-///   (optional) ready markers, e.g. a tick shown next to a pile once it counts.
-/// Don't put a Layout Group on the piles - the pieces are placed by hand and snap back to where they started.
 public class PizzaMinigame : Minigame
 {
     [Header("Pizza")] public RectTransform pizzaArea;
@@ -26,17 +12,14 @@ public class PizzaMinigame : Minigame
 
     public RectTransform anchovyPile;
 
-    [Header("Rules")]
-    [Tooltip("Pieces of a topping needed for it to count. Set equal to the pile size to require ALL of them.")]
-    public int piecesNeeded = 3;
+    [Header("Rules")] [Tooltip("Total pieces (any mix) that must be on the pizza before Done unlocks.")]
+    public int minPiecesOnPizza = 5;
 
     [Header("Outcomes")] public Vignette pineappleVignette;
     public Vignette anchovyVignette;
     public Vignette bothVignette;
 
     [Header("UI")] public Button doneButton;
-    public GameObject pineappleReadyMarker;
-    public GameObject anchovyReadyMarker;
 
     private class Piece
     {
@@ -209,35 +192,23 @@ public class PizzaMinigame : Minigame
             }
         }
 
-        int need = Mathf.Max(1, piecesNeeded);
-        bool hasPine = pine >= need;
-        bool hasAnch = anch >= need;
+        bool enoughOnPizza = pine + anch >= Mathf.Max(1, minPiecesOnPizza);
 
-        if (hasPine && hasAnch)
-        {
-            currentResult = bothVignette;
-        }
-        else if (hasPine)
-        {
-            currentResult = pineappleVignette;
-        }
-        else if (hasAnch)
-        {
-            currentResult = anchovyVignette;
-        }
-        else
+        if (!enoughOnPizza)
         {
             currentResult = null;
         }
-
-        if (pineappleReadyMarker != null)
+        else if (pine > 0 && anch > 0)
         {
-            pineappleReadyMarker.SetActive(hasPine);
+            currentResult = bothVignette;
         }
-
-        if (anchovyReadyMarker != null)
+        else if (pine > 0)
         {
-            anchovyReadyMarker.SetActive(hasAnch);
+            currentResult = pineappleVignette;
+        }
+        else
+        {
+            currentResult = anchovyVignette;
         }
 
         if (doneButton != null)
