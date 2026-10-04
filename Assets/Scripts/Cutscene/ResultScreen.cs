@@ -1,28 +1,53 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// Shown after the cutscene. Remember: the player is the SABOTEUR.
-///   Win  (they broke up)     -> winPanel  with a Main Menu button.
-///   Lose (still together)    -> losePanel with a Next Level button.
-///
-/// Keep THIS object active in the scene and make the two panels its children (inactive) - the buttons get
-/// hooked up in Awake.
 public class ResultScreen : MonoBehaviour
 {
+    [Serializable]
+    public class FlipbookArt
+    {
+        [Tooltip("The Image that shows the artwork.")]
+        public Image image;
+
+        [Tooltip("The sprites to flip between, in order. Two is typical; one = a still.")]
+        public Sprite[] frames;
+
+        [Tooltip("Seconds each sprite stays on screen.")]
+        public float frameTime = 0.5f;
+
+        public void Apply(float elapsed)
+        {
+            if (image == null || frames == null || frames.Length == 0)
+            {
+                return;
+            }
+
+            int index = (int)(elapsed / Mathf.Max(0.05f, frameTime)) % frames.Length;
+            image.sprite = frames[index];
+        }
+    }
+
     [Header("Win = they broke up")] public GameObject winPanel;
+    public FlipbookArt winArt;
     public Button mainMenuButton;
     public string mainMenuSceneName = "MainMenu";
     public UnityEvent onMainMenu;
 
     [Header("Lose = still together")] public GameObject losePanel;
+    public FlipbookArt loseArt;
     public Button nextLevelButton;
 
     [Tooltip("Scene to load for the next level. Leave empty to only fire the event.")]
     public string nextLevelSceneName;
 
     public UnityEvent onNextLevel;
+
+    private bool showing;
+    private bool shownWin;
+    private float shownAt;
 
     private void Awake()
     {
@@ -49,8 +74,8 @@ public class ResultScreen : MonoBehaviour
 
     public void Show(bool won)
     {
-        gameObject.SetActive(true); // in case it was left disabled in the scene
-        transform.SetAsLastSibling(); // draw on top of the cutscene panel (if they share a canvas)
+        gameObject.SetActive(true);
+        transform.SetAsLastSibling();
 
         if (winPanel == null || losePanel == null)
         {
@@ -60,6 +85,21 @@ public class ResultScreen : MonoBehaviour
 
         winPanel.SetActive(won);
         losePanel.SetActive(!won);
+
+        showing = true;
+        shownWin = won;
+        shownAt = Time.unscaledTime;
+        (won ? winArt : loseArt)?.Apply(0f);
+    }
+
+    private void Update()
+    {
+        if (!showing)
+        {
+            return;
+        }
+
+        (shownWin ? winArt : loseArt)?.Apply(Time.unscaledTime - shownAt);
     }
 
     private static void Go(string sceneName, UnityEvent evt)

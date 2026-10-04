@@ -835,10 +835,10 @@ MonoBehaviour:
   slideDistance: 2600
   slideTime: 0.28
   bottomStripDelay: 0.08
-  popScale: 1.12
+  popScale: 1
   popTime: 0.18
-  maxTilt: 2.5
-  shakeStrength: 10
+  maxTilt: 1
+  shakeStrength: 5
   shakeTime: 0.35
   flashAlpha: 0.75
   flashTime: 0.25
