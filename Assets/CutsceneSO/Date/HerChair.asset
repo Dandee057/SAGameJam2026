@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260285ea4ed1ef7408a74e994e0dac52, type: 3}
   m_Name: HerChair
   m_EditorClassIdentifier: 
-  playOrder: 0
-  frames: []
+  playOrder: 2
+  frames:
+  - sprite: {fileID: 21300000, guid: 56095704e69344442864559774375233, type: 3}
+    duration: 2
+  - sprite: {fileID: 21300000, guid: 8bd595ae07ee81b43b8ec3beefc99cd7, type: 3}
+    duration: 2
   defaultFrameDuration: 1
   relationshipDelta: -2
-  impactFrame: 1
+  impactFrame: 2
   sound: {fileID: 8300000, guid: 8c144f5a9abce2449886e0c328435949, type: 3}
