@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: EverythingOnPizza 2
   m_EditorClassIdentifier: 
   playOrder: 5
-  frames: []
+  frames:
+  - sprite: {fileID: 7685554, guid: b8d3120de81e0c84fb48698e3bd09f18, type: 3}
+    duration: 2
+  - sprite: {fileID: -346500759, guid: b8d3120de81e0c84fb48698e3bd09f18, type: 3}
+    duration: 2
   defaultFrameDuration: 1
   relationshipDelta: -2
-  impactFrame: 1
+  impactFrame: 2
   sound: {fileID: 8300000, guid: be48cb28740cd6c4091f9a57642a972c, type: 3}

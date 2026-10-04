@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: RatOnTable
   m_EditorClassIdentifier: 
   playOrder: 1
-  frames: []
+  frames:
+  - sprite: {fileID: 1676836929, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
+    duration: 2
+  - sprite: {fileID: -1676616072, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+    duration: 2
   defaultFrameDuration: 1
   relationshipDelta: -3
-  impactFrame: 1
+  impactFrame: 2
   sound: {fileID: 8300000, guid: 8c144f5a9abce2449886e0c328435949, type: 3}

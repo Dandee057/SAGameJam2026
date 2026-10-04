@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: PinappleOnPizza
   m_EditorClassIdentifier: 
   playOrder: 5
-  frames: []
+  frames:
+  - sprite: {fileID: 791247831, guid: b8d3120de81e0c84fb48698e3bd09f18, type: 3}
+    duration: 2
+  - sprite: {fileID: -62939034, guid: b8d3120de81e0c84fb48698e3bd09f18, type: 3}
+    duration: 2
   defaultFrameDuration: 1
   relationshipDelta: 2
-  impactFrame: 1
+  impactFrame: 2
   sound: {fileID: 8300000, guid: b3e5e2ba1cfb52f4b9d444606a128aba, type: 3}
