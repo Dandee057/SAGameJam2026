@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOrder: 0
   frames:
-  - sprite: {fileID: 21300000, guid: 398c58993ca528646afc38cbabfc8f29, type: 3}
-    duration: 2
+  - sprite: {fileID: 21300000, guid: e19d520ef12fbf4458368944c47544a8, type: 3}
+    duration: 1
+  - sprite: {fileID: 21300000, guid: fb229abaf25f45d4096a7081eb74f073, type: 3}
+    duration: 1
   defaultFrameDuration: 1
   relationshipDelta: 0
-  impactFrame: 1
+  impactFrame: 2
   sound: {fileID: 8300000, guid: 0b0177dff2060304d9191993dedd5e3f, type: 3}
