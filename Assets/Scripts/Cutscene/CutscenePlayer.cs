@@ -18,6 +18,8 @@ public class CutscenePlayer : MonoBehaviour
     public AudioSource audioSource;
 
     [Header("Playback")] public float pauseBetweenVignettes = 0.3f;
+    [Tooltip("When the intro cutscene ends, its sound fades out over this many seconds so it doesn't play over the game music. 0 = cut instantly.")]
+    public float introSoundFadeOut = 0.4f;
 
     [Tooltip("Multiplies EVERY frame's duration. 1 = as set on the vignettes, 0.5 = twice as fast, 2 = twice as slow.")]
     public float frameTimeScale = 1f;
@@ -80,6 +82,9 @@ public class CutscenePlayer : MonoBehaviour
         yield return PlayVignette(intro, false);
 
         panel.SetActive(false);
+
+        // Gameplay (and the scene music) starts now, so don't let the intro's sound bleed over it.
+        FadeOutVignetteSound(introSoundFadeOut);
     }
 
     public IEnumerator PlayCaught()
@@ -162,7 +167,33 @@ public class CutscenePlayer : MonoBehaviour
     /// Stops the current vignette sound (e.g. when the cutscene ends).
     public void StopVignetteSound()
     {
-        if (audioSource != null) audioSource.Stop();
+        if (fadeRoutine != null) { StopCoroutine(fadeRoutine); fadeRoutine = null; }
+        if (audioSource != null) { audioSource.Stop(); audioSource.volume = 1f; }
+    }
+
+    /// Fades the current vignette sound out, then stops it.
+    public void FadeOutVignetteSound(float seconds)
+    {
+        if (audioSource == null || !audioSource.isPlaying) return;
+        if (seconds <= 0f) { StopVignetteSound(); return; }
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        fadeRoutine = StartCoroutine(FadeOutRoutine(seconds));
+    }
+
+    private Coroutine fadeRoutine;
+
+    private IEnumerator FadeOutRoutine(float seconds)
+    {
+        float start = audioSource.volume, t = 0f;
+        while (t < seconds && audioSource.isPlaying)
+        {
+            t += Time.unscaledDeltaTime;
+            audioSource.volume = Mathf.Lerp(start, 0f, t / seconds);
+            yield return null;
+        }
+        fadeRoutine = null;
+        audioSource.Stop();
+        audioSource.volume = 1f;
     }
 
     private IEnumerator PlayVignette(Vignette v, bool useMeter)
