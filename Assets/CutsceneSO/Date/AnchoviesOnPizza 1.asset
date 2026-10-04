@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260285ea4ed1ef7408a74e994e0dac52, type: 3}
   m_Name: AnchoviesOnPizza 1
   m_EditorClassIdentifier: 
-  playOrder: 0
+  playOrder: 5
   frames: []
   defaultFrameDuration: 1
-  relationshipDelta: 10
+  relationshipDelta: -1
   impactFrame: 1
   sound: {fileID: 8300000, guid: de261b3c321b5c04589c42d40c2b3120, type: 3}

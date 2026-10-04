@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260285ea4ed1ef7408a74e994e0dac52, type: 3}
   m_Name: EverythingOnPizza 2
   m_EditorClassIdentifier: 
-  playOrder: 0
+  playOrder: 5
   frames: []
   defaultFrameDuration: 1
-  relationshipDelta: 10
+  relationshipDelta: -2
   impactFrame: 1
   sound: {fileID: 8300000, guid: be48cb28740cd6c4091f9a57642a972c, type: 3}

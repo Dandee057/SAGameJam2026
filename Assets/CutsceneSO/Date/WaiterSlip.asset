@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260285ea4ed1ef7408a74e994e0dac52, type: 3}
   m_Name: WaiterSlip
   m_EditorClassIdentifier: 
-  playOrder: 0
-  frames: []
+  playOrder: 4
+  frames:
+  - sprite: {fileID: 21300000, guid: 7553e81505b55e4449cb0f94858a9dc1, type: 3}
+    duration: 1.5
+  - sprite: {fileID: 21300000, guid: 1443a2e860d80b948b09bcf99197b50e, type: 3}
+    duration: 1.5
+  - sprite: {fileID: 21300000, guid: ba2e1a5f38d94714f9f6238e7984be31, type: 3}
+    duration: 2
   defaultFrameDuration: 1
-  relationshipDelta: 10
-  impactFrame: 1
+  relationshipDelta: -2
+  impactFrame: 3
   sound: {fileID: 8300000, guid: ab66867e80c4044418c28d9cfe477f3e, type: 3}

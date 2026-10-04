@@ -17,6 +17,6 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 398c58993ca528646afc38cbabfc8f29, type: 3}
     duration: 2
   defaultFrameDuration: 1
-  relationshipDelta: 10
+  relationshipDelta: 0
   impactFrame: 1
   sound: {fileID: 8300000, guid: 0b0177dff2060304d9191993dedd5e3f, type: 3}

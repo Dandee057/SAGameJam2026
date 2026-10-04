@@ -15,6 +15,6 @@ MonoBehaviour:
   playOrder: 0
   frames: []
   defaultFrameDuration: 1
-  relationshipDelta: 10
+  relationshipDelta: 2
   impactFrame: 1
   sound: {fileID: 8300000, guid: 495eea8b2e6986d498fab2f08e7e1ea4, type: 3}
