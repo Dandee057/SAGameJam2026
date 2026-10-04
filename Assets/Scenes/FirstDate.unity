@@ -8550,7 +8550,7 @@ MonoBehaviour:
   introSoundFadeOut: 0.4
   frameTimeScale: 1
   emptyFallback: {fileID: 11400000, guid: 5bc3941b9981c7848adaa42fcd03c4ca, type: 2}
-  breakupThreshold: -1
+  breakupThreshold: 0
   caughtVignettes:
   - {fileID: 11400000, guid: 268357e2548d9a54d95afdaeada68afe, type: 2}
 --- !u!4 &1003960148
