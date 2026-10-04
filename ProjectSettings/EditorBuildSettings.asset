@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: b36cac90dc1faf94aa22f26ea10f59b1
   - enabled: 1
-    path: Assets/Scenes/FirstDatebex.unity
+    path: Assets/Scenes/FirstDate.unity
     guid: 1cb06973bb24fa647ba5dff1f48d177f
   - enabled: 1
     path: Assets/Scenes/Wedding.unity
