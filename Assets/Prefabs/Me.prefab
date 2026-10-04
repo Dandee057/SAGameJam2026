@@ -153,8 +153,10 @@ MonoBehaviour:
   walkFrames:
   - {fileID: -5807341, guid: 702a510a9b44948409d3b4dd7bc39980, type: 3}
   - {fileID: 1688665815, guid: 702a510a9b44948409d3b4dd7bc39980, type: 3}
+  hiddenFrames: []
   idleFrameTime: 0.5
   walkFrameTime: 0.15
+  hiddenFrameTime: 0.5
 --- !u!1 &1580511181081193968
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +346,9 @@ MonoBehaviour:
   IsHidden: 0
   hiddenSprite: {fileID: 21300000, guid: 1b83d4321e31dab4e86255cfaac78421, type: 3}
   unhideGraceTime: 0.1
+  hideSound: {fileID: 8300000, guid: 28cc75bdc3ee2a74390c5dd7b831c6a6, type: 3}
+  unhideSound: {fileID: 8300000, guid: 28cc75bdc3ee2a74390c5dd7b831c6a6, type: 3}
+  hideSoundVolume: 0.5
   knockbackDecel: 20
 --- !u!114 &2460249232880196345
 MonoBehaviour:

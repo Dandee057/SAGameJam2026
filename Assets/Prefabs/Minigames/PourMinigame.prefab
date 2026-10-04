@@ -203,6 +203,11 @@ MonoBehaviour:
   splash: {fileID: 0}
   foam: {fileID: 0}
   puddle: {fileID: 0}
+  mashSounds: []
+  pourLoop: {fileID: 8300000, guid: 6a5f0cbd0a35f9f42a0a1a7cf78fa67f, type: 3}
+  splashSound: {fileID: 0}
+  sfxVolume: 1
+  pourFadeSpeed: 6
   mashKey: 97
   kickPerPress: 12
   uprightPull: 50

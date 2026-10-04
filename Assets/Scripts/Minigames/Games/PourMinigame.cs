@@ -73,6 +73,17 @@ public class PourMinigame : Minigame
     public Image foam;
     public Image puddle;
 
+    [Header("Sounds")]
+    [Tooltip("Sloshing on every key press. One is picked at random (Jug_Slosh_1/2).")]
+    public AudioClip[] mashSounds;
+    [Tooltip("Looping water stream while it pours (Pour_Loop). Fades in/out automatically.")]
+    public AudioClip pourLoop;
+    [Tooltip("Splash when the water first hits the floor (Water_Splash).")]
+    public AudioClip splashSound;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
+    [Tooltip("How fast the pour loop fades in/out (volume per second).")]
+    public float pourFadeSpeed = 6f;
+
     [Header("Input")] public KeyCode mashKey = KeyCode.A;
 
     [Header("Tuning (degrees)")] public float kickPerPress = 12f;
@@ -94,10 +105,13 @@ public class PourMinigame : Minigame
     private int splashIndex;
     private bool done;
     private bool puddlePlaced;
+    private AudioSource pourSource;
+    private bool wasPouring;
 
     protected override void OnBegin()
     {
         BuildVisuals();
+        if (pourSource == null) pourSource = Sfx.MakeLoop(gameObject, pourLoop);
         if (hint) hint.SetActive(true);
         Apply(false);
     }
@@ -106,6 +120,7 @@ public class PourMinigame : Minigame
     {
         if (done)
         {
+            UpdateSound(false);
             finishTimer -= Time.deltaTime;
             if (finishTimer <= 0f) Finish(true);
             return;
@@ -117,6 +132,7 @@ public class PourMinigame : Minigame
         if (Input.GetKeyDown(mashKey))
         {
             angularVel += kickPerPress;
+            Sfx.Play(mashSounds, sfxVolume * 0.6f, 0.12f);
             if (hint) hint.SetActive(false);
         }
 
@@ -137,6 +153,7 @@ public class PourMinigame : Minigame
         }
 
         Apply(pouring);
+        UpdateSound(pouring);
 
         if (progress >= 1f)
         {
@@ -148,6 +165,19 @@ public class PourMinigame : Minigame
         {
             Finish(false);
         }
+    }
+
+    // ---------------------------------------------------------------- sound
+
+    private void UpdateSound(bool pouring)
+    {
+        if (pouring && !wasPouring) Sfx.Play(splashSound, sfxVolume * 0.8f);
+        wasPouring = pouring;
+
+        if (pourSource == null) return;
+        if (!pourSource.isPlaying) pourSource.Play();
+        float target = pouring ? sfxVolume : 0f;
+        pourSource.volume = Mathf.MoveTowards(pourSource.volume, target, pourFadeSpeed * Time.unscaledDeltaTime);
     }
 
     // ---------------------------------------------------------------- visuals

@@ -21,6 +21,15 @@ public class PizzaMinigame : Minigame
 
     [Header("UI")] public Button doneButton;
 
+    [Header("Sounds")]
+    [Tooltip("When you pick a piece up (Pickup_Pop).")]
+    public AudioClip pickUpSound;
+    [Tooltip("When a piece lands on the pizza (Drop_Plop).")]
+    public AudioClip placeSound;
+    [Tooltip("When a piece is dropped off the pizza and goes back to its pile. Optional.")]
+    public AudioClip returnSound;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
+
     private class Piece
     {
         public RectTransform rt;
@@ -120,6 +129,7 @@ public class PizzaMinigame : Minigame
         }
 
         dragging = best;
+        Sfx.Play(pickUpSound, sfxVolume * 0.7f, 0.15f);
         dragging.placed = false; // lifting it off the pizza un-places it
         dragging.rt.SetParent(transform, true); // top layer of the minigame so it draws over everything
         dragging.rt.SetAsLastSibling();
@@ -146,6 +156,7 @@ public class PizzaMinigame : Minigame
             dragging.rt.SetParent(pizzaArea, true); // stays where you dropped it
             dragging.rt.SetAsLastSibling();
             dragging.placed = true;
+            Sfx.Play(placeSound, sfxVolume);
         }
         else
         {
@@ -153,6 +164,7 @@ public class PizzaMinigame : Minigame
             dragging.rt.anchoredPosition = dragging.homePos;
             dragging.rt.SetSiblingIndex(dragging.homeSibling);
             dragging.placed = false;
+            Sfx.Play(returnSound, sfxVolume * 0.7f);
         }
 
         dragging = null;

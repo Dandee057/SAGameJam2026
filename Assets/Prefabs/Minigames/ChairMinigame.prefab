@@ -580,6 +580,12 @@ MonoBehaviour:
   - {fileID: -1580012554, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
   handSize: {x: 1100, y: 556}
   handPivot: {x: 0.31, y: 0.6}
+  hitSounds:
+  - {fileID: 8300000, guid: ac1f37c58d36f1e4f946985dced21f13, type: 3}
+  missSound: {fileID: 0}
+  swingSound: {fileID: 8300000, guid: ac1f37c58d36f1e4f946985dced21f13, type: 3}
+  breakSound: {fileID: 8300000, guid: ac1f37c58d36f1e4f946985dced21f13, type: 3}
+  sfxVolume: 0.5
   whackHoldTime: 0.14
   swingCooldown: 0.18
   whackKick: 8

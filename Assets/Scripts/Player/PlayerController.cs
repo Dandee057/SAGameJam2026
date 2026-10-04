@@ -34,6 +34,12 @@ public class PlayerController : MonoBehaviour
         "Movement is ignored for this long right after hiding, so a held direction key doesn't instantly un-hide you.")]
     public float unhideGraceTime = 0.1f;
 
+    [Tooltip("Played when the player hides (Hide_Newspaper).")]
+    public AudioClip hideSound;
+    [Tooltip("Played when the player comes out of hiding (Unhide_Newspaper). Optional.")]
+    public AudioClip unhideSound;
+    [Range(0f, 1f)] public float hideSoundVolume = 1f;
+
     [Header("Knockback")] public float knockbackDecel = 20f;
 
     public bool IsStunned => stunTimer > 0f;
@@ -95,6 +101,8 @@ public class PlayerController : MonoBehaviour
         {
             hiddenSince = Time.time;
         }
+
+        Sfx.Play(IsHidden ? hideSound : unhideSound, hideSoundVolume, 0.1f);
 
         if (flipbook != null)
         {

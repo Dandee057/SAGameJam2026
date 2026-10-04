@@ -35,6 +35,7 @@ public class AudioManager : MonoBehaviour
     [Header("Mixer groups")]
     [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup sfxGroup;
+    public AudioMixerGroup SfxGroup => sfxGroup;
 
     [Header("Sound library")]
     [SerializeField] private Sound[] music;

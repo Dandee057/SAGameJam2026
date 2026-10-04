@@ -57,6 +57,17 @@ public class ChairSmashMinigame : Minigame
     [Tooltip("Point on the hand artwork that sits on the cursor (0-1). Default = the bat head in the whack frame.")]
     public Vector2 handPivot = new Vector2(0.31f, 0.6f);
 
+    [Header("Sounds")]
+    [Tooltip("Played on a hit on the weak spot. One is picked at random (Chair_Whack_1/2/3).")]
+    public AudioClip[] hitSounds;
+    [Tooltip("Played when you whack the chair but miss the weak spot (Chair_Thud).")]
+    public AudioClip missSound;
+    [Tooltip("Whoosh on every swing (Bat_Swing).")]
+    public AudioClip swingSound;
+    [Tooltip("When the chair finally breaks (Chair_Break).")]
+    public AudioClip breakSound;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
+
     [Header("Whack feel")]
     [Tooltip("How long the whack pose is held before going back to raised.")]
     public float whackHoldTime = 0.14f;
@@ -255,6 +266,7 @@ public class ChairSmashMinigame : Minigame
         whackTimer = whackHoldTime;
         kick = whackKick;
         if (handImage && whackSprite) handImage.sprite = whackSprite;
+        Sfx.Play(swingSound, sfxVolume * 0.6f, 0.15f);
 
         if (trail) { trailTimer = trailFadeTime; SetAlpha(trail, 1f); }
 
@@ -265,12 +277,14 @@ public class ChairSmashMinigame : Minigame
         if (!hit)
         {
             shakeTimer = shakeDuration * 0.4f;   // thud, no progress
+            Sfx.Play(missSound, sfxVolume * 0.8f);
             if (impactOnMiss) ShowImpact(mouse, 0.5f);
             return;
         }
 
         shakeTimer = shakeDuration;
         ShowImpact(mouse, 1f);
+        Sfx.Play(hitSounds, sfxVolume);
         SpawnSplinters(mouse, splintersPerHit, 1f);
         if (hitStop > 0f) { Time.timeScale = 0.02f; hitStopTimer = hitStop; }
 
@@ -388,6 +402,7 @@ public class ChairSmashMinigame : Minigame
 
     private void BreakChair()
     {
+        Sfx.Play(breakSound, sfxVolume, 0.03f);
         if (brokenChairSprite != null)
         {
             chairImage.sprite = brokenChairSprite;

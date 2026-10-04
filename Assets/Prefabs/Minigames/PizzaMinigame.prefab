@@ -775,6 +775,10 @@ MonoBehaviour:
   anchovyVignette: {fileID: 11400000, guid: 0c541ba9e244c2b4495a41b40b89828d, type: 2}
   bothVignette: {fileID: 11400000, guid: ad609007afc5b444dba9104093519f1d, type: 2}
   doneButton: {fileID: 3478177595336433278}
+  pickUpSound: {fileID: 8300000, guid: fe6e85792e432bb4e9d4d0695833b9c4, type: 3}
+  placeSound: {fileID: 8300000, guid: 19e59aa2761071747afa5aae5cbd41c4, type: 3}
+  returnSound: {fileID: 0}
+  sfxVolume: 1
 --- !u!1 &5206263882379840121
 GameObject:
   m_ObjectHideFlags: 0
