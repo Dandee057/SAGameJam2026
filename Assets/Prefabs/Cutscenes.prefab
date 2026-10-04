@@ -857,7 +857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   moveTime: 0.6
-  enlargeScale: 1.8
+  enlargeScale: 1.3
   centreOffset: {x: 0, y: 0}
   overshoot: 1.2
   delayBefore: 0.2

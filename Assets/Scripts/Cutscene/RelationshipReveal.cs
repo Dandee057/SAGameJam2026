@@ -9,7 +9,7 @@ using UnityEngine;
 /// Optionally drag MainPanel / TopStrip / BottomStrip into 'Hide During Reveal' so only the bar is on screen.
 public class RelationshipReveal : MonoBehaviour
 {
-    [Tooltip("What moves and grows. Leave empty = this object.")]
+    [Tooltip("What moves and grows (the RelationshipMeter object). Leave empty = finds the RelationshipMeter on this object or its children.")]
     public RectTransform target;
 
     [Header("Motion")]
@@ -44,7 +44,19 @@ public class RelationshipReveal : MonoBehaviour
     private Vector3 restLocalPos, restScale;
     private bool captured;
 
-    private RectTransform T => target != null ? target : (RectTransform)transform;
+    // What moves: 'target' if set, otherwise the RelationshipMeter (on this object or a child), otherwise this object.
+    private RectTransform T
+    {
+        get
+        {
+            if (target == null)
+            {
+                RelationshipMeter m = GetComponentInChildren<RelationshipMeter>(true);
+                target = m != null ? (RectTransform)m.transform : (RectTransform)transform;
+            }
+            return target;
+        }
+    }
 
     private void Awake() => Capture();
 

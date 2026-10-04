@@ -28,9 +28,9 @@ public class CutscenePlayer : MonoBehaviour
     public Vignette emptyFallback;
 
     [Header("Win condition (the player wants them to break up)")]
-    [Tooltip("They break up (player wins) if the bar ends at or BELOW this value. Uses the SAME scale as the RelationshipMeter's Min/Max/Start Value " +
-             "(e.g. meter 0-10 starting at 5 -> a threshold of 4 means any net bad night wins).")]
-    public float breakupThreshold = 25f;
+    [Tooltip("The player WINS (they break up) if the relationship score ends at or BELOW this. " +
+             "Same scale as the RelationshipMeter (e.g. 0-10, starting at 5).")]
+    public float winScoreAtOrBelow = 4f;
 
     [Tooltip("Optional: the bar flies to the middle and grows before the result shows. Auto-found on the RelationshipMeter if empty.")]
     public RelationshipReveal reveal;
@@ -59,18 +59,18 @@ public class CutscenePlayer : MonoBehaviour
 
         yield return Run(queue, true);
 
-        if (breakupThreshold < meter.min || breakupThreshold > meter.max)
+        if (winScoreAtOrBelow < meter.min || winScoreAtOrBelow > meter.max)
         {
-            Debug.LogWarning($"CutscenePlayer: 'Breakup Threshold' ({breakupThreshold}) is outside the RelationshipMeter's range " +
-                             $"({meter.min}-{meter.max}), so the result will always be the same. Set it to a value inside that range.", this);
+            Debug.LogWarning($"CutscenePlayer: 'Win Score At Or Below' ({winScoreAtOrBelow}) is outside the RelationshipMeter's range " +
+                             $"({meter.min}-{meter.max}), so the result will always be the same.", this);
         }
 
-        Won = meter.Value <= breakupThreshold;
-        Debug.Log($"[Result] relationship ended at {meter.Value} (started {meter.startValue}); " +
-                  $"breakup if <= {breakupThreshold} -> {(Won ? "WIN (they broke up)" : "LOSE (still together)")}");
+        Won = meter.Value <= winScoreAtOrBelow;
+        Debug.Log($"[Result] relationship score {meter.startValue} -> {meter.Value}; " +
+                  $"player wins at {winScoreAtOrBelow} or lower -> {(Won ? "WIN (they broke up)" : "LOSE (still together)")}");
 
         // the verdict: bar to the middle, enlarge, hold - then GameFlow shows the result panel
-        if (reveal == null) reveal = meter.GetComponent<RelationshipReveal>();
+        if (reveal == null) reveal = FindReveal();
         if (reveal != null) yield return reveal.Play();
     }
 
@@ -110,6 +110,7 @@ public class CutscenePlayer : MonoBehaviour
         yield return Run(queue, false);
 
         Won = false; // got caught = still together
+        Debug.Log("[Result] LOSE - the player wasn't hidden when the timer ran out (caught). The relationship bar isn't used.");
     }
 
     /// The suspicion meter filled: play the given vignette (no bar), leave the panel open for the result
@@ -123,6 +124,7 @@ public class CutscenePlayer : MonoBehaviour
         yield return Run(queue, false);
 
         Won = false; // thrown out = still together
+        Debug.Log("[Result] LOSE - the suspicion meter filled (thrown out). The relationship bar isn't used.");
     }
 
     private IEnumerator Run(List<Vignette> queue, bool useMeter)
@@ -143,7 +145,7 @@ public class CutscenePlayer : MonoBehaviour
         if (useMeter)
         {
             meter.ResetMeter();
-            if (reveal == null) reveal = meter.GetComponent<RelationshipReveal>();
+            if (reveal == null) reveal = FindReveal();
             if (reveal != null) reveal.ResetReveal();
         }
 
@@ -163,6 +165,16 @@ public class CutscenePlayer : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    /// Finds the RelationshipReveal wherever it was added: on the meter, a parent (e.g. Cutscenes), a child, or anywhere in the scene.
+    private RelationshipReveal FindReveal()
+    {
+        RelationshipReveal r = meter.GetComponentInParent<RelationshipReveal>(true);
+        if (r == null) r = meter.GetComponentInChildren<RelationshipReveal>(true);
+        if (r == null) r = GetComponentInChildren<RelationshipReveal>(true);
+        if (r == null) r = FindFirstObjectByType<RelationshipReveal>(FindObjectsInactive.Include);
+        return r;
     }
 
     /// Plays a vignette's sound, cutting off whatever the previous vignette was still playing.
