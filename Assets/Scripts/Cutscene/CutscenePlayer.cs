@@ -28,8 +28,12 @@ public class CutscenePlayer : MonoBehaviour
     public Vignette emptyFallback;
 
     [Header("Win condition (the player wants them to break up)")]
-    [Tooltip("They break up (player wins) if the bar ends at or BELOW this value. The bar starts at 50.")]
+    [Tooltip("They break up (player wins) if the bar ends at or BELOW this value. Uses the SAME scale as the RelationshipMeter's Min/Max/Start Value " +
+             "(e.g. meter 0-10 starting at 5 -> a threshold of 4 means any net bad night wins).")]
     public float breakupThreshold = 25f;
+
+    [Tooltip("Optional: the bar flies to the middle and grows before the result shows. Auto-found on the RelationshipMeter if empty.")]
+    public RelationshipReveal reveal;
 
     [Header("Caught")] [Tooltip("Played in this order when the timer ends and the player isn't hidden.")]
     public Vignette[] caughtVignettes;
@@ -55,7 +59,19 @@ public class CutscenePlayer : MonoBehaviour
 
         yield return Run(queue, true);
 
+        if (breakupThreshold < meter.min || breakupThreshold > meter.max)
+        {
+            Debug.LogWarning($"CutscenePlayer: 'Breakup Threshold' ({breakupThreshold}) is outside the RelationshipMeter's range " +
+                             $"({meter.min}-{meter.max}), so the result will always be the same. Set it to a value inside that range.", this);
+        }
+
         Won = meter.Value <= breakupThreshold;
+        Debug.Log($"[Result] relationship ended at {meter.Value} (started {meter.startValue}); " +
+                  $"breakup if <= {breakupThreshold} -> {(Won ? "WIN (they broke up)" : "LOSE (still together)")}");
+
+        // the verdict: bar to the middle, enlarge, hold - then GameFlow shows the result panel
+        if (reveal == null) reveal = meter.GetComponent<RelationshipReveal>();
+        if (reveal != null) yield return reveal.Play();
     }
 
     /// Plays a one-off scene-setup vignette before the round starts. No bar, no relationship value:
@@ -127,6 +143,8 @@ public class CutscenePlayer : MonoBehaviour
         if (useMeter)
         {
             meter.ResetMeter();
+            if (reveal == null) reveal = meter.GetComponent<RelationshipReveal>();
+            if (reveal != null) reveal.ResetReveal();
         }
 
         foreach (Vignette v in queue)

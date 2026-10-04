@@ -769,6 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1228547981237083746}
   - component: {fileID: 5749962845236659597}
+  - component: {fileID: 3353191949247371299}
   m_Layer: 5
   m_Name: Cutscenes
   m_TagString: Untagged
@@ -842,6 +843,34 @@ MonoBehaviour:
   shakeTime: 0.35
   flashAlpha: 0.75
   flashTime: 0.25
+--- !u!114 &3353191949247371299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397509244788201474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1996bdfe0f5d1418d2663be7f5b97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  moveTime: 0.6
+  enlargeScale: 1.8
+  centreOffset: {x: 0, y: 0}
+  overshoot: 1.2
+  delayBefore: 0.2
+  holdTime: 1.5
+  punchAmount: 0.15
+  punchTime: 0.25
+  hideDuringReveal:
+  - {fileID: 4970019551019542684}
+  - {fileID: 1889834106129844097}
+  - {fileID: 723950587081410032}
+  whooshSound: {fileID: 8300000, guid: 1510c064c20ebbb4690a79e3e4c8dced, type: 3}
+  landSound: {fileID: 0}
+  soundVolume: 1
 --- !u!1 &6054978757243742329
 GameObject:
   m_ObjectHideFlags: 0
