@@ -8550,7 +8550,7 @@ MonoBehaviour:
   introSoundFadeOut: 0.4
   frameTimeScale: 1
   emptyFallback: {fileID: 11400000, guid: 5bc3941b9981c7848adaa42fcd03c4ca, type: 2}
-  breakupThreshold: 25
+  breakupThreshold: -1
   caughtVignettes:
   - {fileID: 11400000, guid: 268357e2548d9a54d95afdaeada68afe, type: 2}
 --- !u!4 &1003960148
@@ -9356,26 +9356,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 554097264}
     m_Modifications:
-    - target: {fileID: 634286294454224523, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 723950587081410032, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 974095255957009648, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_Color.b
-      value: 0.8490566
-      objectReference: {fileID: 0}
-    - target: {fileID: 974095255957009648, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8490566
-      objectReference: {fileID: 0}
-    - target: {fileID: 974095255957009648, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_Color.r
-      value: 0.8490566
-      objectReference: {fileID: 0}
     - target: {fileID: 1228547981237083746, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9456,53 +9436,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2152157548264275471, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422835663647694382, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667883752850897679, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: max
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667883752850897679, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: startValue
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5397509244788201474, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
       propertyPath: m_Name
       value: Cutscenes
-      objectReference: {fileID: 0}
-    - target: {fileID: 7194349162715848112, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1320
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831165458641081513, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 660
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
