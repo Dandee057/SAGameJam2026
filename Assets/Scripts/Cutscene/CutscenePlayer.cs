@@ -54,6 +54,32 @@ public class CutscenePlayer : MonoBehaviour
         Won = meter.Value <= breakupThreshold;
     }
 
+    /// Plays a one-off scene-setup vignette before the round starts. No bar, no relationship value:
+    /// the vignette's relationshipDelta is ignored. Closes the panel afterwards so the world is visible again.
+    public IEnumerator PlayIntro(Vignette intro)
+    {
+        if (intro == null)
+        {
+            yield break;
+        }
+
+        if (panel == null || frameImage == null)
+        {
+            Debug.LogError("CutscenePlayer: 'panel' and 'frameImage' must be assigned.", this);
+            yield break;
+        }
+
+        panel.SetActive(true);
+        if (meter != null)
+        {
+            meter.SetVisible(false);
+        }
+
+        yield return PlayVignette(intro, false);
+
+        panel.SetActive(false);
+    }
+
     public IEnumerator PlayCaught()
     {
         List<Vignette> queue = caughtVignettes != null ? caughtVignettes.ToList() : new List<Vignette>();

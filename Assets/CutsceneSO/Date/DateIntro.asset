@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260285ea4ed1ef7408a74e994e0dac52, type: 3}
+  m_Name: DateIntro
+  m_EditorClassIdentifier: 
+  playOrder: 0
+  frames:
+  - sprite: {fileID: 21300000, guid: 1b83d4321e31dab4e86255cfaac78421, type: 3}
+    duration: 3
+  - sprite: {fileID: 21300000, guid: 56c67f2fea4decf4199b58ed3401c934, type: 3}
+    duration: 5
+  defaultFrameDuration: 3
+  relationshipDelta: 0
+  impactFrame: 0
+  sound: {fileID: 0}
