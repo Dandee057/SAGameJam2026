@@ -45,8 +45,7 @@ public class SpriteFlipbook : MonoBehaviour
         {
             return;
         }
-
-        // Hidden takes priority, then walking, then idle
+        
         State newState = Hidden ? State.Hidden : Moving ? State.Walk : State.Idle;
 
         Sprite[] frames;
@@ -71,8 +70,7 @@ public class SpriteFlipbook : MonoBehaviour
         {
             return;
         }
-
-        // Restart the animation whenever the state changes
+        
         if (newState != currentState)
         {
             currentState = newState;

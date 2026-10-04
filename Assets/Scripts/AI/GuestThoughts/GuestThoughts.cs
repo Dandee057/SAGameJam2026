@@ -58,7 +58,6 @@ public class GuestThoughts : MonoBehaviour
 
         while (true)
         {
-            // Wait until the player is close enough (if that option is on)
             while (!PlayerInRange())
             {
                 yield return null;
@@ -87,7 +86,6 @@ public class GuestThoughts : MonoBehaviour
                <= onlyNearPlayerDistance * onlyNearPlayerDistance;
     }
 
-    // Weighted random pick that avoids repeating the previous hint when possible
     private int PickHint()
     {
         if (hints == null || hints.Length == 0)
@@ -138,7 +136,6 @@ public class GuestThoughts : MonoBehaviour
             return false;
         }
 
-        // Skip the last hint unless it's the only option
         if (i == lastIndex && CountPickable() > 1)
         {
             return false;
@@ -161,7 +158,6 @@ public class GuestThoughts : MonoBehaviour
         return count;
     }
 
-    // Call these from your puzzle logic
     public void SetHintEnabled(int index, bool value)
     {
         if (index >= 0 && index < hints.Length)
@@ -170,7 +166,6 @@ public class GuestThoughts : MonoBehaviour
         }
     }
 
-    // Force a thought right now (e.g. when the player does something nearby)
     public void ThinkNow(Sprite icon, float duration = 3f)
     {
         StartCoroutine(ThinkOnce(icon, duration));

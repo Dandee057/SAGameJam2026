@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-/// Marks a place a rat can appear from (a hole in the wall, behind a plant...).
-/// Drop one or more in the scene, on the NavMesh. The cheese picks the nearest one.
 public class RatSpawnPoint : MonoBehaviour
 {
     public static readonly List<RatSpawnPoint> All = new();

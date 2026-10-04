@@ -69,13 +69,11 @@ public class GameFlow : MonoBehaviour
             Debug.LogError("GameFlow: 'resultScreen' isn't assigned - no win/lose screen will show!", this);
         }
 
-        // listen for the suspicion meter filling up (OnSuspicionFull ignores it outside the sabotage phase)
         if (SuspicionMeter.Instance != null)
         {
             SuspicionMeter.Instance.Full += OnSuspicionFull;
         }
 
-        // ---- scene-setup vignette (the timer hasn't started yet) ----
         Phase = GamePhase.Intro;
         if (introVignette != null && cutscene != null)
         {
@@ -120,7 +118,6 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    // ---------- the timer ran out ----------
 
     private IEnumerator EndSabotage()
     {
@@ -138,16 +135,13 @@ public class GameFlow : MonoBehaviour
             w.Freeze();
         }
 
-        // decided the instant the timer hits zero; the player is locked from here, so it can't change
         WasCaught = !player.IsHidden;
 
-        // ---- the couple walks in ----
         if (coupleWalkIn != null && (!WasCaught || walkInWhenCaught))
         {
             yield return coupleWalkIn.Play();
         }
 
-        // ---- then the cutscene ----
         Phase = GamePhase.Cutscene;
 
         if (WasCaught)
@@ -166,11 +160,9 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    // ---------- the suspicion meter filled up ----------
 
     private void OnSuspicionFull()
     {
-        // the timer (or another ending) got there first
         if (Phase != GamePhase.Sabotage)
         {
             return;
@@ -181,7 +173,6 @@ public class GameFlow : MonoBehaviour
 
     private IEnumerator ThrownOut()
     {
-        // leaving the Sabotage phase stops the timer, the waiters' vision cones and the suspicion fill
         Phase = GamePhase.Cutscene;
         WasCaught = true;
 

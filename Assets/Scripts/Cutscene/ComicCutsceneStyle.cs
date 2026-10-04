@@ -2,16 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Comic-book dressing for the CutscenePlayer:
-///  - Two skewed coloured strips slash in across the top and bottom at the start of every event,
-///    each time in new random colours.
-///  - The main frame pops in with a slight random tilt on every frame.
-///  - On the vignette's impact frame (the consequence) the page shakes and flashes.
-///
-/// Put this on the cutscene panel (or anywhere) and drag in the references.
-/// It listens to CutscenePlayer.FrameShown, so it needs no other hookup.
-/// </summary>
 public class ComicCutsceneStyle : MonoBehaviour
 {
     [Tooltip("Leave empty to find the CutscenePlayer in the scene.")]
@@ -34,13 +24,13 @@ public class ComicCutsceneStyle : MonoBehaviour
     [Header("Colours (picked at random, never the same twice in a row)")]
     [SerializeField] private Color[] palette =
     {
-        new Color(0.90f, 0.08f, 0.14f), // P5 red
-        new Color(1.00f, 0.84f, 0.00f), // yellow
-        new Color(0.00f, 0.75f, 0.95f), // cyan
-        new Color(1.00f, 0.25f, 0.65f), // hot pink
-        new Color(0.45f, 0.90f, 0.20f), // lime
-        new Color(1.00f, 0.50f, 0.05f), // orange
-        new Color(0.55f, 0.30f, 0.95f), // purple
+        new Color(0.90f, 0.08f, 0.14f), 
+        new Color(1.00f, 0.84f, 0.00f), 
+        new Color(0.00f, 0.75f, 0.95f),
+        new Color(1.00f, 0.25f, 0.65f), 
+        new Color(0.45f, 0.90f, 0.20f), 
+        new Color(1.00f, 0.50f, 0.05f), 
+        new Color(0.55f, 0.30f, 0.95f), 
     };
 
     [Header("Strip slide-in")]
@@ -85,7 +75,6 @@ public class ComicCutsceneStyle : MonoBehaviour
 
     private void OnFrameShown(Vignette v, int index)
     {
-        // New event: fresh colours + strips slam in
         if (index == 0)
         {
             Recolour(topStripColour, ref lastTop, lastBottom);
@@ -93,11 +82,9 @@ public class ComicCutsceneStyle : MonoBehaviour
             Restart(ref topRoutine, Slide(topStrip, topRest, -1f, 0f));
             Restart(ref bottomRoutine, Slide(bottomStrip, bottomRest, +1f, bottomStripDelay));
         }
-
-        // Every frame: pop + small random tilt
+        
         Restart(ref popRoutine, Pop());
-
-        // Consequence frame: shake + flash
+        
         int impact = (v.frames == null || v.frames.Length == 0) ? 0 : Mathf.Clamp(v.impactFrame, 0, v.frames.Length - 1);
         if (index == impact && index > 0)
         {
@@ -105,8 +92,7 @@ public class ComicCutsceneStyle : MonoBehaviour
             if (flash != null) Restart(ref flashRoutine, Flash());
         }
     }
-
-    // ---------- Effects ----------
+    
 
     private IEnumerator Slide(RectTransform strip, Vector2 rest, float fromSide, float delay)
     {
@@ -133,7 +119,7 @@ public class ComicCutsceneStyle : MonoBehaviour
         while (t < popTime)
         {
             t += Time.deltaTime;
-            float k = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / popTime), 3f);   // ease-out cubic
+            float k = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / popTime), 3f); 
             mainPanel.localScale = Vector3.one * Mathf.Lerp(popScale, 1f, k);
             mainPanel.localEulerAngles = new Vector3(0f, 0f, Mathf.Lerp(tilt * 2.5f, tilt, k));
             yield return null;
@@ -168,8 +154,7 @@ public class ComicCutsceneStyle : MonoBehaviour
         }
         SetAlpha(flash, 0f);
     }
-
-    // ---------- Helpers ----------
+    
 
     private void Recolour(Image[] images, ref int last, int avoid)
     {
@@ -179,8 +164,7 @@ public class ComicCutsceneStyle : MonoBehaviour
         for (int tries = 0; tries < 10 && palette.Length > 2 && (pick == last || pick == avoid); tries++)
             pick = Random.Range(0, palette.Length);
         last = pick;
-
-        // First image gets the main colour; any extra images (accent stripes) get a different one
+        
         for (int i = 0; i < images.Length; i++)
         {
             if (images[i] == null) continue;
