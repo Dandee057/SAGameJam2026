@@ -221,9 +221,9 @@ MonoBehaviour:
   - icon: {fileID: 21300000, guid: 3fe4a080ae503954fb26394e068d7450, type: 3}
     weight: 1
     enabled: 1
-  timeBetweenThoughts: {x: 6, y: 14}
-  thoughtDuration: {x: 2.5, y: 4}
-  initialDelay: {x: 1, y: 5}
+  timeBetweenThoughts: {x: 10, y: 30}
+  thoughtDuration: {x: 3, y: 4}
+  initialDelay: {x: 1, y: 15}
   onlyNearPlayerDistance: 0
   player: {fileID: 0}
 --- !u!1 &5799308329081075250

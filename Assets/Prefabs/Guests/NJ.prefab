@@ -164,7 +164,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1136894180012797137}
-  - component: {fileID: 7140738330220760425}
   m_Layer: 0
   m_Name: NJ
   m_TagString: Untagged
@@ -189,43 +188,6 @@ Transform:
   - {fileID: 977144633338265125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7140738330220760425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471497687727466743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6599f94067308bf4c9502f595be5da27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bubble: {fileID: 3460274500558758432}
-  hints:
-  - icon: {fileID: 21300000, guid: 91d3e94de3db9324bbdea540441a70fc, type: 3}
-    weight: 1
-    enabled: 1
-  - icon: {fileID: 21300000, guid: a9787c88e9323e841ae549feb039fc13, type: 3}
-    weight: 1
-    enabled: 1
-  - icon: {fileID: 21300000, guid: 1f0743fc30d908c49997f6e9d0d31f48, type: 3}
-    weight: 1
-    enabled: 1
-  - icon: {fileID: 21300000, guid: 0faded93a6c7dd349b5ec77ebef69986, type: 3}
-    weight: 1
-    enabled: 1
-  - icon: {fileID: 21300000, guid: 25f64f7ae25ffb148a753f0e0a3da568, type: 3}
-    weight: 1
-    enabled: 1
-  - icon: {fileID: 21300000, guid: 3fe4a080ae503954fb26394e068d7450, type: 3}
-    weight: 1
-    enabled: 1
-  timeBetweenThoughts: {x: 6, y: 14}
-  thoughtDuration: {x: 2.5, y: 4}
-  initialDelay: {x: 1, y: 5}
-  onlyNearPlayerDistance: 0
-  player: {fileID: 0}
 --- !u!1 &5799308329081075250
 GameObject:
   m_ObjectHideFlags: 0
