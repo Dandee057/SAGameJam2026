@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1273274539, guid: 640948f15253138419274bd7c738ac71, type: 3}
+  m_Sprite: {fileID: 1376987299, guid: f105177806e5a04479138d8a104d3163, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,8 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3622453504712162171}
   idleFrames:
-  - {fileID: -1273274539, guid: 640948f15253138419274bd7c738ac71, type: 3}
-  - {fileID: -1602068061, guid: 640948f15253138419274bd7c738ac71, type: 3}
+  - {fileID: 1376987299, guid: f105177806e5a04479138d8a104d3163, type: 3}
+  - {fileID: 886162970, guid: f105177806e5a04479138d8a104d3163, type: 3}
   walkFrames: []
   hiddenFrames: []
   idleFrameTime: 1
@@ -204,6 +204,21 @@ MonoBehaviour:
   bubble: {fileID: 3460274500558758432}
   hints:
   - icon: {fileID: 21300000, guid: 91d3e94de3db9324bbdea540441a70fc, type: 3}
+    weight: 1
+    enabled: 1
+  - icon: {fileID: 21300000, guid: a9787c88e9323e841ae549feb039fc13, type: 3}
+    weight: 1
+    enabled: 1
+  - icon: {fileID: 21300000, guid: 1f0743fc30d908c49997f6e9d0d31f48, type: 3}
+    weight: 1
+    enabled: 1
+  - icon: {fileID: 21300000, guid: 0faded93a6c7dd349b5ec77ebef69986, type: 3}
+    weight: 1
+    enabled: 1
+  - icon: {fileID: 21300000, guid: 25f64f7ae25ffb148a753f0e0a3da568, type: 3}
+    weight: 1
+    enabled: 1
+  - icon: {fileID: 21300000, guid: 3fe4a080ae503954fb26394e068d7450, type: 3}
     weight: 1
     enabled: 1
   timeBetweenThoughts: {x: 6, y: 14}
