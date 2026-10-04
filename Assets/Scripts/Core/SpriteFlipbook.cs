@@ -9,11 +9,9 @@ public class SpriteFlipbook : MonoBehaviour
 
     [Header("Timing (seconds per frame)")] public float idleFrameTime = 0.5f;
     public float walkFrameTime = 0.15f;
-
-    /// Set by the owner every frame.
+    
     [System.NonSerialized] public bool Moving;
-
-    /// While non-null, this still is shown instead of the animation.
+    
     [System.NonSerialized] public Sprite holdSprite;
 
     private int frame;
@@ -51,8 +49,7 @@ public class SpriteFlipbook : MonoBehaviour
         {
             return;
         }
-
-        // switching between idle and walk restarts the loop so the change shows immediately
+        
         if (Moving != wasMoving)
         {
             wasMoving = Moving;

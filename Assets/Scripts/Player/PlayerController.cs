@@ -20,9 +20,7 @@ public class PlayerController : MonoBehaviour
         "Drives the idle/walk animation. Auto-found on the sprite if empty. Leave out to use a single static sprite.")]
     public SpriteFlipbook flipbook;
 
-
     public bool inputLocked;
-
 
     [Header("Hiding")]
     [Tooltip("Set IsHidden = true from anywhere (a hiding spot, a button) and the player swaps to this sprite. " +
@@ -132,8 +130,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferTimer -= Time.deltaTime;
         }
-
-        // moving (or jumping) breaks cover
+        
         if (IsHidden && (input.sqrMagnitude > 0.01f || jumpPressed) && Time.time - hiddenSince >= unhideGraceTime)
         {
             IsHidden = false;
