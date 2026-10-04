@@ -3,6 +3,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// A waiter who wanders: pick a random spot on the NavMesh, walk there, pause, repeat.
+/// If the player bumps into them they get knocked back and stunned.
+///
+/// Setup: a GameObject with a NavMeshAgent + this script (+ a billboard sprite child).
+/// The player must be tagged "Player" (or drag it into 'player'). The floor needs a baked NavMesh.
 [RequireComponent(typeof(NavMeshAgent))]
 public class WaiterWander : MonoBehaviour
 {
@@ -12,24 +17,28 @@ public class WaiterWander : MonoBehaviour
     public Transform wanderCenter;
 
     public float wanderRadius = 8f;
-    public float minTravelDistance = 2f;
+    public float minTravelDistance = 2f; // ignore picks closer than this
     public float minWait = 0.5f;
     public float maxWait = 2f;
     public float arriveDistance = 0.3f;
 
-    [Header("Bumping the player")] public PlayerController player;
-    public float contactRadius = 0.8f;
-    public float maxHeightDifference = 1.5f;
-    public float knockbackSpeed = 9f;
+    [Header("Bumping the player")] public PlayerController player; // auto-found by the "Player" tag if empty
+    public float contactRadius = 0.8f; // flat distance at which the waiter "hits" the player
+    public float maxHeightDifference = 1.5f; // so jumping over/past them doesn't count
+    public float knockbackSpeed = 9f; // with the player's knockbackDecel (20) that's about 2 units of shove
     public float stunDuration = 2f;
-    public float hitCooldown = 1f;
-    public float pauseAfterHit = 1f;
-    public UnityEvent onHitPlayer;
+    public float hitCooldown = 1f; // grace period AFTER the stun ends
+    public float pauseAfterHit = 1f; // waiter stops for a moment, too
+    public UnityEvent onHitPlayer; // hook up sounds / a dizzy effect
 
-    [Header("Visuals")] public SpriteRenderer spriteRenderer;
+    [Header("Visuals")]
+    public SpriteRenderer spriteRenderer; // auto-found in children if empty; flipped to face the walking direction
 
     [Tooltip("Tick if your waiter art faces RIGHT by default. Untick if it faces left.")]
     public bool artFacesRight = true;
+
+    [Tooltip("Drives the idle/walk animation. Auto-found in children if empty.")]
+    public SpriteFlipbook flipbook;
 
     private NavMeshAgent agent;
     private Vector3 center;
@@ -52,7 +61,7 @@ public class WaiterWander : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
+        agent.updateRotation = false; // the sprite billboards, so no need to spin the root
 
         center = wanderCenter != null ? wanderCenter.position : transform.position;
         waitTimer = Random.Range(minWait, maxWait);
@@ -64,6 +73,11 @@ public class WaiterWander : MonoBehaviour
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (flipbook == null)
+        {
+            flipbook = GetComponentInChildren<SpriteFlipbook>();
         }
 
         if (player == null)
@@ -81,10 +95,16 @@ public class WaiterWander : MonoBehaviour
         }
     }
 
+    /// Called by GameFlow when the sabotage phase ends.
     public void Freeze()
     {
         frozen = true;
-        if (agent && agent.isOnNavMesh)
+        if (flipbook != null)
+        {
+            flipbook.Moving = false;
+        }
+
+        if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = true;
         }
@@ -116,6 +136,11 @@ public class WaiterWander : MonoBehaviour
                  (agent.remainingDistance <= arriveDistance || agent.pathStatus == NavMeshPathStatus.PathInvalid))
         {
             StartWaiting(Random.Range(minWait, maxWait));
+        }
+
+        if (flipbook != null)
+        {
+            flipbook.Moving = agent.desiredVelocity.sqrMagnitude > 0.04f;
         }
 
         UpdateFacing();
@@ -155,7 +180,7 @@ public class WaiterWander : MonoBehaviour
 
     private void CheckPlayerContact()
     {
-        if (!player)
+        if (player == null)
         {
             return;
         }
@@ -186,7 +211,7 @@ public class WaiterWander : MonoBehaviour
         player.Knockback(dir, knockbackSpeed, stunDuration);
 
         nextHitTime = Time.time + stunDuration + hitCooldown;
-        if (agent && agent.isOnNavMesh)
+        if (agent != null && agent.isOnNavMesh)
         {
             StartWaiting(pauseAfterHit);
         }
@@ -196,7 +221,7 @@ public class WaiterWander : MonoBehaviour
 
     private void UpdateFacing()
     {
-        if (!spriteRenderer || !cam)
+        if (spriteRenderer == null || cam == null)
         {
             return;
         }

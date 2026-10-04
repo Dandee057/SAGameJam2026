@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     [Header("References")] public Transform cameraTransform;
     public SpriteRenderer spriteRenderer;
 
+    [Tooltip(
+        "Drives the idle/walk animation. Auto-found on the sprite if empty. Leave out to use a single static sprite.")]
+    public SpriteFlipbook flipbook;
+
 
     public bool inputLocked;
 
@@ -74,9 +78,13 @@ public class PlayerController : MonoBehaviour
         {
             normalSprite = spriteRenderer.sprite;
         }
+
+        if (flipbook == null)
+        {
+            flipbook = GetComponentInChildren<SpriteFlipbook>();
+        }
     }
 
-    /// Keeps the sprite in step with IsHidden, however it was changed (code, a zone, the debug key, the inspector).
     private void SyncHiddenVisual()
     {
         if (IsHidden == wasHidden)
@@ -90,7 +98,11 @@ public class PlayerController : MonoBehaviour
             hiddenSince = Time.time;
         }
 
-        if (spriteRenderer != null && hiddenSprite != null)
+        if (flipbook != null)
+        {
+            flipbook.holdSprite = IsHidden ? hiddenSprite : null;
+        }
+        else if (spriteRenderer != null && hiddenSprite != null)
         {
             spriteRenderer.sprite = IsHidden ? hiddenSprite : normalSprite;
         }
@@ -151,6 +163,11 @@ public class PlayerController : MonoBehaviour
             {
                 Facing = wishDir.normalized;
             }
+        }
+
+        if (flipbook != null)
+        {
+            flipbook.Moving = hasInput;
         }
 
 
