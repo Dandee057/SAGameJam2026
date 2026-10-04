@@ -56,6 +56,13 @@ public class InteractionZone : MonoBehaviour
         "When a toggle zone turns OFF, unmoved items are hidden again; items the player has picked up are left alone.")]
     public GameObject[] revealOnActivate;
 
+    [Header("Sounds (optional)")]
+    [Tooltip("Played when the zone is used. Toggle zones: played when it turns ON (e.g. Cupboard_Open).")]
+    public AudioClip activateSound;
+    [Tooltip("Toggle zones only: played when it turns OFF (e.g. Cupboard_Close).")]
+    public AudioClip deactivateSound;
+    [Range(0f, 1f)] public float soundVolume = 1f;
+
     public UnityEvent<PlayerInteractor> onActivated;
     public UnityEvent<PlayerInteractor> onFailed;
 
@@ -184,6 +191,7 @@ public class InteractionZone : MonoBehaviour
         }
 
         ApplyState();
+        Sfx.Play(!toggleable || IsOn ? activateSound : deactivateSound, soundVolume, 0.08f);
         onActivated?.Invoke(user);
         return consumeItem && held != null;
     }

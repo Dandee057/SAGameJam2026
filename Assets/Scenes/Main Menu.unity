@@ -8267,6 +8267,7 @@ MonoBehaviour:
   howToPlayPanel: {fileID: 369145329}
   optionsPanel: {fileID: 1087831901}
   quitButton: {fileID: 1974724219}
+  musicFadeOnPlay: 0.5
 --- !u!114 &1887331752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8300,7 +8301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2fce5a57688f34fa60d66dc99fc432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackName: TestAudio
+  clip: {fileID: 8300000, guid: 3e359700c9f435a43a569017f2fa99b5, type: 3}
+  volume: 1
+  trackName: MainMenu
   fadeTime: 1
 --- !u!1 &1897233681
 GameObject:
