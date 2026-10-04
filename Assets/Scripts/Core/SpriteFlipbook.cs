@@ -6,17 +6,25 @@ public class SpriteFlipbook : MonoBehaviour
 
     [Header("Frames")] public Sprite[] idleFrames;
     public Sprite[] walkFrames;
+    public Sprite[] hiddenFrames;
 
     [Header("Timing (seconds per frame)")] public float idleFrameTime = 0.5f;
     public float walkFrameTime = 0.15f;
-    
-    [System.NonSerialized] public bool Moving;
-    
-    [System.NonSerialized] public Sprite holdSprite;
+    public float hiddenFrameTime = 0.5f;
 
+    [System.NonSerialized] public bool Moving;
+    [System.NonSerialized] public bool Hidden;
+
+    private enum State
+    {
+        Idle,
+        Walk,
+        Hidden
+    }
+
+    private State currentState;
     private int frame;
     private float timer;
-    private bool wasMoving;
 
     private void Awake()
     {
@@ -38,26 +46,41 @@ public class SpriteFlipbook : MonoBehaviour
             return;
         }
 
-        if (holdSprite != null)
+        // Hidden takes priority, then walking, then idle
+        State newState = Hidden ? State.Hidden : Moving ? State.Walk : State.Idle;
+
+        Sprite[] frames;
+        float frameTime;
+        switch (newState)
         {
-            spriteRenderer.sprite = holdSprite;
-            return;
+            case State.Hidden:
+                frames = hiddenFrames;
+                frameTime = hiddenFrameTime;
+                break;
+            case State.Walk:
+                frames = walkFrames;
+                frameTime = walkFrameTime;
+                break;
+            default:
+                frames = idleFrames;
+                frameTime = idleFrameTime;
+                break;
         }
 
-        Sprite[] frames = Moving ? walkFrames : idleFrames;
         if (frames == null || frames.Length == 0)
         {
             return;
         }
-        
-        if (Moving != wasMoving)
+
+        // Restart the animation whenever the state changes
+        if (newState != currentState)
         {
-            wasMoving = Moving;
+            currentState = newState;
             frame = 0;
             timer = 0f;
         }
 
-        float frameTime = Mathf.Max(0.01f, Moving ? walkFrameTime : idleFrameTime);
+        frameTime = Mathf.Max(0.01f, frameTime);
         timer += Time.deltaTime;
         while (timer >= frameTime)
         {

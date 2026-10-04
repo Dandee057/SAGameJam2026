@@ -98,10 +98,11 @@ public class PlayerController : MonoBehaviour
 
         if (flipbook != null)
         {
-            flipbook.holdSprite = IsHidden ? hiddenSprite : null;
+            flipbook.Hidden = IsHidden;
         }
         else if (spriteRenderer != null && hiddenSprite != null)
         {
+            // Fallback for characters without a flipbook: single static sprite
             spriteRenderer.sprite = IsHidden ? hiddenSprite : normalSprite;
         }
     }
@@ -130,7 +131,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferTimer -= Time.deltaTime;
         }
-        
+
         if (IsHidden && (input.sqrMagnitude > 0.01f || jumpPressed) && Time.time - hiddenSince >= unhideGraceTime)
         {
             IsHidden = false;
