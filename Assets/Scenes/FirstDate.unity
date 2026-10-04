@@ -443,6 +443,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 1010360954}
   swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -2335,6 +2338,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -5771,6 +5777,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -7628,6 +7637,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 515789938}
   swapSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -8491,6 +8503,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 1246132712}
   swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -8532,6 +8547,7 @@ MonoBehaviour:
   meter: {fileID: 1072206977}
   audioSource: {fileID: 0}
   pauseBetweenVignettes: 0.3
+  introSoundFadeOut: 0.4
   frameTimeScale: 1
   emptyFallback: {fileID: 11400000, guid: 5bc3941b9981c7848adaa42fcd03c4ca, type: 2}
   breakupThreshold: 25
@@ -9154,6 +9170,9 @@ MonoBehaviour:
   onNextLevel:
     m_PersistentCalls:
       m_Calls: []
+  winSound: {fileID: 8300000, guid: f7cf2bf93c15f3146aa62b7bfa21146f, type: 3}
+  loseSound: {fileID: 8300000, guid: abf56ebc3243b81419a5bffd3ff7310d, type: 3}
+  soundVolume: 1
 --- !u!1001 &1058435286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9756,6 +9775,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -9910,6 +9932,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 937299769}
   swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -10222,6 +10247,9 @@ MonoBehaviour:
   swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate:
   - {fileID: 1363007030}
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -10350,6 +10378,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 230462193}
   swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -11994,6 +12025,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 629233090}
   swapSprite: {fileID: -1117550667, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -12550,6 +12584,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 1798887409}
   swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -13002,6 +13039,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -14626,6 +14666,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 1745014152}
   swapSprite: {fileID: -1335142102, guid: 4f3a2717dafc43a4ea9fb70cb8678871, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -15936,6 +15979,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 487688772}
   swapSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -17812,6 +17858,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 853412889}
   swapSprite: {fileID: -1915220158, guid: 4ab396af7ca62874ea65c84b11f2ac01, type: 3}
   revealOnActivate: []
+  activateSound: {fileID: 8300000, guid: f85b852ad7002594aa05c7f6bdd04147, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d5f20ea47df054a4c8747b484f50b49b, type: 3}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -18968,6 +19017,9 @@ MonoBehaviour:
   swapRenderer: {fileID: 0}
   swapSprite: {fileID: 0}
   revealOnActivate: []
+  activateSound: {fileID: 0}
+  deactivateSound: {fileID: 0}
+  soundVolume: 1
   onActivated:
     m_PersistentCalls:
       m_Calls: []

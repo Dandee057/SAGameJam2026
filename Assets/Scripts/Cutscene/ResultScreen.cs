@@ -45,6 +45,13 @@ public class ResultScreen : MonoBehaviour
 
     public UnityEvent onNextLevel;
 
+    [Header("Sounds")]
+    [Tooltip("Played when the WIN panel appears (e.g. Win_Fanfare).")]
+    public AudioClip winSound;
+    [Tooltip("Played when the LOSE panel appears. Optional.")]
+    public AudioClip loseSound;
+    [Range(0f, 1f)] public float soundVolume = 1f;
+
     private bool showing;
     private bool shownWin;
     private float shownAt;
@@ -90,6 +97,8 @@ public class ResultScreen : MonoBehaviour
         shownWin = won;
         shownAt = Time.unscaledTime;
         (won ? winArt : loseArt)?.Apply(0f);
+
+        Sfx.Play(won ? winSound : loseSound, soundVolume, 0f);
     }
 
     private void Update()
