@@ -9425,14 +9425,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cutscenes
       objectReference: {fileID: 0}
-    - target: {fileID: 5749962845236659597, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: maxTilt
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5749962845236659597, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
-      propertyPath: popScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
