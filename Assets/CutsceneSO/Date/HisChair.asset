@@ -17,7 +17,7 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 44cf1a73bac1d6949bf9e413cdeb10a9, type: 3}
     duration: 2
   - sprite: {fileID: 21300000, guid: 371d20266058270448341fa881ab990b, type: 3}
-    duration: 2
+    duration: 3
   defaultFrameDuration: 1
   relationshipDelta: 2
   impactFrame: 2
