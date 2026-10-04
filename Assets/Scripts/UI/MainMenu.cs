@@ -36,8 +36,13 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    [Tooltip("How long the menu music takes to fade out when Play is pressed. 0 = cut instantly.")]
+    public float musicFadeOnPlay = 0.5f;
+
     public void Play()
     {
+        // The AudioManager survives scene loads, so stop the menu music or it carries into the game.
+        if (AudioManager.Instance != null) AudioManager.Instance.StopMusic(musicFadeOnPlay);
         SceneManager.LoadScene(gameSceneName);
     }
 

@@ -142,8 +142,32 @@ public class CutscenePlayer : MonoBehaviour
         }
     }
 
+    /// Plays a vignette's sound, cutting off whatever the previous vignette was still playing.
+    private void PlayVignetteSound(AudioClip clip)
+    {
+        if (audioSource == null)
+        {
+            // No AudioSource assigned: make one that goes through the SFX mixer group.
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 0f;
+            if (AudioManager.Instance != null) audioSource.outputAudioMixerGroup = AudioManager.Instance.SfxGroup;
+        }
+
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    /// Stops the current vignette sound (e.g. when the cutscene ends).
+    public void StopVignetteSound()
+    {
+        if (audioSource != null) audioSource.Stop();
+    }
+
     private IEnumerator PlayVignette(Vignette v, bool useMeter)
     {
+        StopVignetteSound();   // a new vignette starts: silence the last one's sound
         if (v.frames == null || v.frames.Length == 0)
         {
             if (useMeter)
@@ -168,9 +192,10 @@ public class CutscenePlayer : MonoBehaviour
                     meter.Add(v.relationshipDelta);
                 }
 
-                if (v.sound != null && audioSource != null)
+                if (v.sound != null)
                 {
-                    audioSource.PlayOneShot(v.sound);
+                    // No AudioSource assigned? Play it through the AudioManager (SFX mixer) instead.
+                    PlayVignetteSound(v.sound);
                 }
             }
 
