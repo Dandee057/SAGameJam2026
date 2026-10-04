@@ -9620,12 +9620,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winPanel: {fileID: 990643510}
+  winArt:
+    image: {fileID: 0}
+    frames: []
+    frameTime: 0.5
   mainMenuButton: {fileID: 1766687990}
   mainMenuSceneName: MainMenu
   onMainMenu:
     m_PersistentCalls:
       m_Calls: []
   losePanel: {fileID: 308773106}
+  loseArt:
+    image: {fileID: 0}
+    frames: []
+    frameTime: 0.5
   nextLevelButton: {fileID: 1183327114}
   nextLevelSceneName: 
   onNextLevel:
@@ -9909,6 +9917,10 @@ PrefabInstance:
     - target: {fileID: 5397509244788201474, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
       propertyPath: m_Name
       value: Cutscenes
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749962845236659597, guid: 1db8385cfd6960f4ba1754835dc801a9, type: 3}
+      propertyPath: shakeStrength
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
