@@ -737,6 +737,8 @@ MonoBehaviour:
   turnSpeed: 8
   scanAngle: 45
   scanSpeed: 1.5
+  lingerTime: 3
+  trackTurnSpeed: 40
   visibleRate: 0.25
   shadyRate: 0.6
   showCone: 1
@@ -1898,6 +1900,8 @@ MonoBehaviour:
   turnSpeed: 8
   scanAngle: 45
   scanSpeed: 1.5
+  lingerTime: 3
+  trackTurnSpeed: 50
   visibleRate: 0.25
   shadyRate: 0.6
   showCone: 1
@@ -8793,7 +8797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1055087752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10852,10 +10856,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057791d6d78701c4f9c4ac7e7f8c846a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 60
+  duration: 70
   introVignette: {fileID: 11400000, guid: a6742ed43879cb7448dd2bd2353799fd, type: 2}
   coupleWalkIn: {fileID: 87087262}
   walkInWhenCaught: 1
+  thrownOutVignette: {fileID: 11400000, guid: c6e1d045950dd854984e45836b9758be, type: 2}
   player: {fileID: 1972342611}
   interactor: {fileID: 1972342610}
   cutscene: {fileID: 1003960147}

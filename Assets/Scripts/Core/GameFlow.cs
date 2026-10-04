@@ -25,6 +25,11 @@ public class GameFlow : MonoBehaviour
     [Tooltip("Also show the couple walking in when the player got caught.")]
     public bool walkInWhenCaught = true;
 
+    [Header("Thrown out (suspicion meter full)")]
+    [Tooltip("Plays when the suspicion meter fills, then the player loses. " +
+             "Leave empty to play the 'Caught Vignettes' from the CutscenePlayer instead.")]
+    public Vignette thrownOutVignette;
+
     [Header("References")] public PlayerController player;
     public PlayerInteractor interactor;
     public CutscenePlayer cutscene;
@@ -64,6 +69,12 @@ public class GameFlow : MonoBehaviour
             Debug.LogError("GameFlow: 'resultScreen' isn't assigned - no win/lose screen will show!", this);
         }
 
+        // listen for the suspicion meter filling up (OnSuspicionFull ignores it outside the sabotage phase)
+        if (SuspicionMeter.Instance != null)
+        {
+            SuspicionMeter.Instance.Full += OnSuspicionFull;
+        }
+
         // ---- scene-setup vignette (the timer hasn't started yet) ----
         Phase = GamePhase.Intro;
         if (introVignette != null && cutscene != null)
@@ -78,6 +89,14 @@ public class GameFlow : MonoBehaviour
         }
 
         Phase = GamePhase.Sabotage;
+    }
+
+    private void OnDestroy()
+    {
+        if (SuspicionMeter.Instance != null)
+        {
+            SuspicionMeter.Instance.Full -= OnSuspicionFull;
+        }
     }
 
     private void Update()
@@ -100,6 +119,8 @@ public class GameFlow : MonoBehaviour
             StartCoroutine(EndSabotage());
         }
     }
+
+    // ---------- the timer ran out ----------
 
     private IEnumerator EndSabotage()
     {
@@ -142,6 +163,51 @@ public class GameFlow : MonoBehaviour
         if (resultScreen != null)
         {
             resultScreen.Show(cutscene.Won);
+        }
+    }
+
+    // ---------- the suspicion meter filled up ----------
+
+    private void OnSuspicionFull()
+    {
+        // the timer (or another ending) got there first
+        if (Phase != GamePhase.Sabotage)
+        {
+            return;
+        }
+
+        StartCoroutine(ThrownOut());
+    }
+
+    private IEnumerator ThrownOut()
+    {
+        // leaving the Sabotage phase stops the timer, the waiters' vision cones and the suspicion fill
+        Phase = GamePhase.Cutscene;
+        WasCaught = true;
+
+        if (MinigameManager.Instance != null)
+        {
+            MinigameManager.Instance.CancelCurrent();
+        }
+
+        player.inputLocked = true;
+        interactor.enabled = false;
+        foreach (WaiterWander w in WaiterWander.All)
+        {
+            w.Freeze();
+        }
+
+        if (SuspicionMeter.Instance != null)
+        {
+            SuspicionMeter.Instance.Hide();
+        }
+
+        yield return cutscene.PlayThrownOut(thrownOutVignette);
+
+        Phase = GamePhase.Finished;
+        if (resultScreen != null)
+        {
+            resultScreen.Show(false);
         }
     }
 }

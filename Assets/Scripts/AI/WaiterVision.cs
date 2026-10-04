@@ -4,6 +4,7 @@ using UnityEngine.AI;
 /// Gives a waiter eyes. Goes on the same object as WaiterWander / the NavMeshAgent.
 ///  - Looks the way she's walking, and sweeps left and right while she pauses.
 ///  - Sees the player if they're inside the cone, in range, not hidden, and not behind a wall.
+///  - Once she spots you she stops and stares (tracking you at a limited turn speed) until you leave her view.
 ///  - Being seen fills the (global) SuspicionMeter: slowly just for being seen, FAST if you're in the middle
 ///    of a minigame (doing something shady). Full meter = thrown out.
 ///  - Draws her view as a cone on the floor (red while she can see you) and shows an optional "!" icon.
@@ -11,48 +12,60 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class WaiterVision : MonoBehaviour
 {
-    [Header("Vision")]
-    public float viewDistance = 6f;
-    [Range(10f, 180f)] public float viewAngle = 90f;      // full angle of the cone
+    [Header("Vision")] public float viewDistance = 6f;
+    [Range(10f, 180f)] public float viewAngle = 90f; // full angle of the cone
     public float eyeHeight = 1f;
+
     [Tooltip("Layers that block her sight (walls, big furniture). Leave on Nothing and nothing blocks the view.")]
     public LayerMask obstacleMask;
 
-    [Header("Looking around")]
-    public float turnSpeed = 8f;
+    [Header("Looking around")] public float turnSpeed = 8f;
+
     [Tooltip("While standing still she sweeps her gaze this many degrees either side.")]
     public float scanAngle = 45f;
+
     public float scanSpeed = 1.5f;
 
-    [Header("Suspicion (fraction of the bar per second)")]
-    [Tooltip("Just being in view.")]
+    [Header("Spotting the player")]
+    [Tooltip("She keeps staring this long after she loses sight of you, before carrying on.")]
+    public float lingerTime = 1f;
+
+    [Tooltip("Degrees per second she can turn to follow you while alerted. Lower = easier to slip out of her cone.")]
+    public float trackTurnSpeed = 90f;
+
+    [Header("Suspicion (fraction of the bar per second)")] [Tooltip("Just being in view.")]
     public float visibleRate = 0.1f;
+
     [Tooltip("In view while a minigame is open.")]
     public float shadyRate = 0.6f;
 
-    [Header("Cone visual")]
-    public bool showCone = true;
+    [Header("Cone visual")] public bool showCone = true;
+
     [Tooltip("Optional. A transparent unlit material. Empty = uses Sprites/Default.")]
     public Material coneMaterial;
+
     public Color calmColour = new(1f, 0.9f, 0.3f, 0.25f);
     public Color alertColour = new(1f, 0.2f, 0.2f, 0.4f);
     public int coneRays = 24;
-    public float coneHeight = 0.03f;                      // lift above the floor to avoid z-fighting
+    public float coneHeight = 0.03f; // lift above the floor to avoid z-fighting
+
     [Tooltip("If the cone hides under the floor sprite raise this; if it covers the characters lower it.")]
     public int coneSortingOrder = 0;
 
-    [Header("Alert icon")]
-    [Tooltip("Optional '!' object above her head, shown while she can see you.")]
+    [Header("Alert icon")] [Tooltip("Optional '!' object above her head, shown while she can see you.")]
     public GameObject alertIcon;
 
-    [Header("References")]
-    public PlayerController player;                       // auto-found by the "Player" tag if empty
+    [Header("References")] public PlayerController player; // auto-found by the "Player" tag if empty
 
     private NavMeshAgent agent;
+    private WaiterWander wander;
     private GameFlow gameFlow;
     private Vector3 baseFacing = Vector3.right;
     private Vector3 facing = Vector3.right;
     private float scanBlend;
+
+    private float alertTimer;
+    private Vector3 lastSeenPos;
 
     private Transform coneTransform;
     private MeshRenderer coneRenderer;
@@ -63,6 +76,7 @@ public class WaiterVision : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        wander = GetComponent<WaiterWander>();
 
         Vector3 f = transform.forward;
         f.y = 0f;
@@ -98,9 +112,27 @@ public class WaiterVision : MonoBehaviour
     {
         bool active = gameFlow == null || gameFlow.Phase == GamePhase.Sabotage;
 
+        bool sees = active && CanSeePlayer();
+
+        // keep staring for a moment after losing sight
+        if (sees)
+        {
+            alertTimer = lingerTime;
+            lastSeenPos = player.transform.position;
+        }
+        else
+        {
+            alertTimer = active ? Mathf.Max(0f, alertTimer - Time.deltaTime) : 0f;
+        }
+
+        // tell the wander script to stop walking while she's alerted
+        if (wander != null)
+        {
+            wander.Holding = alertTimer > 0f;
+        }
+
         UpdateFacing();
 
-        bool sees = active && CanSeePlayer();
         if (sees && SuspicionMeter.Instance != null)
         {
             float rate = MinigameManager.IsRunning ? shadyRate : visibleRate;
@@ -122,11 +154,28 @@ public class WaiterVision : MonoBehaviour
 
     private void UpdateFacing()
     {
+        bool alerted = alertTimer > 0f;
+
         Vector3 v = agent.desiredVelocity;
         v.y = 0f;
-        bool moving = v.sqrMagnitude > 0.04f;
+        bool moving = !alerted && v.sqrMagnitude > 0.04f;
 
-        if (moving)
+        if (alerted)
+        {
+            // turn toward where she last saw you, at a limited speed so you can dodge out of the cone
+            Vector3 to = lastSeenPos - transform.position;
+            to.y = 0f;
+            if (to.sqrMagnitude > 0.01f)
+            {
+                Vector3 turned = Vector3.RotateTowards(baseFacing, to.normalized,
+                    trackTurnSpeed * Mathf.Deg2Rad * Time.deltaTime, 0f);
+                if (turned.sqrMagnitude > 0.0001f)
+                {
+                    baseFacing = turned.normalized;
+                }
+            }
+        }
+        else if (moving)
         {
             Vector3 target = v.normalized;
             Vector3 blended = Vector3.Slerp(baseFacing, target, 1f - Mathf.Exp(-turnSpeed * Time.deltaTime));
@@ -136,8 +185,9 @@ public class WaiterVision : MonoBehaviour
             }
         }
 
-        // sweep side to side while standing still, ease back to straight ahead while walking
-        scanBlend = Mathf.MoveTowards(scanBlend, moving ? 0f : 1f, Time.deltaTime * 2f);
+        // stop scanning while alerted, sweep while idle, ease out while walking
+        float scanTarget = moving || alerted ? 0f : 1f;
+        scanBlend = Mathf.MoveTowards(scanBlend, scanTarget, Time.deltaTime * (alerted ? 4f : 2f));
         float offset = Mathf.Sin(Time.time * scanSpeed) * scanAngle * scanBlend;
         facing = Quaternion.Euler(0f, offset, 0f) * baseFacing;
     }
@@ -250,7 +300,8 @@ public class WaiterVision : MonoBehaviour
 
             float length = viewDistance;
             if (obstacleMask.value != 0 &&
-                Physics.Raycast(eye, dir, out RaycastHit hit, viewDistance, obstacleMask, QueryTriggerInteraction.Ignore))
+                Physics.Raycast(eye, dir, out RaycastHit hit, viewDistance, obstacleMask,
+                    QueryTriggerInteraction.Ignore))
             {
                 length = hit.distance;
             }

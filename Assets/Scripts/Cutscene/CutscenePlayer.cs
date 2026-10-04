@@ -4,10 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// Two modes:
-///  Play()       - the normal cutscene: logged vignettes in playOrder, moving the bar. Judged from the FINAL value.
-///  PlayCaught() - the player wasn't hidden: plays 'caughtVignettes' in order, no bar. Counts as a loss (they stay together).
-/// Both always play to the end. Afterwards, read 'Won'. The player is the saboteur: Won = they broke up.
+/// Modes:
+///  Play()           - the normal cutscene: logged vignettes in playOrder, moving the bar. Judged from the FINAL value.
+///  PlayCaught()     - the player wasn't hidden when the timer ended: plays 'caughtVignettes' in order, no bar. A loss.
+///  PlayThrownOut()  - a waiter spotted the player too many times (suspicion full): plays one given vignette
+///                     (or falls back to 'caughtVignettes'), no bar. A loss.
+/// All always play to the end. Afterwards, read 'Won'. The player is the saboteur: Won = they broke up.
 public class CutscenePlayer : MonoBehaviour
 {
     [Header("UI")] public GameObject panel;
@@ -87,6 +89,19 @@ public class CutscenePlayer : MonoBehaviour
         yield return Run(queue, false);
 
         Won = false; // got caught = still together
+    }
+
+    /// The suspicion meter filled: play the given vignette (no bar), leave the panel open for the result
+    /// screen, and count it as a loss. If 'vignette' is null, falls back to 'caughtVignettes'.
+    public IEnumerator PlayThrownOut(Vignette vignette)
+    {
+        List<Vignette> queue = vignette != null
+            ? new List<Vignette> { vignette }
+            : (caughtVignettes != null ? caughtVignettes.ToList() : new List<Vignette>());
+
+        yield return Run(queue, false);
+
+        Won = false; // thrown out = still together
     }
 
     private IEnumerator Run(List<Vignette> queue, bool useMeter)

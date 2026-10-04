@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 /// A waiter who wanders: pick a random spot on the NavMesh, walk there, pause, repeat.
 /// If the player bumps into them they get knocked back and stunned.
+/// While 'Holding' is true (set by WaiterVision when she's spotted the player) she stops and stares.
 ///
 /// Setup: a GameObject with a NavMeshAgent + this script (+ a billboard sprite child).
 /// The player must be tagged "Player" (or drag it into 'player'). The floor needs a baked NavMesh.
@@ -39,6 +40,9 @@ public class WaiterWander : MonoBehaviour
 
     [Tooltip("Drives the idle/walk animation. Auto-found in children if empty.")]
     public SpriteFlipbook flipbook;
+
+    /// Set by WaiterVision: true while she's staring at the player. She stops walking and faces them.
+    public bool Holding { get; set; }
 
     private NavMeshAgent agent;
     private Vector3 center;
@@ -99,6 +103,7 @@ public class WaiterWander : MonoBehaviour
     public void Freeze()
     {
         frozen = true;
+        Holding = false;
         if (flipbook != null)
         {
             flipbook.Moving = false;
@@ -122,6 +127,24 @@ public class WaiterWander : MonoBehaviour
         if (!agent.isOnNavMesh)
         {
             return;
+        }
+
+        // spotted the player: stop, stare, and wait until WaiterVision lets go
+        if (Holding)
+        {
+            agent.isStopped = true;
+            if (flipbook != null)
+            {
+                flipbook.Moving = false;
+            }
+
+            FacePlayerSprite();
+            return;
+        }
+
+        if (agent.isStopped)
+        {
+            agent.isStopped = false; // carries on to her old destination
         }
 
         if (waiting)
@@ -231,6 +254,22 @@ public class WaiterWander : MonoBehaviour
         {
             bool goingLeft = screenX < 0f;
             spriteRenderer.flipX = artFacesRight ? goingLeft : !goingLeft;
+        }
+    }
+
+    // Face the player's side of the screen while staring at them
+    private void FacePlayerSprite()
+    {
+        if (spriteRenderer == null || cam == null || player == null)
+        {
+            return;
+        }
+
+        float screenX = Vector3.Dot(player.transform.position - transform.position, cam.right);
+        if (Mathf.Abs(screenX) > 0.1f)
+        {
+            bool playerOnLeft = screenX < 0f;
+            spriteRenderer.flipX = artFacesRight ? playerOnLeft : !playerOnLeft;
         }
     }
 
