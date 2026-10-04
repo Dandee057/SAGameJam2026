@@ -17,4 +17,4 @@ MonoBehaviour:
   defaultFrameDuration: 1
   relationshipDelta: 10
   impactFrame: 1
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: de261b3c321b5c04589c42d40c2b3120, type: 3}

@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOrder: 0
   frames:
+  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+    duration: 2
   - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+    duration: 1
+  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+    duration: 2
+  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+    duration: 0.5
+  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+    duration: 2
+  - sprite: {fileID: 21300000, guid: ce7f56f8c96046443b2a18335d9281e2, type: 3}
     duration: 3
-  - sprite: {fileID: 21300000, guid: 56c67f2fea4decf4199b58ed3401c934, type: 3}
+  - sprite: {fileID: 21300000, guid: 4b2cba6b0c530474ea253f3d7aec1f28, type: 3}
     duration: 3
   defaultFrameDuration: 3
   relationshipDelta: 0
