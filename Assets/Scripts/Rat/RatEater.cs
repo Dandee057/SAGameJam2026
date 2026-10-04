@@ -29,6 +29,15 @@ public class RatEater : MonoBehaviour
     public GameObject itemPrefab;
     public float itemSpawnHeight = 0.1f;
 
+    [Header("Sounds")]
+    [Tooltip("Squeak when the rat pops out. One is picked at random (Rat_Squeak_1/2/3).")]
+    public AudioClip[] appearSounds;
+    [Tooltip("Little feet pattering, looped while it runs to the cheese (Rat_Scurry).")]
+    public AudioClip scurryLoop;
+    [Tooltip("Nibbling while it eats the cheese (Rat_Nibble).")]
+    public AudioClip nibbleSound;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
+
     [Header("Visuals")]
     public SpriteRenderer spriteRenderer;   // auto-found in children if empty
     public bool artFacesRight = true;
@@ -53,12 +62,16 @@ public class RatEater : MonoBehaviour
     /// Called by CheeseBait right after spawning.
     public void GoEat(GameObject cheese)
     {
+        Sfx.Play(appearSounds, sfxVolume, 0.15f);
         StartCoroutine(Run(cheese));
     }
 
     private IEnumerator Run(GameObject cheese)
     {
+        AudioSource scurry = Sfx.MakeLoop(gameObject, scurryLoop);
+        if (scurry != null) scurry.volume = sfxVolume * 0.6f;
         yield return RunTo(cheese);
+        if (scurry != null) Destroy(scurry);
 
         // stand by the cheese, facing it
         if (cheese != null)
@@ -66,6 +79,7 @@ public class RatEater : MonoBehaviour
             Face(cheese.transform.position - transform.position);
         }
 
+        Sfx.Play(nibbleSound, sfxVolume * 0.8f);
         yield return new WaitForSeconds(eatTime);
 
         if (cheese != null)

@@ -103,6 +103,10 @@ MonoBehaviour:
   transformDelay: 0.4
   itemPrefab: {fileID: 6674189403825584997, guid: 9052f8a4fb3be924eb7d9b986867c589, type: 3}
   itemSpawnHeight: 0.1
+  appearSounds: []
+  scurryLoop: {fileID: 8300000, guid: a738ec165a47c5943ac5a99fb1487349, type: 3}
+  nibbleSound: {fileID: 0}
+  sfxVolume: 1
   spriteRenderer: {fileID: 4364975209148937191}
   artFacesRight: 1
 --- !u!1 &1251811591919050147
