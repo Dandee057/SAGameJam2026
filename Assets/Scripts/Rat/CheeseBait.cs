@@ -1,9 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/// Goes on the static CHEESE prefab that the cheese zone spawns (zone's 'spawnPrefab').
-/// A moment after it appears, it spawns a rat at the nearest RatSpawnPoint and tells it to go and eat.
-/// The rat removes the cheese itself once it's done.
 public class CheeseBait : MonoBehaviour
 {
     public RatEater ratPrefab;

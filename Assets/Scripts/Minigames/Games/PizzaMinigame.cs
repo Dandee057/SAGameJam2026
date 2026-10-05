@@ -104,8 +104,7 @@ public class PizzaMinigame : Minigame
             }
         }
     }
-
-    // ---------- dragging ----------
+    
 
     private void TryGrab(Vector2 mouse)
     {
@@ -130,8 +129,8 @@ public class PizzaMinigame : Minigame
 
         dragging = best;
         Sfx.Play(pickUpSound, sfxVolume * 0.7f, 0.15f);
-        dragging.placed = false; // lifting it off the pizza un-places it
-        dragging.rt.SetParent(transform, true); // top layer of the minigame so it draws over everything
+        dragging.placed = false; 
+        dragging.rt.SetParent(transform, true); 
         dragging.rt.SetAsLastSibling();
 
         RectTransformUtility.ScreenPointToWorldPointInRectangle(dragging.rt, mouse, uiCam, out Vector3 wp);
@@ -153,7 +152,7 @@ public class PizzaMinigame : Minigame
 
         if (OnPizza(local))
         {
-            dragging.rt.SetParent(pizzaArea, true); // stays where you dropped it
+            dragging.rt.SetParent(pizzaArea, true);
             dragging.rt.SetAsLastSibling();
             dragging.placed = true;
             Sfx.Play(placeSound, sfxVolume);
@@ -182,7 +181,6 @@ public class PizzaMinigame : Minigame
         return r.Contains(local);
     }
 
-    // ---------- result ----------
 
     private void Refresh()
     {

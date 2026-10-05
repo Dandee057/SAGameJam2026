@@ -2,12 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// The "waiters are watching you" meter. One per scene.
-/// Waiters that can see the player call ReportSeen() every frame; while at least one does, the meter fills.
-/// When nobody sees the player it drains. At full, 'Full' fires (GameFlow throws the player out).
-///
-/// UI: an Image with Image Type = Filled for 'fill', and 'root' = the object holding the bar, which is only
-/// shown while the meter is above zero. 'root' must be a different object from the one with this script.
 public class SuspicionMeter : MonoBehaviour
 {
     public static SuspicionMeter Instance { get; private set; }
@@ -22,7 +16,6 @@ public class SuspicionMeter : MonoBehaviour
 
     public float Value { get; private set; }
 
-    /// Fired once when the meter reaches full.
     public event Action Full;
 
     private bool reported;
@@ -43,15 +36,12 @@ public class SuspicionMeter : MonoBehaviour
         }
     }
 
-    /// Call every frame while the player is being seen. 'ratePerSecond' is how fast it fills (1 = a full bar per second).
-    /// Several waiters at once don't stack: the highest rate wins.
     public void ReportSeen(float ratePerSecond)
     {
         reported = true;
         reportedRate = Mathf.Max(reportedRate, ratePerSecond);
     }
 
-    // LateUpdate so every waiter has reported this frame before we apply it.
     private void LateUpdate()
     {
         if (reported)
@@ -76,7 +66,6 @@ public class SuspicionMeter : MonoBehaviour
         }
     }
 
-    /// Called by GameFlow when the round is over.
     public void Hide()
     {
         enabled = false;

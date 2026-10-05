@@ -41,7 +41,6 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        // The AudioManager survives scene loads, so stop the menu music or it carries into the game.
         if (AudioManager.Instance != null) AudioManager.Instance.StopMusic(musicFadeOnPlay);
         SceneManager.LoadScene(gameSceneName);
     }

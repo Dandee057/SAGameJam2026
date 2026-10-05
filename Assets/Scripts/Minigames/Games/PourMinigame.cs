@@ -1,17 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-/// <summary>
-/// Water pouring minigame. Mash the key to tip the jug.
-///  - Upright: shows the upright jug sprite.
-///  - Past 'pourAngle': swaps to the tipped (pouring) sprite, the stream falls from the spout
-///    and the splash + foam flicker between their frames where it lands.
-///  - Let it fall back upright: stream + splash vanish.
-///  - Pour enough and the minigame succeeds.
-///
-/// SETUP: just drag the SPRITES into the "Sprites" section. The images are created automatically
-/// inside 'Jug' when the minigame starts. Everything in "Optional overrides" can stay empty.
-/// </summary>
 public class PourMinigame : Minigame
 {
     [Header("UI")]
@@ -135,8 +123,7 @@ public class PourMinigame : Minigame
             Sfx.Play(mashSounds, sfxVolume * 0.6f, 0.12f);
             if (hint) hint.SetActive(false);
         }
-
-        // jug physics: kicks tip it, gravity pulls it back upright
+        
         angularVel -= uprightPull * dt;
         angularVel *= Mathf.Exp(-drag * dt);
         angle += angularVel * dt;
@@ -167,7 +154,7 @@ public class PourMinigame : Minigame
         }
     }
 
-    // ---------------------------------------------------------------- sound
+   
 
     private void UpdateSound(bool pouring)
     {
@@ -179,8 +166,7 @@ public class PourMinigame : Minigame
         float target = pouring ? sfxVolume : 0f;
         pourSource.volume = Mathf.MoveTowards(pourSource.volume, target, pourFadeSpeed * Time.unscaledDeltaTime);
     }
-
-    // ---------------------------------------------------------------- visuals
+    
 
     private void Apply(bool pouring)
     {
@@ -229,8 +215,7 @@ public class PourMinigame : Minigame
         }
     }
 
-    // The size sliders scale each image on top of its normal size, so they work on
-    // auto-created images and hand-made ones alike.
+  
     private void ApplySizes()
     {
         if (uprightJug) uprightJug.rectTransform.localScale = Vector3.one * uprightJugSize;
@@ -251,8 +236,7 @@ public class PourMinigame : Minigame
         }
     }
 
-    // Puddle appears where the water first lands, grows with how much has been poured,
-    // and stays put after the stream stops.
+  
     private void UpdatePuddle(bool waterLanding)
     {
         if (puddle == null) return;
@@ -272,10 +256,10 @@ public class PourMinigame : Minigame
         puddle.rectTransform.localScale = Vector3.one * (puddleSize * grow);
     }
 
-    // Lets the sliders update the images straight away in the editor too.
+   
     private void OnValidate() => ApplySizes();
 
-    // Stream hangs straight down from the spout and stretches to the splash point.
+ 
     private void PlaceStream()
     {
         RectTransform s = waterStream.rectTransform;
@@ -298,25 +282,24 @@ public class PourMinigame : Minigame
         float x = top.x;
         if (waterStream)
         {
-            // the stream art leans, so its bottom isn't directly under its tip
+           
             RectTransform s = waterStream.rectTransform;
             x += (streamBottomX - streamTipX) * s.rect.width * s.lossyScale.x;
         }
         return new Vector3(x, y, top.z);
     }
 
-    // ---------------------------------------------------------------- auto setup
+ 
 
     private void BuildVisuals()
     {
         if (jug == null) { Debug.LogError("PourMinigame: 'Jug' isn't assigned.", this); return; }
 
-        // the old single jug image on the pivot gets hidden; sprites are drawn in children instead
+       
         Image own = jug.GetComponent<Image>();
         if (own && (uprightSprite || tippedSprite)) own.enabled = false;
 
-        // Only objects created here get auto-sized. Ones that already exist (made by hand or with
-        // "Build Visuals In Editor") keep whatever size/position you gave them.
+        
         if (uprightJug == null && uprightSprite) { uprightJug = MakeImage("UprightJug", jug, uprightSprite); SitOnBase(uprightJug, 1f); }
         if (tippedJug == null && tippedSprite) { tippedJug = MakeImage("TippedJug", jug, tippedSprite); SitOnBase(tippedJug, 1f); }
 
@@ -353,7 +336,7 @@ public class PourMinigame : Minigame
             puddle.preserveAspect = true;
             if (splashPoint) puddle.rectTransform.position = splashPoint.position;
         }
-        if (puddle && Application.isPlaying) puddle.gameObject.SetActive(false);   // appears on first splash
+        if (puddle && Application.isPlaying) puddle.gameObject.SetActive(false);   
 
         if (foam == null && foamFrames != null && foamFrames.Length > 0)
         { foam = MakeImage("Foam", transform, foamFrames[0]); NativeScaled(foam); }
@@ -362,19 +345,18 @@ public class PourMinigame : Minigame
 
         ApplySizes();
 
-        // draw order: stream, then foam, then splash on top
+  
         if (waterStream)
         {
             if (puddle && puddle.transform.parent == waterStream.transform.parent)
-                puddle.transform.SetSiblingIndex(waterStream.transform.GetSiblingIndex());   // puddle goes behind the stream
+                puddle.transform.SetSiblingIndex(waterStream.transform.GetSiblingIndex()); 
             int i = waterStream.transform.GetSiblingIndex();
             if (foam && foam.transform.parent == waterStream.transform.parent) foam.transform.SetSiblingIndex(i + 1);
             if (splash && splash.transform.parent == waterStream.transform.parent) splash.transform.SetSiblingIndex(i + 2);
         }
     }
 
-    /// Right-click the component header > "Build Visuals In Editor" to create all the pieces now,
-    /// so you can see, move and resize them in the prefab instead of only at runtime.
+   
     [ContextMenu("Build Visuals In Editor")]
     private void BuildVisualsInEditor()
     {
@@ -406,8 +388,7 @@ public class PourMinigame : Minigame
         return (RectTransform)go.transform;
     }
 
-    // Sizes a jug image to fit the Jug rect (keeping the sprite's shape) and sits it on the bottom edge,
-    // so upright and tipped share the same base.
+  
     private void SitOnBase(Image img, float scale)
     {
         if (img.sprite == null) return;
@@ -428,7 +409,7 @@ public class PourMinigame : Minigame
     {
         if (img.sprite == null) return;
         img.rectTransform.sizeDelta = img.sprite.rect.size * 0.8f;
-        img.rectTransform.pivot = new Vector2(0.5f, 0.2f);   // sits slightly into the landing point
+        img.rectTransform.pivot = new Vector2(0.5f, 0.2f);  
         img.preserveAspect = true;
     }
 }

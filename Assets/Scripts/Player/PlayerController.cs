@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (spriteRenderer != null && hiddenSprite != null)
         {
-            // Fallback for characters without a flipbook: single static sprite
+           
             spriteRenderer.sprite = IsHidden ? hiddenSprite : normalSprite;
         }
     }

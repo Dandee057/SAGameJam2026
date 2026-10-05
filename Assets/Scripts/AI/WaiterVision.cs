@@ -1,19 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-/// Gives a waiter eyes. Goes on the same object as WaiterWander / the NavMeshAgent.
-///  - Looks the way she's walking, and sweeps left and right while she pauses.
-///  - Sees the player if they're inside the cone, in range, not hidden, and not behind a wall.
-///  - Once she spots you she stops and stares (tracking you at a limited turn speed) until you leave her view.
-///  - Being seen fills the (global) SuspicionMeter: slowly just for being seen, FAST if you're in the middle
-///    of a minigame (doing something shady). Full meter = thrown out.
-///  - Draws her view as a cone on the floor (red while she can see you) and shows an optional "!" icon.
-/// Only active during the sabotage phase.
 [RequireComponent(typeof(NavMeshAgent))]
 public class WaiterVision : MonoBehaviour
 {
     [Header("Vision")] public float viewDistance = 6f;
-    [Range(10f, 180f)] public float viewAngle = 90f; // full angle of the cone
+    [Range(10f, 180f)] public float viewAngle = 90f;
     public float eyeHeight = 1f;
 
     [Tooltip("Layers that block her sight (walls, big furniture). Leave on Nothing and nothing blocks the view.")]
@@ -47,7 +39,7 @@ public class WaiterVision : MonoBehaviour
     public Color calmColour = new(1f, 0.9f, 0.3f, 0.25f);
     public Color alertColour = new(1f, 0.2f, 0.2f, 0.4f);
     public int coneRays = 24;
-    public float coneHeight = 0.03f; // lift above the floor to avoid z-fighting
+    public float coneHeight = 0.03f;
 
     [Tooltip("If the cone hides under the floor sprite raise this; if it covers the characters lower it.")]
     public int coneSortingOrder = 0;
@@ -55,7 +47,7 @@ public class WaiterVision : MonoBehaviour
     [Header("Alert icon")] [Tooltip("Optional '!' object above her head, shown while she can see you.")]
     public GameObject alertIcon;
 
-    [Header("References")] public PlayerController player; // auto-found by the "Player" tag if empty
+    [Header("References")] public PlayerController player;
 
     private NavMeshAgent agent;
     private WaiterWander wander;
@@ -114,7 +106,6 @@ public class WaiterVision : MonoBehaviour
 
         bool sees = active && CanSeePlayer();
 
-        // keep staring for a moment after losing sight
         if (sees)
         {
             alertTimer = lingerTime;
@@ -125,7 +116,6 @@ public class WaiterVision : MonoBehaviour
             alertTimer = active ? Mathf.Max(0f, alertTimer - Time.deltaTime) : 0f;
         }
 
-        // tell the wander script to stop walking while she's alerted
         if (wander != null)
         {
             wander.Holding = alertTimer > 0f;
@@ -150,7 +140,6 @@ public class WaiterVision : MonoBehaviour
         UpdateCone(active, sees);
     }
 
-    // ---------- looking ----------
 
     private void UpdateFacing()
     {
@@ -162,7 +151,6 @@ public class WaiterVision : MonoBehaviour
 
         if (alerted)
         {
-            // turn toward where she last saw you, at a limited speed so you can dodge out of the cone
             Vector3 to = lastSeenPos - transform.position;
             to.y = 0f;
             if (to.sqrMagnitude > 0.01f)
@@ -185,7 +173,6 @@ public class WaiterVision : MonoBehaviour
             }
         }
 
-        // stop scanning while alerted, sweep while idle, ease out while walking
         float scanTarget = moving || alerted ? 0f : 1f;
         scanBlend = Mathf.MoveTowards(scanBlend, scanTarget, Time.deltaTime * (alerted ? 4f : 2f));
         float offset = Mathf.Sin(Time.time * scanSpeed) * scanAngle * scanBlend;
@@ -212,7 +199,6 @@ public class WaiterVision : MonoBehaviour
             return false;
         }
 
-        // line of sight: is anything solid between her eyes and the player?
         if (obstacleMask.value != 0)
         {
             Vector3 eye = transform.position + Vector3.up * eyeHeight;
@@ -227,7 +213,6 @@ public class WaiterVision : MonoBehaviour
         return true;
     }
 
-    // ---------- cone visual ----------
 
     private void BuildCone()
     {

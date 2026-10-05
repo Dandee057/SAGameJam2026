@@ -2,12 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-/// The rat. Runs to the cheese, stands by it for a moment, eats it (the cheese disappears), changes sprite,
-/// then hands over to an item version of itself (a normal pickup prefab) and removes itself.
-///
-/// Prefab: NavMeshAgent + this script + a sprite child. The item prefab is a separate pickup prefab; give it
-/// the same art as 'finishedSprite' and the hand-over is invisible.
-/// If the rat can't use the NavMesh (not on it / no path), it falls back to walking in a straight line.
 public class RatEater : MonoBehaviour
 {
     [Header("Movement")]
@@ -39,7 +33,7 @@ public class RatEater : MonoBehaviour
     [Range(0f, 1f)] public float sfxVolume = 1f;
 
     [Header("Visuals")]
-    public SpriteRenderer spriteRenderer;   // auto-found in children if empty
+    public SpriteRenderer spriteRenderer;   
     public bool artFacesRight = true;
 
     private NavMeshAgent agent;
@@ -58,8 +52,7 @@ public class RatEater : MonoBehaviour
             cam = Camera.main.transform;
         }
     }
-
-    /// Called by CheeseBait right after spawning.
+    
     public void GoEat(GameObject cheese)
     {
         Sfx.Play(appearSounds, sfxVolume, 0.15f);
@@ -72,8 +65,7 @@ public class RatEater : MonoBehaviour
         if (scurry != null) scurry.volume = sfxVolume * 0.6f;
         yield return RunTo(cheese);
         if (scurry != null) Destroy(scurry);
-
-        // stand by the cheese, facing it
+        
         if (cheese != null)
         {
             Face(cheese.transform.position - transform.position);
@@ -129,7 +121,6 @@ public class RatEater : MonoBehaviour
             {
                 if (!agent.pathPending && agent.pathStatus == NavMeshPathStatus.PathInvalid)
                 {
-                    // no route to the cheese: switch to walking straight at it
                     agent.enabled = false;
                     useAgent = false;
                 }
@@ -184,8 +175,7 @@ public class RatEater : MonoBehaviour
         d.y = 0f;
         return d.magnitude;
     }
-
-    /// Flip the sprite to face a world direction, relative to the camera (left/right only).
+    
     private void Face(Vector3 worldDir)
     {
         if (spriteRenderer == null || cam == null)

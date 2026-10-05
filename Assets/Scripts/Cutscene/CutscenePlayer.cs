@@ -4,12 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// Modes:
-///  Play()           - the normal cutscene: logged vignettes in playOrder, moving the bar. Judged from the FINAL value.
-///  PlayCaught()     - the player wasn't hidden when the timer ended: plays 'caughtVignettes' in order, no bar. A loss.
-///  PlayThrownOut()  - a waiter spotted the player too many times (suspicion full): plays one given vignette
-///                     (or falls back to 'caughtVignettes'), no bar. A loss.
-/// All always play to the end. Afterwards, read 'Won'. The player is the saboteur: Won = they broke up.
 public class CutscenePlayer : MonoBehaviour
 {
     [Header("UI")] public GameObject panel;
@@ -40,14 +34,13 @@ public class CutscenePlayer : MonoBehaviour
 
     public bool Won { get; private set; }
 
-    /// Fired every time a vignette frame goes on screen: (vignette, frame index).
-    /// Used by ComicCutsceneStyle for the strips / pop / shake. Safe to ignore.
+    
     public event System.Action<Vignette, int> FrameShown;
 
     public IEnumerator Play(IReadOnlyList<RunLog.Entry> entries)
     {
         List<Vignette> queue = entries
-            .OrderBy(e => e.vignette.playOrder) // OrderBy is stable, so ties keep the order done
+            .OrderBy(e => e.vignette.playOrder) 
             .ThenBy(e => e.time)
             .Select(e => e.vignette)
             .ToList();
@@ -68,14 +61,11 @@ public class CutscenePlayer : MonoBehaviour
         Won = meter.Value <= winScoreAtOrBelow;
         Debug.Log($"[Result] relationship score {meter.startValue} -> {meter.Value}; " +
                   $"player wins at {winScoreAtOrBelow} or lower -> {(Won ? "WIN (they broke up)" : "LOSE (still together)")}");
-
-        // the verdict: bar to the middle, enlarge, hold - then GameFlow shows the result panel
+        
         if (reveal == null) reveal = FindReveal();
         if (reveal != null) yield return reveal.Play();
     }
-
-    /// Plays a one-off scene-setup vignette before the round starts. No bar, no relationship value:
-    /// the vignette's relationshipDelta is ignored. Closes the panel afterwards so the world is visible again.
+    
     public IEnumerator PlayIntro(Vignette intro)
     {
         if (intro == null)
@@ -99,7 +89,7 @@ public class CutscenePlayer : MonoBehaviour
 
         panel.SetActive(false);
 
-        // Gameplay (and the scene music) starts now, so don't let the intro's sound bleed over it.
+       
         FadeOutVignetteSound(introSoundFadeOut);
     }
 
@@ -109,12 +99,10 @@ public class CutscenePlayer : MonoBehaviour
 
         yield return Run(queue, false);
 
-        Won = false; // got caught = still together
+        Won = false; 
         Debug.Log("[Result] LOSE - the player wasn't hidden when the timer ran out (caught). The relationship bar isn't used.");
     }
-
-    /// The suspicion meter filled: play the given vignette (no bar), leave the panel open for the result
-    /// screen, and count it as a loss. If 'vignette' is null, falls back to 'caughtVignettes'.
+    
     public IEnumerator PlayThrownOut(Vignette vignette)
     {
         List<Vignette> queue = vignette != null
@@ -159,15 +147,13 @@ public class CutscenePlayer : MonoBehaviour
             yield return PlayVignette(v, useMeter);
             yield return new WaitForSeconds(pauseBetweenVignettes);
         }
-
-        // let the marker finish settling before the result shows
+        
         if (useMeter)
         {
             yield return new WaitForSeconds(1f);
         }
     }
-
-    /// Finds the RelationshipReveal wherever it was added: on the meter, a parent (e.g. Cutscenes), a child, or anywhere in the scene.
+    
     private RelationshipReveal FindReveal()
     {
         RelationshipReveal r = meter.GetComponentInParent<RelationshipReveal>(true);
@@ -176,13 +162,11 @@ public class CutscenePlayer : MonoBehaviour
         if (r == null) r = FindFirstObjectByType<RelationshipReveal>(FindObjectsInactive.Include);
         return r;
     }
-
-    /// Plays a vignette's sound, cutting off whatever the previous vignette was still playing.
+    
     private void PlayVignetteSound(AudioClip clip)
     {
         if (audioSource == null)
         {
-            // No AudioSource assigned: make one that goes through the SFX mixer group.
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
             audioSource.spatialBlend = 0f;
@@ -193,15 +177,13 @@ public class CutscenePlayer : MonoBehaviour
         audioSource.clip = clip;
         audioSource.Play();
     }
-
-    /// Stops the current vignette sound (e.g. when the cutscene ends).
+    
     public void StopVignetteSound()
     {
         if (fadeRoutine != null) { StopCoroutine(fadeRoutine); fadeRoutine = null; }
         if (audioSource != null) { audioSource.Stop(); audioSource.volume = 1f; }
     }
-
-    /// Fades the current vignette sound out, then stops it.
+    
     public void FadeOutVignetteSound(float seconds)
     {
         if (audioSource == null || !audioSource.isPlaying) return;
@@ -228,7 +210,7 @@ public class CutscenePlayer : MonoBehaviour
 
     private IEnumerator PlayVignette(Vignette v, bool useMeter)
     {
-        StopVignetteSound();   // a new vignette starts: silence the last one's sound
+        StopVignetteSound();  
         if (v.frames == null || v.frames.Length == 0)
         {
             if (useMeter)
@@ -255,7 +237,6 @@ public class CutscenePlayer : MonoBehaviour
 
                 if (v.sound != null)
                 {
-                    // No AudioSource assigned? Play it through the AudioManager (SFX mixer) instead.
                     PlayVignetteSound(v.sound);
                 }
             }
