@@ -19,6 +19,12 @@ public class GameFlow : MonoBehaviour
              "Tip: set its Impact Frame to 0 so the comic style doesn't shake/flash on it. Leave empty to skip.")]
     public Vignette introVignette;
 
+    [Tooltip("When the player hits Retry, skip the intro vignette and go straight into gameplay.")]
+    public bool skipIntroOnRetry = true;
+
+    /// Set by the result screen's Retry button just before it reloads this scene.
+    public static bool RetryRequested;
+
     [Header("After the timer")] [Tooltip("The couple walk in before the cutscene. Leave empty to skip.")]
     public CoupleWalkIn coupleWalkIn;
 
@@ -75,7 +81,15 @@ public class GameFlow : MonoBehaviour
         }
 
         Phase = GamePhase.Intro;
-        if (introVignette != null && cutscene != null)
+        bool skipIntro = skipIntroOnRetry && RetryRequested;
+        RetryRequested = false;
+
+        if (skipIntro && cutscene != null)
+        {
+            cutscene.HidePanel();   // the intro normally closes the panel; do it ourselves
+        }
+
+        if (introVignette != null && cutscene != null && !skipIntro)
         {
             player.inputLocked = true;
             interactor.enabled = false;

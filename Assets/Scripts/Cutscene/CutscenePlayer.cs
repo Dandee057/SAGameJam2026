@@ -66,6 +66,14 @@ public class CutscenePlayer : MonoBehaviour
         if (reveal != null) yield return reveal.Play();
     }
     
+    /// Closes the cutscene panel (used when the intro is skipped, e.g. on Retry).
+    public void HidePanel()
+    {
+        StopVignetteSound();
+        if (meter != null) meter.SetVisible(false);
+        if (panel != null) panel.SetActive(false);
+    }
+
     public IEnumerator PlayIntro(Vignette intro)
     {
         if (intro == null)

@@ -70,17 +70,25 @@ public class ResultScreen : MonoBehaviour
 
         if (mainMenuButton != null)
         {
-            mainMenuButton.onClick.AddListener(() => Go(mainMenuSceneName, onMainMenu));
+            mainMenuButton.onClick.AddListener(MainMenu);
         }
 
         if (nextLevelButton != null)
         {
-            nextLevelButton.onClick.AddListener(() => Go(nextLevelSceneName, onNextLevel));
+            nextLevelButton.onClick.AddListener(Retry);
+        }
+
+        // Start hidden, even if the panel was left switched on in the scene.
+        // (Show() switches it back on; Awake only runs once, so it won't hide it again.)
+        if (!showing)
+        {
+            gameObject.SetActive(false);
         }
     }
 
     public void Show(bool won)
     {
+        showing = true;               // set first: if this object starts off, SetActive runs Awake right here
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
 
@@ -111,12 +119,42 @@ public class ResultScreen : MonoBehaviour
         (shownWin ? winArt : loseArt)?.Apply(Time.unscaledTime - shownAt);
     }
 
+    /// Retry / next level. With no scene name set it restarts this level (skipping the intro).
+    public void Retry()
+    {
+        if (leaving) return;   // ignore double clicks / being hooked up twice
+        leaving = true;
+        onNextLevel?.Invoke();
+        string current = SceneManager.GetActiveScene().name;
+        string target = string.IsNullOrEmpty(nextLevelSceneName) ? current : nextLevelSceneName;
+        GameFlow.RetryRequested = target == current;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(target);
+    }
+
+    private bool leaving;
+
+    /// Hook this to a button's OnClick to go back to the main menu.
+    public void MainMenu()
+    {
+        if (leaving) return;
+        leaving = true;
+        Go(mainMenuSceneName, onMainMenu);
+    }
+
     private static void Go(string sceneName, UnityEvent evt)
     {
         evt?.Invoke();
-        if (!string.IsNullOrEmpty(sceneName))
+        if (string.IsNullOrEmpty(sceneName)) return;
+
+        // forgive "MainMenu" vs "Main Menu" style mismatches
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            SceneManager.LoadScene(sceneName);
+            string spaced = sceneName == "MainMenu" ? "Main Menu" : sceneName.Replace(" ", "");
+            if (Application.CanStreamedLevelBeLoaded(spaced)) sceneName = spaced;
+            else Debug.LogError($"ResultScreen: scene '{sceneName}' isn't in the build list.");
         }
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
     }
 }
