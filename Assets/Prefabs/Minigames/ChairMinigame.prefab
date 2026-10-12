@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 555928270506372263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5193932599590394744}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1166688158, guid: 753c1eaf4da5d1c448a7693321332ab3, type: 3}
+  m_Sprite: {fileID: -130018471, guid: b2b270e14f811754989f6ed3edf2f996, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e833f940a9fe2f409d63a1d74ea9a33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb77dfd93d124f819a3eb9a3c38eddbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e833f940a9fe2f409d63a1d74ea9a33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb77dfd93d124f819a3eb9a3c38eddbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e833f940a9fe2f409d63a1d74ea9a33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb77dfd93d124f819a3eb9a3c38eddbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e833f940a9fe2f409d63a1d74ea9a33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb77dfd93d124f819a3eb9a3c38eddbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e833f940a9fe2f409d63a1d74ea9a33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb77dfd93d124f819a3eb9a3c38eddbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -548,7 +548,7 @@ MonoBehaviour:
   canCancel: 1
   chair: {fileID: 789256001490253850}
   chairImage: {fileID: 4995384750730535022}
-  brokenChairSprite: {fileID: 2091748110, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  brokenChairSprite: {fileID: 921167673, guid: 756e71e6b6dd3f64c92c6d7741099277, type: 3}
   brokenChairSize: 0.8
   brokenChairOffset: {x: 0, y: 0}
   shakeAmount: 30
@@ -564,20 +564,20 @@ MonoBehaviour:
   hand: {fileID: 5915240908991705690}
   gripOffset: {x: 0, y: 0}
   hideSystemCursor: 0
-  raisedSprite: {fileID: 21300000, guid: 4b0e482e7c15aa643a1db759cad2e564, type: 3}
-  whackSprite: {fileID: 21300000, guid: d0369e0a0bcdd724aab7a59b5cf02cf2, type: 3}
-  trailSprite: {fileID: 21300000, guid: bcf89cba15e71394b91768f7231f29b7, type: 3}
+  raisedSprite: {fileID: 409598627, guid: c089810ab2568f14fb6930bf60d117b9, type: 3}
+  whackSprite: {fileID: -1619183758, guid: 7251889e00c21f44b8056344d3cd5040, type: 3}
+  trailSprite: {fileID: 1046933893, guid: c7cbbe5519312cb41ab819f8f24aaad1, type: 3}
   impactSprites:
-  - {fileID: 1423244739, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: 423971461, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: 681153111, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: 616792453, guid: c7cbbe5519312cb41ab819f8f24aaad1, type: 3}
+  - {fileID: 1062302734, guid: a8f78e916071db947bca21c219f08216, type: 3}
+  - {fileID: -2100258626, guid: a8f78e916071db947bca21c219f08216, type: 3}
   splinterSprites:
-  - {fileID: 19313692, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: -714699885, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: 368556446, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: -1846336901, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: -339409840, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
-  - {fileID: -1580012554, guid: beea63945c39b7c459ca9cbcb5e353ae, type: 3}
+  - {fileID: 2132292573, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
+  - {fileID: 838372148, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
+  - {fileID: 443698687, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
+  - {fileID: -549059222, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
+  - {fileID: -145113837, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
+  - {fileID: -590243000, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
   handSize: {x: 1100, y: 556}
   handPivot: {x: 0.31, y: 0.6}
   hitSounds:

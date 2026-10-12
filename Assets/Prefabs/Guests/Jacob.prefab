@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1376987299, guid: f105177806e5a04479138d8a104d3163, type: 3}
+  m_Sprite: {fileID: -1662170446, guid: 8a687f17a80b2684c9e80dcc591b0338, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,8 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3622453504712162171}
   idleFrames:
-  - {fileID: 1376987299, guid: f105177806e5a04479138d8a104d3163, type: 3}
-  - {fileID: 886162970, guid: f105177806e5a04479138d8a104d3163, type: 3}
+  - {fileID: -1662170446, guid: 8a687f17a80b2684c9e80dcc591b0338, type: 3}
+  - {fileID: 2053809553, guid: b1031821181682b4a99202084f078c1c, type: 3}
   walkFrames: []
   hiddenFrames: []
   idleFrameTime: 1

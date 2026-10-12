@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -164, y: -263}
   m_SizeDelta: {x: 500, y: 500}
-  m_Pivot: {x: 0.81, y: 1}
+  m_Pivot: {x: 0.803, y: 1}
 --- !u!222 &6938960311411819109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -170,28 +170,29 @@ MonoBehaviour:
   jug: {fileID: 3804139689113583632}
   waterStream: {fileID: 189070234865043758}
   hint: {fileID: 8893321604964955779}
-  uprightSprite: {fileID: 21300000, guid: 9f380e9a08be36e4b8c26169d8c0546a, type: 3}
-  tippedSprite: {fileID: 21300000, guid: 7185ee8c7847ebd42a9cbc4b534fd3dc, type: 3}
-  streamSprite: {fileID: -2046071434, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  uprightSprite: {fileID: -879883296, guid: 21a16eadc67f5a445881d728acc3716a, type: 3}
+  tippedSprite: {fileID: 1988714792, guid: 6c8fa470a60a3874288392d365c8acf9, type: 3}
+  streamSprite: {fileID: 586450685, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
   splashFrames:
-  - {fileID: 209946878, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
-  - {fileID: -1649610497, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  - {fileID: 1841942998, guid: 6bd0fdc357d96ca479413d623ceb53fa, type: 3}
+  - {fileID: 1781375232, guid: 6bd0fdc357d96ca479413d623ceb53fa, type: 3}
   foamFrames:
-  - {fileID: 1903516091, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
-  - {fileID: 434858709, guid: 5ac822daabd7db24a896aa90451526ab, type: 3}
+  - {fileID: 1041566493, guid: 6bd0fdc357d96ca479413d623ceb53fa, type: 3}
+  - {fileID: -1309954451, guid: 6bd0fdc357d96ca479413d623ceb53fa, type: 3}
   puddleSprite: {fileID: 21300000, guid: cf5faf17e001463183d7ccb36c157915, type: 3}
-  uprightJugSize: 2
-  tippedJugSize: 2
+  uprightJugSize: 1
+  tippedJugSize: 1
   streamThickness: 1
   splashSize: 0.5
   foamSize: 0.5
   puddleSize: 2
   puddleStartFraction: 0.25
+  puddleColour: {r: 0.45, g: 0.75, b: 1, a: 0.9}
   tippedArtAngle: 35
-  spoutOnTippedSprite: {x: 0.2, y: 0.7}
-  spoutFollowsSlider: 1
+  spoutOnTippedSprite: {x: 0, y: 0.7}
+  spoutFollowsSlider: 0
   splashHeight: 0.15
-  streamTipX: 0.81
+  streamTipX: 0.803
   streamBottomX: 0.54
   streamWidth: 100
   splashFrameTime: 0.09

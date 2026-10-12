@@ -99,7 +99,7 @@ MonoBehaviour:
   standOffDistance: 0.2
   maxRunTime: 10
   eatTime: 3
-  finishedSprite: {fileID: 1899217086, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  finishedSprite: {fileID: -1889103330, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
   transformDelay: 0.4
   itemPrefab: {fileID: 6674189403825584997, guid: 9052f8a4fb3be924eb7d9b986867c589, type: 3}
   itemSpawnHeight: 0.1
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1676616072, guid: 350264e3937004740a762a2ccb3c8795, type: 3}
+  m_Sprite: {fileID: 1945509505, guid: ff3a4dc628f725149a2175cff01fb045, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

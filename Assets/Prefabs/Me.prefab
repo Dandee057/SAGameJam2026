@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4efff9f0e3d60f4bacbbaa6c4c75f2c, type: 3}
+  m_Sprite: {fileID: -1051846921, guid: c4dc40b2d76fc0f47aa50efe1e101dd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,15 +148,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8306520864716675182}
   idleFrames:
-  - {fileID: 21300000, guid: e4efff9f0e3d60f4bacbbaa6c4c75f2c, type: 3}
-  - {fileID: 1416233760, guid: c79f30873b8ae2a438a48528d5b7e3d4, type: 3}
+  - {fileID: -1051846921, guid: c4dc40b2d76fc0f47aa50efe1e101dd4, type: 3}
+  - {fileID: 2015884131, guid: 61d788a2d652ca24a9d63db6e603a360, type: 3}
   walkFrames:
-  - {fileID: -5807341, guid: 702a510a9b44948409d3b4dd7bc39980, type: 3}
-  - {fileID: 1688665815, guid: 702a510a9b44948409d3b4dd7bc39980, type: 3}
-  hiddenFrames: []
-  idleFrameTime: 0.5
-  walkFrameTime: 0.15
-  hiddenFrameTime: 0.5
+  - {fileID: -304400848, guid: 855b7c4cb8367a9409c60c7790aee9dd, type: 3}
+  - {fileID: -587030293, guid: b68fc64a23de7004a9875eaf05003e88, type: 3}
+  hiddenFrames:
+  - {fileID: -1504330181, guid: 2ba045bb404f4db1bafb92c7441bad75, type: 3}
+  - {fileID: 551968294, guid: 2ba045bb404f4db1bafb92c7441bad75, type: 3}
+  idleFrameTime: 0.75
+  walkFrameTime: 0.2
+  hiddenFrameTime: 1.5
 --- !u!1 &1580511181081193968
 GameObject:
   m_ObjectHideFlags: 0

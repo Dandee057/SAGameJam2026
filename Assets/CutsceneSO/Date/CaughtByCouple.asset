@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOrder: 0
   frames:
-  - sprite: {fileID: 21300000, guid: c6583d0f0130661439eb7e6dce757c25, type: 3}
+  - sprite: {fileID: 21300000, guid: da670ccc45cadde4aa4c85c7fc160487, type: 3}
     duration: 3
   defaultFrameDuration: 1
   relationshipDelta: 0

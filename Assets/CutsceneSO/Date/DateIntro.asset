@@ -14,33 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOrder: 0
   frames:
-  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+  - sprite: {fileID: 21300000, guid: 09c13f01502832a42acd9659eb5c1632, type: 3}
     duration: 2
-  - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+  - sprite: {fileID: 21300000, guid: 1571bafb476461d478134422a96a112b, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+  - sprite: {fileID: 21300000, guid: 09c13f01502832a42acd9659eb5c1632, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+  - sprite: {fileID: 21300000, guid: 1571bafb476461d478134422a96a112b, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: 640b1e74b6efa964a84fa6ad8c72a246, type: 3}
+  - sprite: {fileID: 21300000, guid: 09c13f01502832a42acd9659eb5c1632, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: e10f655a705f0d14bb24a080abc3f151, type: 3}
+  - sprite: {fileID: 21300000, guid: 1571bafb476461d478134422a96a112b, type: 3}
     duration: 1
-  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+  - sprite: {fileID: 21300000, guid: 456c3ef4a10e8614185905a49a8ec88e, type: 3}
     duration: 2
-  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+  - sprite: {fileID: 21300000, guid: d00ef67ae33db0d4393c83c185b97540, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+  - sprite: {fileID: 21300000, guid: 456c3ef4a10e8614185905a49a8ec88e, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+  - sprite: {fileID: 21300000, guid: d00ef67ae33db0d4393c83c185b97540, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: 530423dad8e6dc749a0ebf7bd68a9e18, type: 3}
+  - sprite: {fileID: 21300000, guid: 456c3ef4a10e8614185905a49a8ec88e, type: 3}
     duration: 0.5
-  - sprite: {fileID: 21300000, guid: f3981bb58b6db194685adf7b45cea9c0, type: 3}
+  - sprite: {fileID: 21300000, guid: d00ef67ae33db0d4393c83c185b97540, type: 3}
     duration: 2
-  - sprite: {fileID: 21300000, guid: ce7f56f8c96046443b2a18335d9281e2, type: 3}
+  - sprite: {fileID: 21300000, guid: f356e4aa4a500ed4da3ccea0c54a793d, type: 3}
     duration: 1.5
-  - sprite: {fileID: 21300000, guid: 4b2cba6b0c530474ea253f3d7aec1f28, type: 3}
+  - sprite: {fileID: 21300000, guid: de558ed71d645e8489990b5ee40ab221, type: 3}
     duration: 1.5
   defaultFrameDuration: 3
   relationshipDelta: 0

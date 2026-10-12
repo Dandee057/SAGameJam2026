@@ -31,6 +31,8 @@ public class PourMinigame : Minigame
     [Range(0.1f, 5f)] public float puddleSize = 2f;
     [Tooltip("How big the puddle is the moment pouring starts, as a fraction of its final size.")]
     [Range(0f, 1f)] public float puddleStartFraction = 0.25f;
+    [Tooltip("Tints the puddle. The grey art takes this colour (white = no change).")]
+    public Color puddleColour = new Color(0.45f, 0.75f, 1f, 0.9f);
 
     [Header("Layout")]
     [Tooltip("How many degrees the tipped artwork is already tilted. Stops the swap from 'jumping'.")]
@@ -253,6 +255,7 @@ public class PourMinigame : Minigame
     {
         if (puddle == null) return;
         float grow = Mathf.Lerp(puddleStartFraction, 1f, progress);
+        puddle.color = puddleColour;
         puddle.rectTransform.localScale = Vector3.one * (puddleSize * grow);
     }
 

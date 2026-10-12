@@ -68,12 +68,25 @@ public class ResultScreen : MonoBehaviour
             losePanel.SetActive(false);
         }
 
-        if (mainMenuButton != null)
+        if (string.IsNullOrEmpty(mainMenuSceneName)) mainMenuSceneName = "Main Menu";
+
+        // Wire every button under this screen by its NAME, so a button dragged into the wrong slot can't
+        // break things: anything called "...Menu..." goes to the main menu, "...Retry/Again/Restart..." retries.
+        var wired = new System.Collections.Generic.HashSet<Button>();
+        foreach (Button b in GetComponentsInChildren<Button>(true))
+        {
+            string n = b.name.ToLowerInvariant();
+            if (n.Contains("menu")) { b.onClick.AddListener(MainMenu); wired.Add(b); }
+            else if (n.Contains("retry") || n.Contains("again") || n.Contains("restart")) { b.onClick.AddListener(Retry); wired.Add(b); }
+        }
+
+        // Slots are only used for buttons with other names.
+        if (mainMenuButton != null && !wired.Contains(mainMenuButton))
         {
             mainMenuButton.onClick.AddListener(MainMenu);
         }
 
-        if (nextLevelButton != null)
+        if (nextLevelButton != null && !wired.Contains(nextLevelButton))
         {
             nextLevelButton.onClick.AddListener(Retry);
         }
